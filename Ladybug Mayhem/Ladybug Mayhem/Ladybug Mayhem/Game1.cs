@@ -77,7 +77,7 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your update logic here
             base.Update(gameTime);
-            LosingControl.Update();
+            LosingControl.Update(gameTime);
         }
 
         /// <summary>

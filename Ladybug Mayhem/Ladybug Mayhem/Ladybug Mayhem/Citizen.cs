@@ -17,14 +17,14 @@ namespace Ladybug_Mayhem
 
         private Vector2 _position;
 
-        private float _speed;
+        public float _speed;
 
 
-        public Citizen(ContentManager content)
+        public Citizen(ContentManager content, int citizenNumber)
         {
             _sprite = content.Load<Texture2D>("Character Boy");
-            _position = new Vector2(-(_sprite.Width), 100);
-            _speed = 2;
+            _position = new Vector2(-200 - (300 * citizenNumber), 100);
+            _speed = 3;
         }
 
         public void Update()

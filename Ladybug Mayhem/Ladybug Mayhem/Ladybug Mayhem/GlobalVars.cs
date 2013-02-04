@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+//ikke default
+using Microsoft.Xna.Framework;
 
 namespace Ladybug_Mayhem
 {
@@ -12,5 +14,6 @@ namespace Ladybug_Mayhem
 
         //CITIZEN
         public const int MAX_CITIZENS = 10;
+        public static Vector2 CITIZEN_SPAWN_POS = new Vector2(-200, 100);
     }
 }
