@@ -28,7 +28,6 @@ namespace Ladybug_Mayhem
         }
         public virtual void Update(GameTime gameTime, Rectangle clientBounds)
         {
-            // TODO: Add your update code here
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {
