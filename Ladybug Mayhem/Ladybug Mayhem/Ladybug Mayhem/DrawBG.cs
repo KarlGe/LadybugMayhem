@@ -35,7 +35,7 @@ namespace Ladybug_Mayhem
             //roofNorthWest = new DrawObject(game, content, "Roof North West", 1, new Vector2(X, Y));
 
         }
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
         }
         public void Draw(SpriteBatch spriteBatch){

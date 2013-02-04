@@ -26,7 +26,7 @@ namespace Ladybug_Mayhem
             this.drawPlacement = drawPlacement;
             this.drawAmount = drawAmount;
         }
-        public override void Update(GameTime gameTime, Rectangle clientBounds)
+        public void Update(GameTime gameTime, Rectangle clientBounds)
         {
             // TODO: Add your update code here
         }
