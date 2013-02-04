@@ -15,31 +15,33 @@ namespace Ladybug_Mayhem
     {
         private Texture2D _sprite;
 
-        private Vector2 _position;
+        private float _speed;
 
-        public float _speed;
-
+        private Rectangle _destinationRectangle;
 
         public Citizen(ContentManager content, int citizenNumber)
         {
             _sprite = content.Load<Texture2D>("Character Boy");
-            _position = new Vector2(-200 - (300 * citizenNumber), 100);
+            _destinationRectangle = new Rectangle(-200 - (300 * citizenNumber), 100,
+                GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
             _speed = 2;
         }
 
         public void Update()
         {
-            _position.X += _speed;
+            _destinationRectangle.X += (int)_speed;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_sprite, _position, Color.White);
+            spriteBatch.Draw(_sprite, new Vector2(_destinationRectangle.X, _destinationRectangle.Y), GlobalVars.CITIZEN_SOURCE_RECTANLGE,
+                Color.White);
         }
 
-        public Rectangle getRectangle()
+        //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..
+        public Rectangle getCitizenBox()
         {
-            return new Rectangle((int)_position.X, (int)_position.Y, _sprite.Width, _sprite.Height);
+            return _destinationRectangle;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Ladybug_Mayhem
                 if (GlobalVars.MOUSE_STATE.LeftButton == ButtonState.Pressed &&
                 GlobalVars.PREVIOUS_MOUSE_STATE.LeftButton == ButtonState.Released)
                 {
-                    if (_mousePointer.Intersects(_citizenList[citizenNumber].getRectangle()))
+                    if (_mousePointer.Intersects(_citizenList[citizenNumber].getCitizenBox()))
                     {
                         Console.WriteLine("HEEEEY");
                     }
