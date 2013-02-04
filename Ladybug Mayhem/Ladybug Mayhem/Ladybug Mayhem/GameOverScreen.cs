@@ -13,41 +13,48 @@ namespace Ladybug_Mayhem
         private Vector2 position;
         private DrawObject grassBlock;
         private DrawObject dirtBlock;
-        private Texture2D[] title = new Texture2D[8];
-        private int[] speedX = new int[8];
+        private fallingObject[] title = new fallingObject[8];
         private int screenHeight;
         private int screenWidth;
         private int objDrawAmount;
         private int speedMultiplier = 100;
+        private int numObjectsToDraw = 0;
+        private int delay = 10;
+        private int currentDelay;
         public GameOverScreen(Game game, ContentManager content, int screenWidth, int screenHeight)
         {
             // TODO: Construct any child components here
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight/2));
-            dirtBlock = new DrawObject(game, content, "Dirt Block", 2, new Vector2(screenWidth - grassBlock.width * 2, screenHeight - (grassBlock.height*2)));
-            for (int i = 0; i < title.Length; i++) title[i] = content.Load<Texture2D>("Dirt Block");
+            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2));
+            dirtBlock = new DrawObject(game, content, "Dirt Block", 2, new Vector2(screenWidth - grassBlock.width * 2, screenHeight - (grassBlock.height * 2)));
             coverScreen(grassBlock, screenHeight - grassBlock.height);
+            for (int i = 0; i < title.Length; i++) title[i] = new fallingObject(game, content, "Grass Block", 1, new Vector2(i * 100, 0), true, 10);
         }
         public void Update(GameTime gameTime)
         {
-            for (int i = 0; i < title.Length; i++)
+            currentDelay--;
+            if (currentDelay < 0 && numObjectsToDraw < title.Length)
             {
-                speedX[i] =10;
-                speedMultiplier--;
+                numObjectsToDraw++;
+                currentDelay = delay;
             }
-
+            for (int i = 0; i < numObjectsToDraw; i++)
+            {
+                title[i].falling = true;
+                if (title[i].currentYPos > screenHeight - title[i].height) title[i].falling = false;
+                title[i].Update(gameTime);
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             grassBlock.Draw(spriteBatch);
             dirtBlock.Draw(spriteBatch);
-            for (int i = 0; i < title.Length; i++)spriteBatch.Draw(title[i], new Vector2(100*i, speedX[i]), Color.White);
-            Console.Write(speedX[1]);
+            for (int i = 0; i < title.Length; i++) title[i].Draw(spriteBatch);
         }
 
         private void coverScreen(DrawObject obj, int Y)
-        { 
+        {
             int drawAmount = (int)Math.Ceiling((double)screenWidth / (double)grassBlock.width);
             objDrawAmount = (int)Math.Ceiling((double)screenWidth / (double)grassBlock.width);
             obj.drawPlacement.X = (screenWidth - (obj.width * objDrawAmount)) / 2;
@@ -56,3 +63,4 @@ namespace Ladybug_Mayhem
         }
     }
 }
+
