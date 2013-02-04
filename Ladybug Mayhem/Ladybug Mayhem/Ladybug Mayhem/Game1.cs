@@ -21,6 +21,13 @@ namespace Ladybug_Mayhem
         GameOverScreen gameOver;
         int screenWidth;
         int screenHeight;
+
+        // MORTEN SITT
+        SpriteFont font;
+        int clicks;
+        MouseInput mouseInput;
+        // MORTEN SITT SLUTT
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,6 +47,11 @@ namespace Ladybug_Mayhem
             screenWidth = Window.ClientBounds.Width;
             gameOver = new GameOverScreen(this, this.Content,screenWidth,screenHeight);
             base.Initialize();
+
+            // MORTEN SITT
+            IsMouseVisible = true;
+            mouseInput = new MouseInput();
+            // MORTEN SITT SLUTT
         }
 
         /// <summary>
@@ -52,6 +64,10 @@ namespace Ladybug_Mayhem
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            // MORTEN SITT
+            font = Content.Load<SpriteFont>("TestFont");
+            // MORTEN SITT SLUTT
         }
 
         /// <summary>
@@ -75,6 +91,13 @@ namespace Ladybug_Mayhem
                 this.Exit();
 
             // TODO: Add your update logic here
+
+            // MORTEN SITT
+            mouseInput.UpdateMouse();
+            if (mouseInput.IsLeftButtonPressed())
+                clicks++;
+            // MORTEN SITT SLUTT
+
             base.Update(gameTime);
         }
 
@@ -88,6 +111,9 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            // MORTEN SITT
+            spriteBatch.DrawString(font, clicks.ToString(), Vector2.Zero, Color.White);
+            // MORTEN SITT SLUTT
             gameOver.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
