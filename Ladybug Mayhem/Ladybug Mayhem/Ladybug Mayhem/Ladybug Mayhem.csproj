@@ -113,6 +113,7 @@
     <Compile Include="Citizen.cs" />
     <Compile Include="DrawBG.cs" />
     <Compile Include="DrawObject.cs" />
+    <Compile Include="FallingObject.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="GlobalVars.cs" />
     <Compile Include="LosingControl.cs" />

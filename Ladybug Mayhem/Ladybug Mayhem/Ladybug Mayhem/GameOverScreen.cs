@@ -13,7 +13,7 @@ namespace Ladybug_Mayhem
         private Vector2 position;
         private DrawObject grassBlock;
         private DrawObject dirtBlock;
-        private fallingObject[] title = new fallingObject[8];
+        private FallingObject[] title = new FallingObject[8];
         private int screenHeight;
         private int screenWidth;
         private int objDrawAmount;
@@ -29,7 +29,7 @@ namespace Ladybug_Mayhem
             grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2));
             dirtBlock = new DrawObject(game, content, "Dirt Block", 2, new Vector2(screenWidth - grassBlock.width * 2, screenHeight - (grassBlock.height * 2)));
             coverScreen(grassBlock, screenHeight - grassBlock.height);
-            for (int i = 0; i < title.Length; i++) title[i] = new fallingObject(game, content, "Grass Block", 1, new Vector2(i * 100, 0), true, 10);
+            for (int i = 0; i < title.Length; i++) title[i] = new FallingObject(game, content, "Grass Block", 1, new Vector2(i * 100, 0), true, 10);
         }
         public void Update(GameTime gameTime)
         {
