@@ -36,10 +36,11 @@ namespace Ladybug_Mayhem
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            base.Initialize();
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
+            LosingControl.Initialize(this.Content);
             gameOver = new GameOverScreen(this, this.Content,screenWidth,screenHeight);
-            base.Initialize();
         }
 
         /// <summary>
@@ -76,6 +77,7 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your update logic here
             base.Update(gameTime);
+            LosingControl.Update();
         }
 
         /// <summary>
@@ -88,6 +90,7 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            LosingControl.Draw(spriteBatch);
             gameOver.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
