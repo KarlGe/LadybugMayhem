@@ -37,8 +37,10 @@ namespace Ladybug_Mayhem
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+            this.IsMouseVisible = true;
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
+            GlobalVars.MOUSE_STATE = Mouse.GetState();
             LosingControl.Initialize(this.Content);
             gameOver = new GameOverScreen(this, this.Content,screenWidth,screenHeight);
         }
@@ -77,6 +79,8 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your update logic here
             base.Update(gameTime);
+            GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
+            GlobalVars.MOUSE_STATE = Mouse.GetState();
             LosingControl.Update(gameTime);
         }
 
@@ -91,7 +95,6 @@ namespace Ladybug_Mayhem
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             LosingControl.Draw(spriteBatch);
-            gameOver.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

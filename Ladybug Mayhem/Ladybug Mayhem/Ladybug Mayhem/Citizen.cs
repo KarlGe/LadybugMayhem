@@ -24,7 +24,7 @@ namespace Ladybug_Mayhem
         {
             _sprite = content.Load<Texture2D>("Character Boy");
             _position = new Vector2(-200 - (300 * citizenNumber), 100);
-            _speed = 3;
+            _speed = 2;
         }
 
         public void Update()
@@ -35,6 +35,11 @@ namespace Ladybug_Mayhem
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_sprite, _position, Color.White);
+        }
+
+        public Rectangle getRectangle()
+        {
+            return new Rectangle((int)_position.X, (int)_position.Y, _sprite.Width, _sprite.Height);
         }
     }
 }
