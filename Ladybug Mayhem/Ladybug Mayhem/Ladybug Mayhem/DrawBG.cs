@@ -2,20 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
 
 namespace Ladybug_Mayhem
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class DrawBG : Microsoft.Xna.Framework.GameComponent
+    public class DrawBG
     {
         private DrawObject brownBlock;
         private DrawObject dirtBlock;
@@ -32,7 +25,6 @@ namespace Ladybug_Mayhem
         private SpriteBatch spriteBatch;
 
         public DrawBG(Game game, ContentManager content, SpriteBatch spriteBatch)
-            : base(game)
         {
             this.spriteBatch = spriteBatch;
             // TODO: Construct any child components here
@@ -43,27 +35,8 @@ namespace Ladybug_Mayhem
             //roofNorthWest = new DrawObject(game, content, "Roof North West", 1, new Vector2(X, Y));
 
         }
-
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
-        public override void Initialize()
-        {
-            // TODO: Add your initialization code here
-
-            base.Initialize();
-        }
-
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
-
-            base.Update(gameTime);
         }
         public void Draw(SpriteBatch spriteBatch){
             brownBlock.Draw(spriteBatch);
@@ -71,7 +44,6 @@ namespace Ladybug_Mayhem
             roofEast.Draw(spriteBatch);
             roofNorthEast.Draw(spriteBatch);
             roofNorthWest.Draw(spriteBatch);
- 
         }
     }
 }
