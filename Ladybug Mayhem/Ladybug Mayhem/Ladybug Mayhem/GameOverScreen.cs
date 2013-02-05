@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace Ladybug_Mayhem
@@ -28,6 +29,7 @@ namespace Ladybug_Mayhem
 
         private int screenHeight;
         private int screenWidth;
+        Game game;
 
         private int objDrawAmount;
         private int numObjectsToDraw = 0;
@@ -35,6 +37,7 @@ namespace Ladybug_Mayhem
         {
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
+            this.game = game;
             initialize(content, game);
         }
         public void initialize(ContentManager content, Game game)
@@ -69,9 +72,10 @@ namespace Ladybug_Mayhem
                 gameOverText[i].Update(gameTime);
             }
             if (!(gameOverText[gameOverText.Length-1].falling))
-            {
+            {   
                 fallingLetters = false;
-                if (replayRectangle.Contains(new Point(GlobalVars.MOUSE_STATE.X, GlobalVars.MOUSE_STATE.Y)) && GlobalVars.MOUSE_STATE.LeftButton == ) Console.Write("HEY!");
+                if (CheckMousePress.IsBeingPressed(replayRectangle)) Console.Write("Hey");
+                if (CheckMousePress.IsBeingPressed(exitRectangle)) game.Exit();
             }
         }
         public void Draw(SpriteBatch spriteBatch)
