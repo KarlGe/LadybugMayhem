@@ -35,21 +35,24 @@ namespace Ladybug_Mayhem
         {
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            initialize();
-            loadContent(content, game);
+            initialize(content, game);
         }
-        public void initialize()
-        {
-            for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
-            xPos = (screenWidth / 2) - (totalLetterWidth / 2);
-        }
-        public void loadContent(ContentManager content, Game game)
+        public void initialize(ContentManager content, Game game)
         {
             replayButton = content.Load<Texture2D>(@"GameOverScreen\startOver");
+            replayRectangle = new Rectangle(screenWidth / 2 - replayButton.Width - space, screenHeight / 2 - replayButton.Height / 2, replayButton.Width, replayButton.Height);
+
             exitButton = content.Load<Texture2D>(@"GameOverScreen\exit");
+            exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - exitButton.Height / 2, exitButton.Width, exitButton.Height);
+            
             grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2));
             grassBlock = CoverScreen.CalculateCoverScreen(grassBlock, screenHeight - grassBlock.height, screenWidth, grassBlock.width);
+
+            for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
+            xPos = (screenWidth / 2) - (totalLetterWidth / 2);
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i] = new FallingObject(game, content, @"GameOverScreen\GameOverLetters\" + letterFileNames[i], 1, new Vector2(xPos += letterWidth[i], -100), true, 10);
+
+            
         }
         public void Update(GameTime gameTime)
         {
@@ -75,8 +78,8 @@ namespace Ladybug_Mayhem
             grassBlock.Draw(spriteBatch);
             if (!fallingLetters)
             {
-                spriteBatch.Draw(replayButton, new Vector2(screenWidth / 2 - replayButton.Width - space, screenHeight / 2 - replayButton.Height / 2), Color.White);
-                spriteBatch.Draw(exitButton, new Vector2(screenWidth / 2 + space, screenHeight / 2 - replayButton.Height / 2), Color.White);
+                spriteBatch.Draw(replayButton, replayRectangle , Color.White);
+                spriteBatch.Draw(exitButton, exitRectangle, Color.White);
             }
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i].Draw(spriteBatch);
         }
