@@ -18,7 +18,8 @@ namespace Ladybug_Mayhem
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameOverScreen gameOver;
+        GameOverScreen gameOverScreen;
+        StartScreen startScreen;
         int screenWidth;
         int screenHeight;
         public Game1()
@@ -41,7 +42,8 @@ namespace Ladybug_Mayhem
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            gameOver = new GameOverScreen(this, this.Content,screenWidth,screenHeight);
+            startScreen = new StartScreen(this, Content, screenWidth, screenHeight);
+            gameOverScreen = new GameOverScreen(this, Content,screenWidth,screenHeight);
         }
 
         /// <summary>
@@ -80,7 +82,8 @@ namespace Ladybug_Mayhem
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            gameOver.Update(gameTime);
+            if (!startScreen.draw) gameOverScreen.Update(gameTime);
+            if(startScreen.draw) startScreen.Update(gameTime);
         }
 
         /// <summary>
@@ -92,8 +95,9 @@ namespace Ladybug_Mayhem
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            gameOver.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+            startScreen.Draw(spriteBatch);
+            if(!startScreen.draw)gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
