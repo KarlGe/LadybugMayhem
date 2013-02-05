@@ -26,6 +26,7 @@ namespace Ladybug_Mayhem
         SpriteFont font;
         int clicks;
         MouseInput mouseInput;
+        Ladybug ladybug;
         // MORTEN SITT SLUTT
 
         public Game1()
@@ -51,6 +52,7 @@ namespace Ladybug_Mayhem
             // MORTEN SITT
             IsMouseVisible = true;
             mouseInput = new MouseInput();
+            ladybug = new Ladybug(this.Content, new Vector2(100, 100), new Vector2(100,100));
             // MORTEN SITT SLUTT
         }
 
@@ -113,6 +115,7 @@ namespace Ladybug_Mayhem
             spriteBatch.Begin();
             // MORTEN SITT
             spriteBatch.DrawString(font, clicks.ToString(), Vector2.Zero, Color.White);
+            ladybug.Draw(spriteBatch);
             // MORTEN SITT SLUTT
             gameOver.Draw(spriteBatch);
             spriteBatch.End();

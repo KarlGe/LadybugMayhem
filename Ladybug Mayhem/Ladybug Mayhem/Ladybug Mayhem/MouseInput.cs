@@ -14,15 +14,15 @@ namespace Ladybug_Mayhem
     public class MouseInput
     {
         
-        public MouseState mouseStateCurrent, mouseStatePrevious;
+        private MouseState _mouseStateCurrent, _mouseStatePrevious;
 
         /// <summary>
         /// Mouse class with limited functionality.
         /// </summary>
         public MouseInput()
         {
-            mouseStateCurrent = new MouseState();
-            mouseStatePrevious = new MouseState();
+            _mouseStateCurrent = new MouseState();
+            _mouseStatePrevious = new MouseState();
         }
 
         #region Update Mouse
@@ -31,8 +31,8 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void UpdateMouse()
         {
-            mouseStatePrevious = mouseStateCurrent;
-            mouseStateCurrent = Mouse.GetState();
+            _mouseStatePrevious = _mouseStateCurrent;
+            _mouseStateCurrent = Mouse.GetState();
         }
         #endregion
 
@@ -43,10 +43,14 @@ namespace Ladybug_Mayhem
         /// <returns></returns>
         public bool IsLeftButtonPressed()
         {
-            if (mouseStateCurrent.LeftButton == ButtonState.Pressed && mouseStatePrevious.LeftButton == ButtonState.Released)
+            if (_mouseStateCurrent.LeftButton == ButtonState.Pressed && _mouseStatePrevious.LeftButton == ButtonState.Released)
                 return true;
             return false;
         }
         #endregion
+
+        /*
+         * MUS POSISJON
+         */
     }
 }
