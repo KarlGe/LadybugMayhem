@@ -13,6 +13,8 @@ namespace Ladybug_Mayhem
 {
     public class Citizen
     {
+        private int _citizenNumber;
+
         private Texture2D _sprite;
 
         private float _speed;
@@ -21,10 +23,11 @@ namespace Ladybug_Mayhem
 
         public Citizen(ContentManager content, int citizenNumber)
         {
+            _citizenNumber = citizenNumber;
             _sprite = content.Load<Texture2D>("Character Boy");
-            _destinationRectangle = new Rectangle(-200 - (300 * citizenNumber), 100,
+            _destinationRectangle = new Rectangle(-200 - (300 * _citizenNumber), (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
                 GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
-            _speed = 2;
+            _speed = 3;
         }
 
         public void Update()
@@ -39,9 +42,19 @@ namespace Ladybug_Mayhem
         }
 
         //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..
-        public Rectangle getCitizenBox()
+        public Rectangle GetCitizenBox()
         {
             return _destinationRectangle;
+        }
+
+        /// <summary>
+        /// "Redder" en citizen ved å sende den tilbake til før skjermen
+        /// </summary>
+        /// <param name="citizenList"></param>
+        public void Saved(Citizen[] citizenList)
+        {
+            _destinationRectangle.X = (int)GlobalVars.CITIZEN_SPAWN_POS.X;
+            _destinationRectangle.Y = (int)GlobalVars.CITIZEN_SPAWN_POS.Y;
         }
     }
 }
