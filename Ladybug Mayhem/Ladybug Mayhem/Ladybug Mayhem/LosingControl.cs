@@ -13,11 +13,13 @@ namespace Ladybug_Mayhem
     public class LosingControl
     {
         private static Citizen[] _citizenList;
-        private static Rectangle _mousePointer;
+        private static Point _mousePointer;
+
+        private static bool _alreadySavedACitizen;
 
         public static void Initialize(ContentManager content)
         {
-            _mousePointer = new Rectangle(GlobalVars.MOUSE_STATE.X, GlobalVars.MOUSE_STATE.Y, 1, 1);
+            _mousePointer = new Point(GlobalVars.MOUSE_STATE.X, GlobalVars.MOUSE_STATE.Y);
             _citizenList = new Citizen[GlobalVars.MAX_CITIZENS];
             for (int citizenNumber = 0; citizenNumber < GlobalVars.MAX_CITIZENS; citizenNumber++)
             {
@@ -29,14 +31,19 @@ namespace Ladybug_Mayhem
         {
             _mousePointer.X = GlobalVars.MOUSE_STATE.X;
             _mousePointer.Y = GlobalVars.MOUSE_STATE.Y;
-            for (int citizenNumber = 0; citizenNumber < GlobalVars.MAX_CITIZENS; citizenNumber++)
+            _alreadySavedACitizen = false;
+            //Denne loopen teller nedover, slik at den oppdaterer "siste" citizen først. Dersom man klikker to citizens som overlapper
+            //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
+            //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
+            for (int citizenNumber = GlobalVars.MAX_CITIZENS-1; citizenNumber >= 0; citizenNumber--)
             {
                 if (GlobalVars.MOUSE_STATE.LeftButton == ButtonState.Pressed &&
                 GlobalVars.PREVIOUS_MOUSE_STATE.LeftButton == ButtonState.Released)
                 {
-                    if (_mousePointer.Intersects(_citizenList[citizenNumber].getCitizenBox()))
+                    if (_citizenList[citizenNumber].GetCitizenBox().Contains(_mousePointer) && !_alreadySavedACitizen)
                     {
-                        Console.WriteLine("HEEEEY");
+                        _citizenList[citizenNumber].Saved(_citizenList);
+                        _alreadySavedACitizen = true;
                     }
                 }
                 _citizenList[citizenNumber].Update();
