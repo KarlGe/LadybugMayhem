@@ -71,6 +71,7 @@ namespace Ladybug_Mayhem
             if (!(gameOverText[gameOverText.Length-1].falling))
             {
                 fallingLetters = false;
+                if (replayRectangle.Contains(new Point(GlobalVars.MOUSE_STATE.X, GlobalVars.MOUSE_STATE.Y)) && GlobalVars.MOUSE_STATE.LeftButton == ) Console.Write("HEY!");
             }
         }
         public void Draw(SpriteBatch spriteBatch)
