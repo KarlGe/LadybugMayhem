@@ -11,7 +11,7 @@ namespace Ladybug_Mayhem
     {
         public bool falling;
         public int ySpeed;
-        public int currentYPos { get; protected set; }
+        public int currentYPos { get; set; }
         private int prevYPos;
         private Texture2D sprite;
         public int height { get; protected set; }

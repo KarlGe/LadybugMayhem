@@ -12,43 +12,62 @@ namespace Ladybug_Mayhem
     {
         private int screenHeight;
         private int screenWidth;
-        private int numObjectsToDraw = 0;
-        private int delay = 10;
-        private int currentDelay;
+
         private Texture2D title;
-        private Texture2D begin;
         private Vector2 titleStartPos;
-        private bool drawBegin = false;
-        public bool draw{get; protected set;}
-        private int opacity = 0;
+        private Vector2 titlePos;
+        private Texture2D begin;
+        private bool drawBeginText = false;
+        private int opacity = 0;//Hvor gjennomsiktig "BEGIN!" teksten er
+
+        public bool draw { get; protected set; }//Bestemmer om startskjermen skal tegnes
+        public ContentManager content;
         public StartScreen(Game game, ContentManager content, int screenWidth, int screenHeight)
         {
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
+            this.content = content;
+            initialize();
+        }
+        /// <summary>
+        /// Laster inn tittel og begin tekst
+        /// setter startposisjonen til tittel 
+        /// kaller reset
+        /// </summary>
+        public void initialize()
+        {
             title = content.Load<Texture2D>(@"StartScreen\gameTitle");
             begin = content.Load<Texture2D>(@"StartScreen\beginText");
             titleStartPos = new Vector2(screenWidth, screenHeight - title.Bounds.Height);
-            draw = true;
+            reset();
         }
+        //
         public void Update(GameTime gameTime)
         {
-            titleStartPos.X -= 10;
+            
             if (opacity > 600) draw = false;
-            else if (titleStartPos.X < 0 - title.Bounds.Width)
+            else if (titlePos.X < 0 - title.Bounds.Width)
             {
-                drawBegin = true;
+                drawBeginText = true;
                 draw = true;
                 opacity += 10;
             }
+            else titlePos.X -= 10;
             
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             if (draw)
             {
-                spriteBatch.Draw(title, titleStartPos, Color.White);
-                if (drawBegin) spriteBatch.Draw(begin, new Vector2(screenWidth / 2 - begin.Width / 2, screenHeight / 2 - begin.Height / 2), new Color(255, 255, 255, opacity));
+                spriteBatch.Draw(title, titlePos, Color.White);
+                if (drawBeginText) spriteBatch.Draw(begin, new Vector2(screenWidth / 2 - begin.Width / 2, screenHeight / 2 - begin.Height / 2), new Color(255, 255, 255, opacity));
             }
+        }
+        public void reset()
+        {
+            titlePos = new Vector2(titleStartPos.X, titleStartPos.Y);
+            opacity = 0;
+            draw = true;
         }
     }
 }

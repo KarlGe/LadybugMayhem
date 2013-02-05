@@ -83,6 +83,11 @@ namespace Ladybug_Mayhem
             GlobalVars.MOUSE_STATE = Mouse.GetState();
             if (!startScreen.draw) gameOverScreen.Update(gameTime);
             if(startScreen.draw) startScreen.Update(gameTime);
+            if (gameOverScreen.replay)
+            {
+                gameOverScreen.reset();
+                startScreen.reset();
+            }
         }
 
         /// <summary>
