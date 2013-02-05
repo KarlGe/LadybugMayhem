@@ -13,25 +13,35 @@ namespace Ladybug_Mayhem
 {
     public class Citizen
     {
-        private int _citizenNumber;
-
         private Texture2D _sprite;
 
-        private float _speed;
-
         private Rectangle _destinationRectangle;
+
+        private int _citizenNumber;
+        private int _timeKeeper;
+        private int _spriteNumber;
+
+        private float _speed;
 
         public Citizen(ContentManager content, int citizenNumber)
         {
             _citizenNumber = citizenNumber;
-            _sprite = content.Load<Texture2D>("Character Boy");
-            _destinationRectangle = new Rectangle(-200 - (300 * _citizenNumber), (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
+            _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
+            _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
+            _destinationRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
                 GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
             _speed = 3;
+            _timeKeeper = 0;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
+            _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
+            if (_timeKeeper >= 500 && _destinationRectangle.X < (0-_destinationRectangle.Width) && _destinationRectangle.X > -3000)
+            {
+                _speed += 0.1f;
+                _timeKeeper = 0;
+            }
             _destinationRectangle.X += (int)_speed;
         }
 
@@ -51,7 +61,7 @@ namespace Ladybug_Mayhem
         /// "Redder" en citizen ved å sende den tilbake til før skjermen
         /// </summary>
         /// <param name="citizenList"></param>
-        public void Saved(Citizen[] citizenList)
+        public void Saved(List<Citizen> citizenList)
         {
             _destinationRectangle.X = (int)GlobalVars.CITIZEN_SPAWN_POS.X;
             _destinationRectangle.Y = (int)GlobalVars.CITIZEN_SPAWN_POS.Y;

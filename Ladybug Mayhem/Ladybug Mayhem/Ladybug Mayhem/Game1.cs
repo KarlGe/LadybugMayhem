@@ -79,7 +79,7 @@ namespace Ladybug_Mayhem
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            LosingControl.Update(gameTime);
+            LosingControl.Update(gameTime, Window);
         }
 
         /// <summary>
