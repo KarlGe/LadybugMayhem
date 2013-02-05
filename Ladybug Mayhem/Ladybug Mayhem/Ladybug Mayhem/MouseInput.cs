@@ -15,6 +15,7 @@ namespace Ladybug_Mayhem
     {
         
         private MouseState _mouseStateCurrent, _mouseStatePrevious;
+        private Point _mousePosition;
 
         /// <summary>
         /// Mouse class with limited functionality.
@@ -23,6 +24,7 @@ namespace Ladybug_Mayhem
         {
             _mouseStateCurrent = new MouseState();
             _mouseStatePrevious = new MouseState();
+            _mousePosition = new Point(_mouseStateCurrent.X, _mouseStateCurrent.Y);
         }
 
         #region Update Mouse
@@ -33,10 +35,12 @@ namespace Ladybug_Mayhem
         {
             _mouseStatePrevious = _mouseStateCurrent;
             _mouseStateCurrent = Mouse.GetState();
+            _mousePosition.X = _mouseStateCurrent.X;
+            _mousePosition.Y = _mouseStateCurrent.Y;
         }
         #endregion
 
-        #region LeftButtonPress
+        #region Left Button Click
         /// <summary>
         /// Checks if left mouse button was clicked.
         /// </summary>
@@ -49,8 +53,15 @@ namespace Ladybug_Mayhem
         }
         #endregion
 
-        /*
-         * MUS POSISJON
-         */
+        #region Get Mouse position
+        /// <summary>
+        /// Returns position of mouse.
+        /// </summary>
+        /// <returns></returns>
+        public Point GetMousePosition()
+        {
+            return _mousePosition;
+        }
+        #endregion
     }
 }

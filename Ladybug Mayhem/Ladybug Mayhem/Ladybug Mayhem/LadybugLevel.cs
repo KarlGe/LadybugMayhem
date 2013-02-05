@@ -15,11 +15,13 @@ namespace Ladybug_Mayhem
     {
         private SpriteBatch _spriteBatch;
         private Random _random;
-        private Ladybug _ladybug;
-        private Vector2 _ladybugPosition;
+        private Ladybug[] _ladybugs;
         private ContentManager _content;
-        private bool[] _isPositionTaken;
+        private bool[] _isActive;
         private MouseInput _mouseInput;
+        private Vector2[] _ladybugPositions;
+
+        //private Vector2 _ladybugPosition01, _ladybugPosition02, _ladybugPosition03, _ladybugPosition04, _ladybugPosition05;
 
         /// <summary>
         /// Logic class for ladybugs and gems.
@@ -29,53 +31,79 @@ namespace Ladybug_Mayhem
         public LadybugLevel(ContentManager content, SpriteBatch spriteBatch)
         {
             _content = content;
-            _spriteBatch = spriteBatch;
+            //_spriteBatch = spriteBatch;
             _random = new Random();
             _mouseInput = new MouseInput();
-            _isPositionTaken = new bool[5];
+            _isActive = new bool[5];
+            _ladybugPositions = new Vector2[5];
+            _ladybugs = new Ladybug[5];
+
+            
         }
 
         /*
          *
          */
 
+        public void SetLadybugPosition(Vector2 position01, Vector2 position02, Vector2 position03, Vector2 position04, Vector2 position05, )
+        {
+            _ladybugPositions[0] = new Vector2(100, 100);
+            _ladybugPositions[1] = new Vector2(200, 100);
+            _ladybugPositions[2] = new Vector2(300, 100);
+            _ladybugPositions[3] = new Vector2(400, 100);
+            _ladybugPositions[4] = new Vector2(500, 100);
+        }
+
         public void CreateLadybug() 
         {
+            
             int testPosition = _random.Next(5);
-            if (testPosition == 0 && !_isPositionTaken[0])
-            {
-                _ladybug = new Ladybug(_content, new Vector2(100, 100), new Vector2(100, 100));
-                _isPositionTaken[0] = true;
-            }
-            else if (testPosition == 1 && !_isPositionTaken[1])
-            {
-                _ladybug = new Ladybug(_content, new Vector2(100, 100), new Vector2(100, 100));
-                _isPositionTaken[1] = true;
-            }
-            else if (testPosition == 2 && !_isPositionTaken[2])
-            {
-                _ladybug = new Ladybug(_content, new Vector2(100, 100), new Vector2(100, 100));
-                _isPositionTaken[2] = true;
-            }
-            else if (testPosition == 3 && !_isPositionTaken[3])
-            {
-                _ladybug = new Ladybug(_content, new Vector2(100, 100), new Vector2(100, 100));
-                _isPositionTaken[3] = true;
-            }
-            else if (testPosition == 4 && !_isPositionTaken[4])
-            {
-                _ladybug = new Ladybug(_content, new Vector2(100, 100), new Vector2(100, 100));
-                _isPositionTaken[4] = true;
-            }
+            //while (!_isActive)
+            //{
+                
+                if (testPosition == 0 && !_isActive[0])
+                {
+                    _ladybugs[0] = new Ladybug(_content, _ladybugPositions[0]);
+                    _isActive[0] = true;
+                    
+                }
+                else if (testPosition == 1 && !_isActive[1])
+                {
+                    _ladybugs[1] = new Ladybug(_content, _ladybugPositions[1]);
+                    _isActive[1] = true;
+                    
+                }
+                else if (testPosition == 2 && !_isActive[2])
+                {
+                    _ladybugs[2] = new Ladybug(_content, _ladybugPositions[2]);
+                    _isActive[2] = true;
+                    
+                }
+                else if (testPosition == 3 && !_isActive[3])
+                {
+                    _ladybugs[3] = new Ladybug(_content, _ladybugPositions[3]);
+                    _isActive[3] = true;
+                    
+                }
+                else if (testPosition == 4 && !_isActive[4])
+                {
+                    _ladybugs[4] = new Ladybug(_content, _ladybugPositions[4]);
+                    _isActive[4] = true;
+                    
+                }
+            //}
         }
 
         public void ClickLadybug()
         {
-            int clicks = _ladybug.GetClicks();
+            //int clicks = _ladybug.GetClicks();
+            //Rectangle rectangle = _ladybug.GetTexture().Bounds;
+            _mouseInput.UpdateMouse();
 
-            if ( /*MUS OVERLAPPER LADYBUG OG MUS KLIKKES ER */ true)
+            for (int i = 0; i < _ladybugs.Length; i++)
             {
-                _ladybug.SetClicks();
+                if (_ladybugs[i].GetIsActive() && _mouseInput.IsLeftButtonPressed() && _ladybugs[i].GetRectangle().Contains(_mouseInput.GetMousePosition()))
+                    _ladybugs[i].SetClicks();
             }
         }
 
@@ -86,9 +114,9 @@ namespace Ladybug_Mayhem
             return false;
         }
 
-        public void DrawLadybug()
+        public void DrawLadybug(SpriteBatch spriteBatch)
         {
-            _ladybug.Draw(_spriteBatch);
+            _ladybug.Draw(spriteBatch);
         }
     }
 }
