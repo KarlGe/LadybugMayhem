@@ -8,12 +8,14 @@ Content\Character Cat Girl.xnb
 Content\Character Horn Girl.xnb
 Content\Character Pink Girl.xnb
 Content\Character Princess Girl.xnb
-Content\GameOverLetters\A.xnb
-Content\GameOverLetters\E.xnb
-Content\GameOverLetters\G.xnb
-Content\GameOverLetters\M.xnb
-Content\GameOverLetters\O.xnb
-Content\GameOverLetters\R.xnb
-Content\GameOverLetters\V.xnb
+Content\GameOverScreen\GameOverLetters\A.xnb
+Content\GameOverScreen\GameOverLetters\E.xnb
+Content\GameOverScreen\GameOverLetters\G.xnb
+Content\GameOverScreen\GameOverLetters\M.xnb
+Content\GameOverScreen\GameOverLetters\O.xnb
+Content\GameOverScreen\GameOverLetters\R.xnb
+Content\GameOverScreen\GameOverLetters\V.xnb
 Content\StartScreen\gameTitle.xnb
 Content\StartScreen\beginText.xnb
+Content\GameOverScreen\exit.xnb
+Content\GameOverScreen\startOver.xnb

@@ -19,6 +19,11 @@ namespace Ladybug_Mayhem
         private int delay = 10;
         private int currentDelay;
 
+        private Texture2D replayButton;
+        private Rectangle replayRectangle;
+        private Texture2D exitButton;
+        private Rectangle exitRectangle;
+
         private int screenHeight;
         private int screenWidth;
 
@@ -33,7 +38,7 @@ namespace Ladybug_Mayhem
             coverScreen(grassBlock, screenHeight - grassBlock.height);
             for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
             xPos = (screenWidth / 2) - (totalLetterWidth / 2);
-            for (int i = 0; i < gameOverText.Length; i++) gameOverText[i] = new FallingObject(game, content, @"GameOverLetters/" + letterFileNames[i], 1, new Vector2(xPos += letterWidth[i], -100), true, 10);
+            for (int i = 0; i < gameOverText.Length; i++) gameOverText[i] = new FallingObject(game, content, @"GameOverScreen\GameOverLetters\" + letterFileNames[i], 1, new Vector2(xPos += letterWidth[i], -100), true, 10);
         }
         public void Update(GameTime gameTime)
         {
@@ -48,6 +53,10 @@ namespace Ladybug_Mayhem
                 gameOverText[i].falling = true;
                 if (gameOverText[i].currentYPos > screenHeight - grassBlock.height) gameOverText[i].falling = false;
                 gameOverText[i].Update(gameTime);
+            }
+            if (!(gameOverText[gameOverText.Length].falling))
+            {
+
             }
         }
         public void Draw(SpriteBatch spriteBatch)
