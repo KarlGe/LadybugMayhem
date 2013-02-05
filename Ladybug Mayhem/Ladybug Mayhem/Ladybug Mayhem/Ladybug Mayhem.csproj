@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Citizen.cs" />
+    <Compile Include="CoverScreen.cs" />
     <Compile Include="DrawBG.cs" />
     <Compile Include="DrawObject.cs" />
     <Compile Include="FallingObject.cs" />

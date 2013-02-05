@@ -23,6 +23,8 @@ namespace Ladybug_Mayhem
         private Rectangle replayRectangle;
         private Texture2D exitButton;
         private Rectangle exitRectangle;
+        private int space = 20;
+        private bool fallingLetters = true;
 
         private int screenHeight;
         private int screenWidth;
@@ -31,13 +33,22 @@ namespace Ladybug_Mayhem
         private int numObjectsToDraw = 0;
         public GameOverScreen(Game game, ContentManager content, int screenWidth, int screenHeight)
         {
-            // TODO: Construct any child components here
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2));
-            coverScreen(grassBlock, screenHeight - grassBlock.height);
+            initialize();
+            loadContent(content, game);
+        }
+        public void initialize()
+        {
             for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
             xPos = (screenWidth / 2) - (totalLetterWidth / 2);
+        }
+        public void loadContent(ContentManager content, Game game)
+        {
+            replayButton = content.Load<Texture2D>(@"GameOverScreen\startOver");
+            exitButton = content.Load<Texture2D>(@"GameOverScreen\exit");
+            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2));
+            grassBlock = CoverScreen.CalculateCoverScreen(grassBlock, screenHeight - grassBlock.height, screenWidth, grassBlock.width);
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i] = new FallingObject(game, content, @"GameOverScreen\GameOverLetters\" + letterFileNames[i], 1, new Vector2(xPos += letterWidth[i], -100), true, 10);
         }
         public void Update(GameTime gameTime)
@@ -54,24 +65,20 @@ namespace Ladybug_Mayhem
                 if (gameOverText[i].currentYPos > screenHeight - grassBlock.height) gameOverText[i].falling = false;
                 gameOverText[i].Update(gameTime);
             }
-            if (!(gameOverText[gameOverText.Length].falling))
+            if (!(gameOverText[gameOverText.Length-1].falling))
             {
-
+                fallingLetters = false;
             }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             grassBlock.Draw(spriteBatch);
+            if (!fallingLetters)
+            {
+                spriteBatch.Draw(replayButton, new Vector2(screenWidth / 2 - replayButton.Width - space, screenHeight / 2 - replayButton.Height / 2), Color.White);
+                spriteBatch.Draw(exitButton, new Vector2(screenWidth / 2 + space, screenHeight / 2 - replayButton.Height / 2), Color.White);
+            }
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i].Draw(spriteBatch);
-        }
-
-        private void coverScreen(DrawObject obj, int Y)
-        {
-            int drawAmount = (int)Math.Ceiling((double)screenWidth / (double)grassBlock.width);
-            objDrawAmount = (int)Math.Ceiling((double)screenWidth / (double)grassBlock.width);
-            obj.drawPlacement.X = (screenWidth - (obj.width * objDrawAmount)) / 2;
-            obj.drawPlacement.Y = Y;
-            obj.drawAmount = objDrawAmount;
         }
     }
 }
