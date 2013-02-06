@@ -29,7 +29,7 @@ namespace Ladybug_Mayhem
             // TODO: Construct any child components here
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
-            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight/2));
+            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight/2), 1);
             coverScreen(grassBlock, screenHeight - grassBlock.height);
         }
         /// <summary>

@@ -48,9 +48,12 @@ namespace Ladybug_Mayhem
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            
             for (int i = 0; i < drawAmount; i++)
             {
-                spriteBatch.Draw(sprite, new Vector2(drawPlacement.X + (i * sprite.Bounds.Width), drawPlacement.Y), null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);            }
+                spriteBatch.Draw(sprite, new Vector2(drawPlacement.X + (i * sprite.Bounds.Width), drawPlacement.Y), null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, zIndex);            
+            }
+            
             
         }
     }
