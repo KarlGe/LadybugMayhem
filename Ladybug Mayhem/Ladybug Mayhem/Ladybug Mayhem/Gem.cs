@@ -10,16 +10,14 @@ namespace Ladybug_Mayhem
 {
     class Gem
     {
-        private Texture2D _gemTexture, _gemGreenTexture, _gemOrangeTexture;
+        private Texture2D _gemTexture;
         private bool _canClick;
         private Vector2 _gemPosition;
         private Rectangle _ladybugRectangle;
 
-        public Gem(ContentManager content, Vector2 gemPosition)
+        public Gem(ContentManager content, Vector2 gemPosition, Texture2D gemTexture)
         {
-            _gemTexture = content.Load<Texture2D>("Gem Blue");
-            _gemGreenTexture = content.Load<Texture2D>("Gem Green");
-            _gemOrangeTexture = content.Load<Texture2D>("Gem Orange");
+            _gemTexture = gemTexture;
             _gemPosition = gemPosition;
             _canClick = true;
             _ladybugRectangle = new Rectangle((int)_gemPosition.X, (int)_gemPosition.Y, _gemTexture.Width, (_gemTexture.Height - 114));

@@ -21,6 +21,7 @@ namespace Ladybug_Mayhem
         private List<Gem> _gemIsActive, _gemIsNotActive;
         private double _timePassedSpawn;
         private Random _random;
+        private List<Texture2D> _gemTextures;
 
         /// <summary>
         /// Logic class for ladybugs and gems.
@@ -37,7 +38,9 @@ namespace Ladybug_Mayhem
             _ladybugsIsNotActive = new List<Ladybug>();
             _gemIsActive = new List<Gem>();
             _gemIsNotActive = new List<Gem>();
+            _gemTextures = new List<Texture2D>();
             SetPositions(numberOfLadybugs);//, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero);
+            LoadGemTextures();
 
         }
 
@@ -137,8 +140,21 @@ namespace Ladybug_Mayhem
         #endregion
 
         #region Gems
+        public void LoadGemTextures()
+        {
+            _gemTextures.Add(_content.Load<Texture2D>("Gem Blue"));
+            _gemTextures.Add(_content.Load<Texture2D>("Gem Green"));
+            _gemTextures.Add(_content.Load<Texture2D>("Gem Orange"));
+        }
+
         public void CreateGems()
         {
+            for (int i = 0; i < _gemTextures.Count; i++)
+            {
+                int random = _random.Next(_gemTextures.Count);
+                _gemIsNotActive.Add(new Gem(_content, Vector2.Zero, _gemTextures[random]));
+                _gemTextures.RemoveAt(random);
+            }
 
         }
 
