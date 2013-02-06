@@ -20,6 +20,7 @@ namespace Ladybug_Mayhem
         SpriteBatch spriteBatch;
         GameOverScreen gameOverScreen;
         StartScreen startScreen;
+        DrawBG backgroundScreen;
         int screenWidth;
         int screenHeight;
         //SpriteFont font;
@@ -42,8 +43,10 @@ namespace Ladybug_Mayhem
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
+            backgroundScreen = new DrawBG(this, Content, spriteBatch, screenHeight, screenWidth);
             startScreen = new StartScreen(this, Content, screenWidth, screenHeight);
-            gameOverScreen = new GameOverScreen(this, Content,screenWidth,screenHeight);
+            gameOverScreen = new GameOverScreen(this, Content,screenWidth,screenHeight, false);
+
             LosingControl.Initialize(Content);
         }
 
@@ -113,6 +116,8 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+            //Bakgrunn
+            backgroundScreen.Draw(spriteBatch);
             //Startskjerm
             if(startScreen.draw) startScreen.Draw(spriteBatch);
             //SPILL!
