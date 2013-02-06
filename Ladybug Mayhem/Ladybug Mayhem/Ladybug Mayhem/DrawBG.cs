@@ -13,7 +13,7 @@ namespace Ladybug_Mayhem
     {
         private int windowHeight;
         private int windowWidth;
-        private DrawObject[] textures = new DrawObject[12];
+        private DrawObject[] textures = new DrawObject[13];
         private SpriteBatch spriteBatch;
         private int baseXPos = 0;
         private Texture2D checkTexture;
@@ -28,21 +28,21 @@ namespace Ladybug_Mayhem
 
             checkTexture = content.Load<Texture2D>("Roof North West");
             textures[0] = new DrawObject(game, content, "Roof North West", 1, new Vector2(baseXPos, -(checkTexture.Bounds.Height / 2)), 1f);
-            textures[1] = new DrawObject(game, content, "Roof North", 5, new Vector2(baseXPos + textures[1].GetSprite().Bounds.Width, textures[1].GetPosition().Y), 0f);
+            textures[1] = new DrawObject(game, content, "Roof North", 5, new Vector2(baseXPos + textures[0].GetSprite().Bounds.Width, textures[0].GetPosition().Y), 0f);
             textures[2] = new DrawObject(game, content, "Roof North East", 1, new Vector2
-                (baseXPos + (textures[1].width * 5), textures[1].GetPosition().Y), 0f);
-            textures[2] = new DrawObject(game, content, "Roof West", 1, new Vector2(baseXPos, textures[1].GetPosition().Y + textures[1].GetSprite().Bounds.Height - 87), 1f);
-            textures[3] = new DrawObject(game, content, "Brown Block", 4, new Vector2(textures[2].GetPosition().X + textures[2].GetSprite().Bounds.Width, roofWest.GetPosition().Y), 1f);
-            textures[4] = new DrawObject(game, content, "Roof East", 1, new Vector2(textures[3].GetPosition().X + textures[3].GetSprite().Bounds.Width * 5, brownBlock.GetPosition().Y), 0.5f);
-            textures[5] = new DrawObject(game, content, "Roof South West", 1, new Vector2(baseXPos, textures[2].GetPosition().Y + (textures[2].GetSprite().Bounds.Height / 2)), 1f);
-            textures[6] = new DrawObject(game, content, "Roof South", 4, new Vector2(textures[5].GetPosition().X + textures[5].GetSprite().Bounds.Width, roofSouthWest.GetPosition().Y), 1f);
-            textures[7] = new DrawObject(game, content, "Window Tall", 1, new Vector2(textures[6].GetPosition().X + textures[6].GetSprite().Bounds.Width * 4, roofSouthWest.GetPosition().Y), 0.7f);
-            textures[8] = new DrawObject(game, content, "Roof South East", 1, new Vector2(textures[7].GetPosition().X + textures[7].GetSprite().Bounds.Width, roofSouthWest.GetPosition().Y), 1f);
-            textures[9] = new DrawObject(game, content, "Wall Block Tall", 7, new Vector2(baseXPos, roofSouthWest.GetPosition().Y + (roofSouthWest.GetSprite().Bounds.Height / 2)), 0.5f);
-            textures[10] = new DrawObject(game, content, "Door Tall Closed", 1, new Vector2(baseXPos + wallBlockTall.GetSprite().Bounds.Width * 7, roofSouthWest.GetPosition().Y + (roofSouthWest.GetSprite().Bounds.Height / 2)), 0.5f);
+                (textures[1].GetPosition().X + (textures[1].width * 5), textures[0].GetPosition().Y), 0f);
+            textures[3] = new DrawObject(game, content, "Roof West", 1, new Vector2(baseXPos, textures[1].GetPosition().Y + textures[1].GetSprite().Bounds.Height - 87), 1f);
+            textures[4] = new DrawObject(game, content, "Brown Block", 4, new Vector2(baseXPos + textures[3].GetSprite().Bounds.Width, textures[3].GetPosition().Y), 1f);
+            textures[5] = new DrawObject(game, content, "Roof East", 1, new Vector2(textures[4].GetPosition().X + textures[3].GetSprite().Bounds.Width * 5, textures[3].GetPosition().Y), 0.5f);
+            textures[6] = new DrawObject(game, content, "Roof South West", 1, new Vector2(baseXPos, textures[3].GetPosition().Y + (textures[3].GetSprite().Bounds.Height / 2)), 1f);
+            textures[7] = new DrawObject(game, content, "Roof South", 4, new Vector2(baseXPos + textures[6].GetSprite().Bounds.Width, textures[6].GetPosition().Y), 1f);
+            textures[8] = new DrawObject(game, content, "Window Tall", 1, new Vector2(textures[7].GetPosition().X + textures[7].GetSprite().Bounds.Width * 4, textures[6].GetPosition().Y), 0.7f);
+            textures[9] = new DrawObject(game, content, "Roof South East", 1, new Vector2(textures[8].GetPosition().X + textures[8].GetSprite().Bounds.Width, textures[6].GetPosition().Y), 1f);
+            textures[10] = new DrawObject(game, content, "Wall Block Tall", 7, new Vector2(baseXPos, textures[6].GetPosition().Y + (textures[6].GetSprite().Bounds.Height / 2)), 0.5f);
+            textures[11] = new DrawObject(game, content, "Door Tall Closed", 1, new Vector2(baseXPos + textures[10].GetSprite().Bounds.Width * 7, textures[6].GetPosition().Y + (textures[5].GetSprite().Bounds.Height / 2)), 0.5f);
            
             checkTexture = content.Load<Texture2D>("Stone Block");
-            textures[11] = new DrawObject(game, content, "Stone Block", 7, new Vector2(baseXPos, wallBlockTall.GetPosition().Y + wallBlockTall.GetSprite().Bounds.Height - 54), 0);
+            textures[12] = new DrawObject(game, content, "Stone Block", 7, new Vector2(baseXPos, textures[9].GetPosition().Y + textures[9].GetSprite().Bounds.Height - 54), 0);
 
         }
         public void Draw(SpriteBatch spriteBatch)
