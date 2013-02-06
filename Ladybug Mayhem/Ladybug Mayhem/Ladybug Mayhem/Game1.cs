@@ -18,16 +18,9 @@ namespace Ladybug_Mayhem
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameOverScreen gameOver;
-        int screenWidth;
-        int screenHeight;
-
-        // MORTEN SITT
-        SpriteFont font;
-        int clicks;
-        MouseInput mouseInput;
-        Ladybug ladybug;
-        // MORTEN SITT SLUTT
+        private int windowHeight;
+        private int windowWidth;
+        private DrawBG background;
 
         public Game1()
         {
@@ -44,16 +37,11 @@ namespace Ladybug_Mayhem
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            screenHeight = Window.ClientBounds.Height;
-            screenWidth = Window.ClientBounds.Width;
-            gameOver = new GameOverScreen(this, this.Content,screenWidth,screenHeight);
+            windowHeight = Window.ClientBounds.Height;
+            windowWidth = Window.ClientBounds.Width;
+            background = new DrawBG(this, this.Content, spriteBatch, windowHeight, windowWidth);
             base.Initialize();
 
-            // MORTEN SITT
-            IsMouseVisible = true;
-            mouseInput = new MouseInput();
-            ladybug = new Ladybug(this.Content, new Vector2(100, 100), new Vector2(100,100));
-            // MORTEN SITT SLUTT
         }
 
         /// <summary>
@@ -66,10 +54,6 @@ namespace Ladybug_Mayhem
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-
-            // MORTEN SITT
-            font = Content.Load<SpriteFont>("TestFont");
-            // MORTEN SITT SLUTT
         }
 
         /// <summary>
@@ -94,12 +78,6 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your update logic here
 
-            // MORTEN SITT
-            mouseInput.UpdateMouse();
-            if (mouseInput.IsLeftButtonPressed())
-                clicks++;
-            // MORTEN SITT SLUTT
-
             base.Update(gameTime);
         }
 
@@ -112,12 +90,8 @@ namespace Ladybug_Mayhem
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            // MORTEN SITT
-            spriteBatch.DrawString(font, clicks.ToString(), Vector2.Zero, Color.White);
-            ladybug.Draw(spriteBatch);
-            // MORTEN SITT SLUTT
-            gameOver.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied);
+            background.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

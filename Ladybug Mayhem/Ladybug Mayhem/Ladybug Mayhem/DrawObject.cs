@@ -2,32 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 
 namespace Ladybug_Mayhem
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
-    public class DrawObject : Microsoft.Xna.Framework.GameComponent
+
+    public class DrawObject
     {
 
         private int windowHeight;
         private int windowWidth;
-        private Texture2D sprite;
+        private Texture2D sprite; // { get; protected set; }
         public Vector2 drawPlacement;
         public int drawAmount;
+        public float zIndex;
         public int height{ get; private set;}
         public int width{ get; private set;}
 
-        public DrawObject(Game game, ContentManager content, String receivedSprite, int drawAmount, Vector2 drawPlacement)
-            : base(game)
+        public DrawObject(Game game, ContentManager content, String receivedSprite, int drawAmount, Vector2 drawPlacement, float zIndex)
+
         {
             // TODO: Construct any child components here
             sprite = content.Load<Texture2D>(receivedSprite);
@@ -35,38 +30,27 @@ namespace Ladybug_Mayhem
             width = sprite.Bounds.Width;
             this.drawPlacement = drawPlacement;
             this.drawAmount = drawAmount;
+            this.zIndex = zIndex;
         }
-        /// <summary>
-        /// Allows the game component to perform any initialization it needs to before starting
-        /// to run.  This is where it can query for any required services and load content.
-        /// </summary>
-        public override void Initialize()
-        {
-            // TODO: Add your initialization code here
-
-            base.Initialize();
 
             //windowHeight = Window.ClientBounds.Height;
             //windowWidth = Window.ClientBounds.Width;
+
+        public Texture2D GetSprite()
+        {
+            return sprite;
         }
 
-        /// <summary>
-        /// Allows the game component to update itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        public override void Update(GameTime gameTime)
+        public Vector2 GetPosition()
         {
-            // TODO: Add your update code here
-
-            base.Update(gameTime);
+            return drawPlacement;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < drawAmount; i++)
             {
-                spriteBatch.Draw(sprite, new Vector2(drawPlacement.X + (i * sprite.Bounds.Width), drawPlacement.Y), Color.White);
-            }
+                spriteBatch.Draw(sprite, new Vector2(drawPlacement.X + (i * sprite.Bounds.Width), drawPlacement.Y), null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);            }
             
         }
     }
