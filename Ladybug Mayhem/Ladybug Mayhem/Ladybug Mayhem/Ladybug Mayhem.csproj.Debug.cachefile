@@ -8,7 +8,6 @@ Content\Character Cat Girl.xnb
 Content\Character Horn Girl.xnb
 Content\Character Pink Girl.xnb
 Content\Character Princess Girl.xnb
-Content\Heart.xnb
 Content\GameOverScreen\GameOverLetters\A.xnb
 Content\GameOverScreen\GameOverLetters\E.xnb
 Content\GameOverScreen\GameOverLetters\G.xnb
@@ -20,6 +19,7 @@ Content\StartScreen\gameTitle.xnb
 Content\StartScreen\beginText.xnb
 Content\GameOverScreen\exit.xnb
 Content\GameOverScreen\startOver.xnb
+Content\Heart.xnb
 Content\Roof East.xnb
 Content\Roof North East.xnb
 Content\Roof North West.xnb
