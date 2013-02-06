@@ -111,9 +111,14 @@ namespace Ladybug_Mayhem
                 {
                     _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
                     _ladybugsIsNotActive.Add(_ladybugsIsActive[_ladybugsIsActive.Count - 1]);
+                    Vector2 position = _ladybugsIsActive[_ladybugsIsActive.Count - 1].GetPosition();
                     _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
-                    SpawnGem();
-                    return index--;
+                    if (_gemIsNotActive.Count > 0)
+                        SpawnGem(position);
+                    if (index == 0)
+                        return 0;
+                    else
+                        return --index;
                 }
                 return index;
 
@@ -127,15 +132,20 @@ namespace Ladybug_Mayhem
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
                 i = IsLadybugDead(i);
-                _ladybugsIsActive[i].SetTime(true, gameTime.ElapsedGameTime.TotalMilliseconds);
-                DespawnLadybug(gameTime, i);
+                if (_ladybugsIsActive.Count >= 1)
+                {
+                    _ladybugsIsActive[i].SetTime(true, gameTime.ElapsedGameTime.TotalMilliseconds);
+                    DespawnLadybug(gameTime, i);
+                }
             }
         }
 
         public void DrawLadybug(SpriteBatch spriteBatch, Vector2 position)
         {
-            for (int i=0; i<_ladybugsIsActive.Count; i++)
+            for (int i = 0; i <_ladybugsIsActive.Count; i++)
                 _ladybugsIsActive[i].Draw(spriteBatch, position);
+            for (int i = 0; i < _gemIsActive.Count; i++)
+                _gemIsActive[i].Draw(spriteBatch);
         }
         #endregion
 
@@ -158,9 +168,12 @@ namespace Ladybug_Mayhem
 
         }
 
-        public void SpawnGem()
+        public void SpawnGem(Vector2 position)
         {
-
+            int random = (int)_random.Next(_gemIsNotActive.Count);
+            _gemIsActive.Add(_gemIsNotActive[random]);
+            _gemIsActive[_gemIsActive.Count - 1].SetPosition(position);
+            _gemIsNotActive.RemoveAt(random);
         }
 
         public void DespawnGem()

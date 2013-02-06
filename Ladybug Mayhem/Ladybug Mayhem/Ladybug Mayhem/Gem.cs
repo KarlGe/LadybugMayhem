@@ -20,7 +20,7 @@ namespace Ladybug_Mayhem
             _gemTexture = gemTexture;
             _gemPosition = gemPosition;
             _canClick = true;
-            _ladybugRectangle = new Rectangle((int)_gemPosition.X, (int)_gemPosition.Y, _gemTexture.Width, (_gemTexture.Height - 114));
+            //_ladybugRectangle = new Rectangle((int)_gemPosition.X, (int)_gemPosition.Y, _gemTexture.Width, (_gemTexture.Height - 114));
         }
 
         public bool CanClick()
@@ -31,6 +31,11 @@ namespace Ladybug_Mayhem
         public void SetClick()
         {
             _canClick = false;
+        }
+
+        public void SetPosition(Vector2 position)
+        {
+            _gemPosition = position;
         }
 
         public Rectangle GetRectangle()

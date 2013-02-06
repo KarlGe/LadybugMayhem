@@ -53,7 +53,7 @@ namespace Ladybug_Mayhem
 
             // MORTEN SITT
             IsMouseVisible = true;
-            _numberOfLadybugs = 3;
+            _numberOfLadybugs = 5;
             _numberOfGems = 3;
             ladybugs = new LadybugAndGemLogic(this.Content, spriteBatch, _numberOfLadybugs, _numberOfGems);
             ladybugs.CreateLadybug(_numberOfLadybugs);
