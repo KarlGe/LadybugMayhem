@@ -111,11 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DrawBG.cs" />
+    <Compile Include="Gem.cs" />
     <Compile Include="Ladybug.cs" />
     <Compile Include="DrawLadyBugTest.cs" />
     <Compile Include="DrawObject.cs" />
     <Compile Include="GameOverScreen.cs" />
-    <Compile Include="LadybugLevel.cs" />
+    <Compile Include="LadybugAndGemLogic.cs" />
     <Compile Include="MouseInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

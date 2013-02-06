@@ -25,9 +25,10 @@ namespace Ladybug_Mayhem
         // MORTEN SITT
         SpriteFont font;
         int clicks;
-        //MouseInput mouseInput;
+        private int _numberOfLadybugs;
+        private int _numberOfGems;
         Ladybug ladybug;
-        LadybugLevel ladybugs;
+        LadybugAndGemLogic ladybugs;
         // MORTEN SITT SLUTT
 
         public Game1()
@@ -52,10 +53,10 @@ namespace Ladybug_Mayhem
 
             // MORTEN SITT
             IsMouseVisible = true;
-            //mouseInput = new MouseInput();
-            ladybug = new Ladybug(this.Content, new Vector2(100, 100));
-            ladybugs = new LadybugLevel(this.Content, spriteBatch);
-            ladybugs.CreateLadybug();
+            _numberOfLadybugs = 5;
+            _numberOfGems = 3;
+            ladybugs = new LadybugAndGemLogic(this.Content, spriteBatch, _numberOfLadybugs, _numberOfGems);
+            ladybugs.CreateLadybug(_numberOfLadybugs);
             // MORTEN SITT SLUTT
         }
 
@@ -98,11 +99,8 @@ namespace Ladybug_Mayhem
             // TODO: Add your update logic here
 
             // MORTEN SITT
+            ladybugs.Update(gameTime);
 
-            ladybugs.ClickLadybug();
-            //mouseInput.UpdateMouse();
-            //if (mouseInput.IsLeftButtonPressed())
-            //    clicks++;
             // MORTEN SITT SLUTT
 
             base.Update(gameTime);
@@ -119,9 +117,7 @@ namespace Ladybug_Mayhem
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             // MORTEN SITT
-            //spriteBatch.DrawString(font, clicks.ToString(), Vector2.Zero, Color.White);
-            ladybugs.DrawLadybug(spriteBatch);
-            //ladybug.Draw(spriteBatch);
+            ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
             // MORTEN SITT SLUTT
             gameOver.Draw(spriteBatch);
             spriteBatch.End();

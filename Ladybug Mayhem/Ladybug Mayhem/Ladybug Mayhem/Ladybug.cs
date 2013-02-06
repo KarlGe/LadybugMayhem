@@ -18,7 +18,7 @@ namespace Ladybug_Mayhem
         private Vector2 _ladybugPosition;
         private int _clicks;
         private Rectangle _ladybugRectangle;
-        private bool _isActive;
+        private double _timeExisted;
 
         /// <summary>
         /// Class for ladybug entity.
@@ -34,27 +34,30 @@ namespace Ladybug_Mayhem
             _font = content.Load<SpriteFont>("TestFont");
             _ladybugPosition = ladybugPosition;
             _clicks = 0;
-            _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, _ladybugTexture.Width, _ladybugTexture.Height);
-            _isActive = false;
+            _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, _ladybugTexture.Width, (_ladybugTexture.Height - 95));
+            _timeExisted = 0.0;
         }
 
         #region Get Set methods
-        public void SetIsActive()
+        public void SetTime(bool add, double timeToAdd)
         {
-            if (_isActive)
-                _isActive = false;
+            if (add)
+                _timeExisted += timeToAdd;
             else
-                _isActive = true;
+                _timeExisted = 0;
         }
 
-        public bool GetIsActive()
+        public double GetTime()
         {
-            return _isActive;
+            return _timeExisted;
         }
 
-        public void SetClicks()
+        public void SetClicks(bool reset)
         {
-            _clicks++;
+            if (reset)
+                _clicks = 0;
+            else 
+                _clicks++;
         }
 
         public int GetClicks()
@@ -75,9 +78,9 @@ namespace Ladybug_Mayhem
         #endregion
 
         #region Draw ladybug and font
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(_ladybugTexture, _ladybugPosition, Color.White);
+            spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White);
             spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
         }
         #endregion
