@@ -22,6 +22,7 @@ namespace Ladybug_Mayhem
         private double _timePassedSpawn;
         private Random _random;
         private List<Texture2D> _gemTextures;
+        private Vector2 _gemWinPosition = new Vector2(300, 100);
 
         /// <summary>
         /// Logic class for ladybugs and gems.
@@ -105,30 +106,27 @@ namespace Ladybug_Mayhem
 
         public int IsLadybugDead(int index)
         {
-            //for (int i = 0; i < _ladybugsIsActive.Count; i++)
-            //{
-                if (_ladybugsIsActive[index].GetClicks() > 20)
-                {
-                    _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
-                    _ladybugsIsNotActive.Add(_ladybugsIsActive[_ladybugsIsActive.Count - 1]);
-                    Vector2 position = _ladybugsIsActive[_ladybugsIsActive.Count - 1].GetPosition();
-                    _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
-                    if (_gemIsNotActive.Count > 0)
-                        SpawnGem(position);
-                    if (index == 0)
-                        return 0;
-                    else
-                        return --index;
-                }
-                return index;
-
-            //}
+            if (_ladybugsIsActive[index].GetClicks() > 20)
+            {
+                Vector2 position = _ladybugsIsActive[index].GetPosition();
+                _ladybugsIsNotActive.Add(_ladybugsIsActive[index]);
+                _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
+                _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
+                if (_gemIsNotActive.Count > 0)
+                SpawnGem(position);
+                if (index == 0)
+                    return 0;
+                else
+                    return --index;
+            }
+            return index;
         }
 
         public void Update(GameTime gameTime)
         {
             SpawnLadybug(gameTime);
             ClickLadybug();
+            ClickGem();
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
                 i = IsLadybugDead(i);
@@ -162,15 +160,16 @@ namespace Ladybug_Mayhem
             for (int i = 0; i < _gemTextures.Count; i++)
             {
                 int random = _random.Next(_gemTextures.Count);
-                _gemIsNotActive.Add(new Gem(_content, Vector2.Zero, _gemTextures[random]));
+                _gemIsNotActive.Add(new Gem(_content, _gemTextures[random]));
                 _gemTextures.RemoveAt(random);
+                i--;
             }
 
         }
 
         public void SpawnGem(Vector2 position)
         {
-            int random = (int)_random.Next(_gemIsNotActive.Count);
+            int random = _random.Next(_gemIsNotActive.Count);
             _gemIsActive.Add(_gemIsNotActive[random]);
             _gemIsActive[_gemIsActive.Count - 1].SetPosition(position);
             _gemIsNotActive.RemoveAt(random);
@@ -183,22 +182,22 @@ namespace Ladybug_Mayhem
 
         public void ClickGem()
         {
-            _mouseInput.UpdateMouse();
+           // _mouseInput.UpdateMouse();
 
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
                 if (_mouseInput.IsLeftButtonPressed() && _gemIsActive[i].GetRectangle().Contains(_mouseInput.GetMousePosition()))
-                    _gemIsActive[i].SetClick();
+                    //_gemIsActive[i].SetClick();
+                    AddScore(i);
             }
         }
-
-
         #endregion
 
         #region Winning
-        public void AddScore()
+        public void AddScore(int i)
         {
-
+            _gemIsActive[i].SetPosition(_gemWinPosition);
+            _gemWinPosition.X += 100;
         }
         #endregion
     }

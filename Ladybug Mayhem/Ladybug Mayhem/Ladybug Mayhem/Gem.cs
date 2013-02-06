@@ -15,10 +15,9 @@ namespace Ladybug_Mayhem
         private Vector2 _gemPosition;
         private Rectangle _ladybugRectangle;
 
-        public Gem(ContentManager content, Vector2 gemPosition, Texture2D gemTexture)
+        public Gem(ContentManager content, Texture2D gemTexture)
         {
             _gemTexture = gemTexture;
-            _gemPosition = gemPosition;
             _canClick = true;
             //_ladybugRectangle = new Rectangle((int)_gemPosition.X, (int)_gemPosition.Y, _gemTexture.Width, (_gemTexture.Height - 114));
         }
@@ -45,7 +44,7 @@ namespace Ladybug_Mayhem
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_gemTexture, _gemPosition, new Rectangle(0, 57, _gemTexture.Width, _gemTexture.Height), Color.White);
+            spriteBatch.Draw(_gemTexture, _gemPosition, new Rectangle(0, 57, _gemTexture.Width, _gemTexture.Height-150), Color.White);
         }
 
     }
