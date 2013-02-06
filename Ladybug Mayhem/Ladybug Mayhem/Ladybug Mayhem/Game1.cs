@@ -38,7 +38,7 @@ namespace Ladybug_Mayhem
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferHeight = GlobalVars.SCREEN_HEIGHT;
             graphics.PreferredBackBufferWidth = GlobalVars.SCREEN_WIDTH;
-            
+            Console.Write("tits");
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
