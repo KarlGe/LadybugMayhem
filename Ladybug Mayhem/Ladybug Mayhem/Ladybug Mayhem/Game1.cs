@@ -23,7 +23,15 @@ namespace Ladybug_Mayhem
         DrawBG backgroundScreen;
         int screenWidth;
         int screenHeight;
-        //SpriteFont font;
+
+        // MORTEN SITT
+        SpriteFont font;
+        int clicks;
+        private int _numberOfLadybugs;
+        private int _numberOfGems;
+        Ladybug ladybug;
+        LadybugAndGemLogic ladybugs;
+        // MORTEN SITT SLUTT
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,6 +59,16 @@ namespace Ladybug_Mayhem
             gameOverScreen = new GameOverScreen(this, Content, false);
 
             LosingControl.Initialize(Content);
+            base.Initialize();
+
+            // MORTEN SITT
+            IsMouseVisible = true;
+            _numberOfLadybugs = 5;
+            _numberOfGems = 3;
+            ladybugs = new LadybugAndGemLogic(this.Content, spriteBatch, _numberOfLadybugs, _numberOfGems);
+            ladybugs.CreateLadybug(_numberOfLadybugs);
+            ladybugs.CreateGems();
+            // MORTEN SITT SLUTT
         }
 
         /// <summary>
@@ -87,6 +105,12 @@ namespace Ladybug_Mayhem
                 this.Exit();
 
             // TODO: Add your update logic here
+
+            // MORTEN SITT
+            ladybugs.Update(gameTime);
+
+            // MORTEN SITT SLUTT
+
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
@@ -130,6 +154,9 @@ namespace Ladybug_Mayhem
             }
             //GameOver-skjerm
             if (LosingControl._gameOver) gameOverScreen.Draw(spriteBatch);
+            // MORTEN SITT
+            ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
+            // MORTEN SITT SLUTT
             spriteBatch.End();
             base.Draw(gameTime);
         }
