@@ -52,9 +52,7 @@ namespace Ladybug_Mayhem
                 //En citizen "dør" (går ut av skjermen)
                 if (_citizenList[citizenNumber].GetCitizenBox().X > window.ClientBounds.Width)
                 {
-                    Console.WriteLine(_citizenList.IndexOf(_citizenList[citizenNumber]) + " døde!");
                     _citizenList.RemoveAt(citizenNumber);
-                    _populationCount--;
                 }
 
                 //Skal citizens fps være litt lavere?

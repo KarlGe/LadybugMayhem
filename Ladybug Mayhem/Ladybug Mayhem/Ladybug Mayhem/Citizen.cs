@@ -26,6 +26,7 @@ namespace Ladybug_Mayhem
         public Citizen(ContentManager content, int citizenNumber)
         {
             _citizenNumber = citizenNumber;
+            Console.WriteLine(_citizenNumber + " spawnet");
             _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
             _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
             _clickableRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
