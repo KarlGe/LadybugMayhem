@@ -8,10 +8,27 @@ Content\Character Cat Girl.xnb
 Content\Character Horn Girl.xnb
 Content\Character Pink Girl.xnb
 Content\Character Princess Girl.xnb
-Content\GameOverLetters\A.xnb
-Content\GameOverLetters\E.xnb
-Content\GameOverLetters\G.xnb
-Content\GameOverLetters\M.xnb
-Content\GameOverLetters\O.xnb
-Content\GameOverLetters\R.xnb
-Content\GameOverLetters\V.xnb
+Content\Heart.xnb
+Content\GameOverScreen\GameOverLetters\A.xnb
+Content\GameOverScreen\GameOverLetters\E.xnb
+Content\GameOverScreen\GameOverLetters\G.xnb
+Content\GameOverScreen\GameOverLetters\M.xnb
+Content\GameOverScreen\GameOverLetters\O.xnb
+Content\GameOverScreen\GameOverLetters\R.xnb
+Content\GameOverScreen\GameOverLetters\V.xnb
+Content\StartScreen\gameTitle.xnb
+Content\StartScreen\beginText.xnb
+Content\GameOverScreen\exit.xnb
+Content\GameOverScreen\startOver.xnb
+Content\Roof East.xnb
+Content\Roof North East.xnb
+Content\Roof North West.xnb
+Content\Roof North.xnb
+Content\Roof North2.xnb
+Content\Roof South East.xnb
+Content\Roof South West.xnb
+Content\Roof West.xnb
+Content\Window Tall.xnb
+Content\Door Tall Closed.xnb
+Content\Wall Block Tall.xnb
+Content\Stone Block.xnb

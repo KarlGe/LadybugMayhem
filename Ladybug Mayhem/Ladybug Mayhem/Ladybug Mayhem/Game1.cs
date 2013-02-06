@@ -18,15 +18,20 @@ namespace Ladybug_Mayhem
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameOverScreen gameOver;
+        GameOverScreen gameOverScreen;
+        StartScreen startScreen;
+        DrawBG backgroundScreen;
         int screenWidth;
         int screenHeight;
+        //SpriteFont font;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferHeight = GlobalVars.SCREEN_HEIGHT;
+            graphics.PreferredBackBufferWidth = GlobalVars.SCREEN_WIDTH;
+            
         }
-
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -41,7 +46,11 @@ namespace Ladybug_Mayhem
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            gameOver = new GameOverScreen(this, this.Content,screenWidth,screenHeight);
+            backgroundScreen = new DrawBG(this, Content, spriteBatch);
+            startScreen = new StartScreen(this, Content);
+            gameOverScreen = new GameOverScreen(this, Content, false);
+
+            LosingControl.Initialize(Content);
         }
 
         /// <summary>
@@ -52,6 +61,7 @@ namespace Ladybug_Mayhem
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //font = Content.Load<SpriteFont>("TestFont");
 
             // TODO: use this.Content to load your game content here
         }
@@ -80,7 +90,23 @@ namespace Ladybug_Mayhem
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            gameOver.Update(gameTime);
+            //Starskjerm
+            if(startScreen.draw) startScreen.Update(gameTime);
+            //SPILL!
+            if (!startScreen.draw && !LosingControl._gameOver)
+            {
+                LosingControl.Update(gameTime, Window);
+            }
+            //GameOver-kjerm
+            if (LosingControl._gameOver) gameOverScreen.Update(gameTime);
+
+            //Hvis man ønsker å spille igjen
+            if (gameOverScreen.replay)
+            {
+                gameOverScreen.reset();
+                LosingControl.Reset();
+                startScreen.reset();
+            }
         }
 
         /// <summary>
@@ -92,8 +118,18 @@ namespace Ladybug_Mayhem
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            gameOver.Draw(spriteBatch);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
+            //Bakgrunn
+            backgroundScreen.Draw(spriteBatch);
+            //Startskjerm
+            if(startScreen.draw) startScreen.Draw(spriteBatch);
+            //SPILL!
+            if (!startScreen.draw && !LosingControl._gameOver)
+            {
+                LosingControl.Draw(spriteBatch);
+            }
+            //GameOver-skjerm
+            if (LosingControl._gameOver) gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
