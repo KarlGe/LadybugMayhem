@@ -38,7 +38,7 @@ namespace Ladybug_Mayhem
         {
             title = content.Load<Texture2D>(@"StartScreen\gameTitle");
             begin = content.Load<Texture2D>(@"StartScreen\beginText");
-            titleStartPos = new Vector2(screenWidth, screenHeight - title.Bounds.Height);
+            titleStartPos = new Vector2(screenWidth, GlobalVars.GROUND_Y_POS);
             reset();
         }
         //
