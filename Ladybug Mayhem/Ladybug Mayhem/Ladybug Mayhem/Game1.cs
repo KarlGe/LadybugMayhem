@@ -20,6 +20,7 @@ namespace Ladybug_Mayhem
         SpriteBatch spriteBatch;
         int screenWidth;
         int screenHeight;
+        //SpriteFont font;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,6 +52,7 @@ namespace Ladybug_Mayhem
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            //font = Content.Load<SpriteFont>("TestFont");
 
             // TODO: use this.Content to load your game content here
         }

@@ -31,9 +31,9 @@ namespace Ladybug_Mayhem
         public static void Update(GameTime gameTime, GameWindow window)
         {
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
-            if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
+            if (_spawnTimer >= 2000 && _populationCount < GlobalVars.MAX_CITIZENS)
             {
-                _citizenList.Add(new Citizen(_content, _populationCount));
+                _citizenList.Add(new Citizen(_content));
                 _populationCount++;
                 _spawnTimer = 0;
             }
@@ -41,8 +41,11 @@ namespace Ladybug_Mayhem
             //Denne loopen teller nedover, slik at den oppdaterer "siste" citizen først. Dersom man klikker to citizens som overlapper
             //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
             //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
-            for (int citizenNumber = _citizenList.Count-1; citizenNumber >= 0; citizenNumber--)
+
+            for (int citizenNumber = _citizenList.Count - 1; citizenNumber >= 0; citizenNumber--)
             {
+                //Skal citizens fps være litt lavere?
+                _citizenList[citizenNumber].Update(gameTime);
                 //Sjekker om musen klikkes i denne framen og passer på at bare "øverste" (/"sist innlastede") citizen sendes tilbake
                 if (CheckMousePress.IsBeingPressed(_citizenList[citizenNumber].GetCitizenBox()) && !_alreadySavedACitizen)
                 {
@@ -54,9 +57,6 @@ namespace Ladybug_Mayhem
                 {
                     _citizenList.RemoveAt(citizenNumber);
                 }
-
-                //Skal citizens fps være litt lavere?
-                _citizenList[citizenNumber].Update(gameTime);
             }
         }
 
