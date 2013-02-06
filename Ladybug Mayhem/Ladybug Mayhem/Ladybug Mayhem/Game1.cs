@@ -121,7 +121,11 @@ namespace Ladybug_Mayhem
                 LosingControl.Update(gameTime, Window);
             }
             //GameOver-kjerm
-            if (LosingControl._gameOver) gameOverScreen.Update(gameTime);
+            if (LosingControl._gameOver) 
+            {
+                gameOverScreen.playerWon = true;
+                gameOverScreen.Update(gameTime);
+            } 
 
             //Hvis man ønsker å spille igjen
             if (gameOverScreen.replay)
