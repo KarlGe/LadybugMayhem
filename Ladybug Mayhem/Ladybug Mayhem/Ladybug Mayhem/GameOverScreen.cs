@@ -25,6 +25,7 @@ namespace Ladybug_Mayhem
         private int currentDelay;
         private int numObjectsToDraw = 0;// Bestemmer hvilke bokstaver i arrayen som skal falle
         private bool fallingLetters = true;
+        private bool playerWon;
 
         /* Replay og exit knapp med rektangler, mellomrom imellom dem, 
          * og til slutt en variabel som sier ifra om spilleren har valgt å spille på nytt
@@ -40,16 +41,14 @@ namespace Ladybug_Mayhem
         private int screenWidth;
         Game game;
         ContentManager content;
-
-        //Hvor mange 
-        private int objDrawAmount;
         
-        public GameOverScreen(Game game, ContentManager content, int screenWidth, int screenHeight)
+        public GameOverScreen(Game game, ContentManager content, int screenWidth, int screenHeight, bool playerWon)
         {
             this.screenHeight = screenHeight;
             this.screenWidth = screenWidth;
             this.game = game;
             this.content = content;
+            this.playerWon = playerWon;
             initialize();
         }
         /// <summary>
@@ -106,6 +105,7 @@ namespace Ladybug_Mayhem
         {
 
             grassBlock.Draw(spriteBatch);
+            if(!playerWon)
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i].Draw(spriteBatch);
             if (!fallingLetters)
             {
