@@ -3,13 +3,11 @@ Content\Roof South.xnb
 Content\Dirt Block.xnb
 Content\Grass Block.xnb
 Content\Key.xnb
-Content\TestFont.xnb
 Content\Character Boy.xnb
 Content\Character Cat Girl.xnb
 Content\Character Horn Girl.xnb
 Content\Character Pink Girl.xnb
 Content\Character Princess Girl.xnb
-<<<<<<< HEAD
 Content\GameOverScreen\GameOverLetters\A.xnb
 Content\GameOverScreen\GameOverLetters\E.xnb
 Content\GameOverScreen\GameOverLetters\G.xnb
@@ -21,13 +19,3 @@ Content\StartScreen\gameTitle.xnb
 Content\StartScreen\beginText.xnb
 Content\GameOverScreen\exit.xnb
 Content\GameOverScreen\startOver.xnb
-=======
-Content\GameOverLetters\A.xnb
-Content\GameOverLetters\E.xnb
-Content\GameOverLetters\G.xnb
-Content\GameOverLetters\M.xnb
-Content\GameOverLetters\O.xnb
-Content\GameOverLetters\R.xnb
-Content\GameOverLetters\V.xnb
-Content\Heart.xnb
->>>>>>> AdrianBranch

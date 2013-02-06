@@ -18,11 +18,8 @@ namespace Ladybug_Mayhem
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-<<<<<<< HEAD
         GameOverScreen gameOverScreen;
         StartScreen startScreen;
-=======
->>>>>>> AdrianBranch
         int screenWidth;
         int screenHeight;
         //SpriteFont font;
@@ -45,12 +42,9 @@ namespace Ladybug_Mayhem
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-<<<<<<< HEAD
             startScreen = new StartScreen(this, Content, screenWidth, screenHeight);
             gameOverScreen = new GameOverScreen(this, Content,screenWidth,screenHeight);
-=======
             LosingControl.Initialize(this.Content);
->>>>>>> AdrianBranch
         }
 
         /// <summary>
@@ -90,7 +84,6 @@ namespace Ladybug_Mayhem
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-<<<<<<< HEAD
             if (!startScreen.draw) gameOverScreen.Update(gameTime);
             if(startScreen.draw) startScreen.Update(gameTime);
             if (gameOverScreen.replay)
@@ -98,9 +91,7 @@ namespace Ladybug_Mayhem
                 gameOverScreen.reset();
                 startScreen.reset();
             }
-=======
             LosingControl.Update(gameTime, Window);
->>>>>>> AdrianBranch
         }
 
         /// <summary>
@@ -112,14 +103,11 @@ namespace Ladybug_Mayhem
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-<<<<<<< HEAD
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
             startScreen.Draw(spriteBatch);
             if(!startScreen.draw)gameOverScreen.Draw(spriteBatch);
-=======
             spriteBatch.Begin();
             LosingControl.Draw(spriteBatch);
->>>>>>> AdrianBranch
             spriteBatch.End();
             base.Draw(gameTime);
         }
