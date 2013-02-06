@@ -28,7 +28,7 @@ namespace Ladybug_Mayhem
             _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
             _clickableRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
                 GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
-            _speed = 10;
+            _speed = 3;
             _timeKeeper = 0;
         }
 
