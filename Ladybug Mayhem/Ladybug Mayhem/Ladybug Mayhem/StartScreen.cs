@@ -57,11 +57,8 @@ namespace Ladybug_Mayhem
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (draw)
-            {
                 spriteBatch.Draw(title, titlePos, Color.White);
                 if (drawBeginText) spriteBatch.Draw(begin, new Vector2(screenWidth / 2 - begin.Width / 2, screenHeight / 2 - begin.Height / 2), new Color(255, 255, 255, opacity));
-            }
         }
         public void reset()
         {

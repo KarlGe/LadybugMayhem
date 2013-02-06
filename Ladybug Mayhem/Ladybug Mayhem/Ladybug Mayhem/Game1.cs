@@ -44,7 +44,7 @@ namespace Ladybug_Mayhem
             GlobalVars.MOUSE_STATE = Mouse.GetState();
             startScreen = new StartScreen(this, Content, screenWidth, screenHeight);
             gameOverScreen = new GameOverScreen(this, Content,screenWidth,screenHeight);
-            LosingControl.Initialize(this.Content);
+            LosingControl.Initialize(Content);
         }
 
         /// <summary>
@@ -84,14 +84,23 @@ namespace Ladybug_Mayhem
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            if (!startScreen.draw) gameOverScreen.Update(gameTime);
+            //Starskjerm
             if(startScreen.draw) startScreen.Update(gameTime);
+            //SPILL!
+            if (!startScreen.draw && !LosingControl._gameOver)
+            {
+                LosingControl.Update(gameTime, Window);
+            }
+            //GameOver-kjerm
+            if (LosingControl._gameOver) gameOverScreen.Update(gameTime);
+
+            //Hvis man ønsker å spille igjen
             if (gameOverScreen.replay)
             {
                 gameOverScreen.reset();
+                LosingControl.Reset();
                 startScreen.reset();
             }
-            LosingControl.Update(gameTime, Window);
         }
 
         /// <summary>
@@ -104,10 +113,15 @@ namespace Ladybug_Mayhem
 
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
-            startScreen.Draw(spriteBatch);
-            if(!startScreen.draw)gameOverScreen.Draw(spriteBatch);
-            spriteBatch.Begin();
-            LosingControl.Draw(spriteBatch);
+            //Startskjerm
+            if(startScreen.draw) startScreen.Draw(spriteBatch);
+            //SPILL!
+            if (!startScreen.draw && !LosingControl._gameOver)
+            {
+                LosingControl.Draw(spriteBatch);
+            }
+            //GameOver-skjerm
+            if (LosingControl._gameOver) gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

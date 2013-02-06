@@ -23,18 +23,14 @@ namespace Ladybug_Mayhem
         private static int _lives;
 
         private static bool _alreadySavedACitizen;
-        private static bool _gameOver;
-        private static bool _gameOverMessage = false;
+        public static bool _gameOver;
 
         public static void Initialize(ContentManager content)
         {
             _content = content;
             _heart = content.Load<Texture2D>("Heart");
             _citizenList = new List<Citizen>();
-            _populationCount = 0;
-            _spawnTimer = 0;
-            _lives = 5;
-            _gameOver = false;
+            Reset();
         }
 
         public static void Update(GameTime gameTime, GameWindow window)
@@ -42,8 +38,8 @@ namespace Ladybug_Mayhem
             if (_lives == 0)
                 _gameOver = true;
 
-            if (!_gameOver)
-            {
+            //if (!_gameOver)
+            //{
                 _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
                 if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
                 {
@@ -73,13 +69,7 @@ namespace Ladybug_Mayhem
                         _lives--;
                     }
                 }
-            }
-            else
-                if (!_gameOverMessage)
-                {
-                    Console.WriteLine("Du tapte!");
-                    _gameOverMessage = true;
-                }
+            //}
         }
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -94,6 +84,15 @@ namespace Ladybug_Mayhem
                     5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter), 3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
                     GlobalVars.HEART_SPRITE_RECTANGLE, Color.White);
             }
+        }
+
+        public static void Reset()
+        {
+            _citizenList.Clear();
+            _populationCount = 0;
+            _spawnTimer = 0;
+            _lives = 5;
+            _gameOver = false;
         }
     }
 }
