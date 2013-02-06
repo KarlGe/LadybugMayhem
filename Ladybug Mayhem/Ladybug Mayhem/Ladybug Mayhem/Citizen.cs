@@ -28,7 +28,7 @@ namespace Ladybug_Mayhem
         {
             _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
             _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
-            _clickableRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
+            _clickableRectangle = new Rectangle(-300, GlobalVars.GROUND_Y_POS,
                 GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
             _speed = 3;
             _timeKeeper = 0;
@@ -71,8 +71,8 @@ namespace Ladybug_Mayhem
         /// <param name="citizenList"></param>
         public void Saved(List<Citizen> citizenList)
         {
-            _clickableRectangle.X = (int)GlobalVars.CITIZEN_SPAWN_POS.X;
-            _clickableRectangle.Y = (int)GlobalVars.CITIZEN_SPAWN_POS.Y;
+            _clickableRectangle.X = -300;
+            _clickableRectangle.Y = GlobalVars.GROUND_Y_POS;
         }
     }
 }

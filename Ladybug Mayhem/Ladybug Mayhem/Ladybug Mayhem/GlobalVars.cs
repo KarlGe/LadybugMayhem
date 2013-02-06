@@ -29,7 +29,6 @@ namespace Ladybug_Mayhem
         public const int MAX_CITIZENS = 10;
         public const int CITIZEN_BOX_WIDTH = 80;
         public const int CITIZEN_BOX_HEIGHT = 100;
-        public static Vector2 CITIZEN_SPAWN_POS = new Vector2(-200, 100);
         public static Rectangle CITIZEN_SPRITE_RECTANGLE = new Rectangle(10, 50,
             CITIZEN_BOX_WIDTH, CITIZEN_BOX_HEIGHT);
     }
