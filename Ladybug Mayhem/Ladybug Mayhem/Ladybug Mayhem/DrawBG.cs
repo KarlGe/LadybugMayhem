@@ -45,7 +45,7 @@ namespace Ladybug_Mayhem
            
             checkTexture = content.Load<Texture2D>("Stone Block");
             textures[13] = new DrawObject(game, content, "Stone Block", 7, new Vector2(baseXPos, textures[10].GetPosition().Y + textures[11].GetSprite().Bounds.Height + 31), 0f);
-
+            GlobalVars.GROUND_Y_POS = (int) textures[13].GetPosition().Y;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

@@ -14,6 +14,7 @@ namespace Ladybug_Mayhem
         public static MouseState MOUSE_STATE;
         public static MouseState PREVIOUS_MOUSE_STATE;
         public static Random RAND = new Random();
+        public static int GROUND_Y_POS;
         public static int SCREEN_HEIGHT = 550;
         public static int SCREEN_WIDTH = 707;
 

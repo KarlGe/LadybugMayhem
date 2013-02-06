@@ -84,7 +84,7 @@ namespace Ladybug_Mayhem
             for (int i = 0; i < numObjectsToDraw; i++)
             {
                 gameOverText[i].falling = true;
-                if (gameOverText[i].currentYPos > screenHeight - gameOverText[i].getHeight() - 80) gameOverText[i].falling = false;
+                if (gameOverText[i].currentYPos > GlobalVars.GROUND_Y_POS) gameOverText[i].falling = false;
                 gameOverText[i].Update(gameTime);
             }
             if (!(gameOverText[gameOverText.Length-1].falling))
