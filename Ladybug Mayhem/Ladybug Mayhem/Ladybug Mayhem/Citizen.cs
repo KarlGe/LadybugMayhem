@@ -48,6 +48,7 @@ namespace Ladybug_Mayhem
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.DrawString(
             spriteBatch.Draw(_sprite, new Vector2(_clickableRectangle.X, _clickableRectangle.Y), GlobalVars.CITIZEN_SPRITE_RECTANGLE,
                 Color.White);
         }
