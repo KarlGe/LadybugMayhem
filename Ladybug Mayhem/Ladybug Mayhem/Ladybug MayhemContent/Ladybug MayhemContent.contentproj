@@ -141,7 +141,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="StartScreen\gameTitle.png">
       <Name>gameTitle</Name>
       <Importer>TextureImporter</Importer>
@@ -163,17 +162,6 @@
     </Compile>
     <Compile Include="GameOverScreen\startOver.png">
       <Name>startOver</Name>
-=======
-    <Compile Include="TestFont.spritefont">
-      <Name>TestFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Heart.png">
-      <Name>Heart</Name>
->>>>>>> AdrianBranch
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
