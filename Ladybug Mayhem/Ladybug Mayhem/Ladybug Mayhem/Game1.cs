@@ -115,7 +115,7 @@ namespace Ladybug_Mayhem
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+            spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
             //Bakgrunn
             backgroundScreen.Draw(spriteBatch);
             //Startskjerm
