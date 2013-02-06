@@ -27,14 +27,17 @@ namespace Ladybug_Mayhem
             width = sprite.Bounds.Width;
             this.drawPlacement = drawPlacement;
         }
+        public int getHeight()
+        {
+            return sprite.Bounds.Height;
+        }
         public void Update(GameTime gameTime)
         {
             if (falling) currentYPos += ySpeed;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, new Vector2(drawPlacement.X, currentYPos), Color.White);
-
+            spriteBatch.Draw(sprite, new Vector2(drawPlacement.X, currentYPos), null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1);            
         }
     }
 }

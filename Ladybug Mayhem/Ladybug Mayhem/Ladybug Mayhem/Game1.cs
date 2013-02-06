@@ -28,6 +28,9 @@ namespace Ladybug_Mayhem
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferHeight = GlobalVars.SCREEN_HEIGHT;
+            graphics.PreferredBackBufferWidth = GlobalVars.SCREEN_WIDTH;
+            
         }
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -43,9 +46,9 @@ namespace Ladybug_Mayhem
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            backgroundScreen = new DrawBG(this, Content, spriteBatch, screenHeight, screenWidth);
-            startScreen = new StartScreen(this, Content, screenWidth, screenHeight);
-            gameOverScreen = new GameOverScreen(this, Content,screenWidth,screenHeight, false);
+            backgroundScreen = new DrawBG(this, Content, spriteBatch);
+            startScreen = new StartScreen(this, Content);
+            gameOverScreen = new GameOverScreen(this, Content, false);
 
             LosingControl.Initialize(Content);
         }

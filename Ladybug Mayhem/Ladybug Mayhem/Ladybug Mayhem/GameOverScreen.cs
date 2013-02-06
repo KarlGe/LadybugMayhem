@@ -11,7 +11,6 @@ namespace Ladybug_Mayhem
 {
     public class GameOverScreen
     {
-        private DrawObject grassBlock;
         /* Setter opp en array med "fallende objekter", lager også en array med navnene på filene som skal brukes, 
          * til slutt lages en array som inneholder bredden på alle disse bildene, dette er nødvendig for å finne
          * den totale bredden på bokstavene, med mellomrom som legges imellom (tallet etter + på den 5. plassen)
@@ -42,10 +41,10 @@ namespace Ladybug_Mayhem
         Game game;
         ContentManager content;
         
-        public GameOverScreen(Game game, ContentManager content, int screenWidth, int screenHeight, bool playerWon)
+        public GameOverScreen(Game game, ContentManager content, bool playerWon)
         {
-            this.screenHeight = screenHeight;
-            this.screenWidth = screenWidth;
+            screenHeight = GlobalVars.SCREEN_HEIGHT;
+            screenWidth = GlobalVars.SCREEN_WIDTH;
             this.game = game;
             this.content = content;
             this.playerWon = playerWon;
@@ -63,9 +62,6 @@ namespace Ladybug_Mayhem
 
             exitButton = content.Load<Texture2D>(@"GameOverScreen\exit");
             exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - exitButton.Height / 2, exitButton.Width, exitButton.Height);
-            
-            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2), 1);
-            grassBlock = CoverScreen.CalculateCoverScreen(grassBlock, screenHeight - grassBlock.height, screenWidth, grassBlock.width);
 
             for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
             xPos = (screenWidth / 2) - (totalLetterWidth / 2);
@@ -88,7 +84,7 @@ namespace Ladybug_Mayhem
             for (int i = 0; i < numObjectsToDraw; i++)
             {
                 gameOverText[i].falling = true;
-                if (gameOverText[i].currentYPos > screenHeight - grassBlock.height) gameOverText[i].falling = false;
+                if (gameOverText[i].currentYPos > screenHeight - gameOverText[i].getHeight() - 80) gameOverText[i].falling = false;
                 gameOverText[i].Update(gameTime);
             }
             if (!(gameOverText[gameOverText.Length-1].falling))
@@ -103,14 +99,12 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
-
-            grassBlock.Draw(spriteBatch);
             if(!playerWon)
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i].Draw(spriteBatch);
             if (!fallingLetters)
             {
-                spriteBatch.Draw(replayButton, replayRectangle , Color.White);
-                spriteBatch.Draw(exitButton, exitRectangle, Color.White);
+                spriteBatch.Draw(replayButton, replayRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                spriteBatch.Draw(exitButton, exitRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
             }
             
         }

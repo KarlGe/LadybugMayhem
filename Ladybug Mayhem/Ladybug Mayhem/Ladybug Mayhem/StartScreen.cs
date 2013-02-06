@@ -22,10 +22,10 @@ namespace Ladybug_Mayhem
 
         public bool draw { get; protected set; }//Bestemmer om startskjermen skal tegnes
         public ContentManager content;
-        public StartScreen(Game game, ContentManager content, int screenWidth, int screenHeight)
+        public StartScreen(Game game, ContentManager content)
         {
-            this.screenHeight = screenHeight;
-            this.screenWidth = screenWidth;
+            screenHeight = GlobalVars.SCREEN_HEIGHT;
+            screenWidth = GlobalVars.SCREEN_WIDTH;
             this.content = content;
             initialize();
         }
@@ -57,8 +57,8 @@ namespace Ladybug_Mayhem
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(title, titlePos, Color.White);
-                if (drawBeginText) spriteBatch.Draw(begin, new Vector2(screenWidth / 2 - begin.Width / 2, screenHeight / 2 - begin.Height / 2), new Color(255, 255, 255, opacity));
+                spriteBatch.Draw(title, titlePos, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1f);
+                if (drawBeginText) spriteBatch.Draw(begin, new Vector2(screenWidth / 2 - begin.Width / 2, screenHeight / 2 - begin.Height / 2), null, new Color(255, 255, 255, opacity), 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1f);
         }
         public void reset()
         {
