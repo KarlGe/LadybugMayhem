@@ -65,7 +65,7 @@ namespace Ladybug_Mayhem
             exitButton = content.Load<Texture2D>(@"GameOverScreen\exit");
             exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - exitButton.Height / 2, exitButton.Width, exitButton.Height);
             
-            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2));
+            grassBlock = new DrawObject(game, content, "Grass Block", 0, new Vector2(0, screenHeight / 2), 1);
             grassBlock = CoverScreen.CalculateCoverScreen(grassBlock, screenHeight - grassBlock.height, screenWidth, grassBlock.width);
 
             for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
