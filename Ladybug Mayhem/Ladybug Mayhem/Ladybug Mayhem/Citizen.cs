@@ -15,7 +15,7 @@ namespace Ladybug_Mayhem
     {
         private Texture2D _sprite;
 
-        private Rectangle _destinationRectangle;
+        private Rectangle _clickableRectangle;
 
         private int _citizenNumber;
         private int _timeKeeper;
@@ -28,7 +28,7 @@ namespace Ladybug_Mayhem
             _citizenNumber = citizenNumber;
             _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
             _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
-            _destinationRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
+            _clickableRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
                 GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
             _speed = 3;
             _timeKeeper = 0;
@@ -37,24 +37,24 @@ namespace Ladybug_Mayhem
         public void Update(GameTime gameTime)
         {
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_timeKeeper >= 500 && _destinationRectangle.X < (0-_destinationRectangle.Width) && _destinationRectangle.X > -3000)
+            if (_timeKeeper >= 500 && _clickableRectangle.X < (0-_clickableRectangle.Width) && _clickableRectangle.X > -3000)
             {
                 _speed += 0.1f;
                 _timeKeeper = 0;
             }
-            _destinationRectangle.X += (int)_speed;
+            _clickableRectangle.X += (int)_speed;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_sprite, new Vector2(_destinationRectangle.X, _destinationRectangle.Y), GlobalVars.CITIZEN_SOURCE_RECTANLGE,
+            spriteBatch.Draw(_sprite, new Vector2(_clickableRectangle.X, _clickableRectangle.Y), GlobalVars.CITIZEN_SPRITE_RECTANGLE,
                 Color.White);
         }
 
         //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..
         public Rectangle GetCitizenBox()
         {
-            return _destinationRectangle;
+            return _clickableRectangle;
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace Ladybug_Mayhem
         /// <param name="citizenList"></param>
         public void Saved(List<Citizen> citizenList)
         {
-            _destinationRectangle.X = (int)GlobalVars.CITIZEN_SPAWN_POS.X;
-            _destinationRectangle.Y = (int)GlobalVars.CITIZEN_SPAWN_POS.Y;
+            _clickableRectangle.X = (int)GlobalVars.CITIZEN_SPAWN_POS.X;
+            _clickableRectangle.Y = (int)GlobalVars.CITIZEN_SPAWN_POS.Y;
         }
     }
 }

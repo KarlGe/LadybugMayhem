@@ -27,7 +27,7 @@ namespace Ladybug_Mayhem
 
         public static Vector2 CITIZEN_SPAWN_POS = new Vector2(-200, 100);
 
-        public static Rectangle CITIZEN_SOURCE_RECTANLGE = new Rectangle(CITIZEN_LEFT_CROP, CITIZEN_TOP_CROP,
+        public static Rectangle CITIZEN_SPRITE_RECTANGLE = new Rectangle(CITIZEN_LEFT_CROP, CITIZEN_TOP_CROP,
             CITIZEN_BOX_WIDTH, CITIZEN_BOX_HEIGHT);
     }
 }
