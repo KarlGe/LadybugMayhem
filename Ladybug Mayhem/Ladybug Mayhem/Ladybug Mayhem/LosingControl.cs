@@ -52,7 +52,7 @@ namespace Ladybug_Mayhem
             //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
             //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
 
-            for (int citizenNumber = _citizenList.Count - 1; citizenNumber >= 0; citizenNumber--)
+            for (int citizenNumber = 0; citizenNumber < _citizenList.Count; citizenNumber++)
             {    
                 _citizenList[citizenNumber].Update(gameTime);
                 //Sjekker om musen klikkes i denne framen og passer på at bare "øverste" (/"sist innlastede") citizen sendes tilbake

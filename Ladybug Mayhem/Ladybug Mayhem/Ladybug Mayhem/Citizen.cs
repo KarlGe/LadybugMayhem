@@ -43,7 +43,6 @@ namespace Ladybug_Mayhem
                 _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble() / 5);
                 _speed += _randomSpeedBoost;
                 _randomTimeKeeper = 0;
-                Console.WriteLine(_speed);
             }
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
             if (_timeKeeper >= 20000 && _clickableRectangle.X < (0-_clickableRectangle.Width) && _clickableRectangle.X > -3000)
