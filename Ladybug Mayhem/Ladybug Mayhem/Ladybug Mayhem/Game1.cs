@@ -55,7 +55,7 @@ namespace Ladybug_Mayhem
             GlobalVars.MOUSE_STATE = Mouse.GetState();
             backgroundScreen = new DrawBG(this, Content, spriteBatch);
             startScreen = new StartScreen(this, Content);
-            gameOverScreen = new GameOverScreen(this, Content, false);
+            gameOverScreen = new GameOverScreen(this, Content);
 
             LosingControl.Initialize(Content);
             base.Initialize();
@@ -116,14 +116,14 @@ namespace Ladybug_Mayhem
             //Starskjerm
             if(startScreen.draw) startScreen.Update(gameTime);
             //SPILL!
-            if (!startScreen.draw && !LosingControl._gameOver)
+            if (!startScreen.draw && !LosingControl._gameLost)
             {
                 LosingControl.Update(gameTime, Window);
             }
-            //GameOver-kjerm
-            if (LosingControl._gameOver) 
+            //GameOver-skjerm
+            if (LosingControl._gameLost) 
             {
-                gameOverScreen.playerWon = true;
+                gameOverScreen.playerWon = false;
                 gameOverScreen.Update(gameTime);
             } 
 
@@ -151,12 +151,14 @@ namespace Ladybug_Mayhem
             //Startskjerm
             if(startScreen.draw) startScreen.Draw(spriteBatch);
             //SPILL!
-            if (!startScreen.draw && !LosingControl._gameOver)
+            if (!startScreen.draw && !LosingControl._gameLost)
             {
                 LosingControl.Draw(spriteBatch);
             }
             //GameOver-skjerm
-            if (LosingControl._gameOver) gameOverScreen.Draw(spriteBatch);
+            if (LosingControl._gameLost) gameOverScreen.Draw(spriteBatch);
+
+
             // MORTEN SITT
             ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
             // MORTEN SITT SLUTT

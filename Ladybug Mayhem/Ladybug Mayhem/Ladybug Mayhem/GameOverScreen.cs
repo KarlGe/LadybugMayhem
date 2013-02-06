@@ -25,7 +25,7 @@ namespace Ladybug_Mayhem
         private int numObjectsToDraw = 0;// Bestemmer hvilke bokstaver i arrayen som skal falle
         private bool fallingLetters = true;
 
-        public bool playerWon;
+        public bool playerWon = true;
         private Texture2D winText;
 
         /* Replay og exit knapp med rektangler, mellomrom imellom dem, 
@@ -43,13 +43,12 @@ namespace Ladybug_Mayhem
         Game game;
         ContentManager content;
         
-        public GameOverScreen(Game game, ContentManager content, bool playerWon)
+        public GameOverScreen(Game game, ContentManager content)
         {
             screenHeight = GlobalVars.SCREEN_HEIGHT;
             screenWidth = GlobalVars.SCREEN_WIDTH;
             this.game = game;
             this.content = content;
-            this.playerWon = playerWon;
             initialize();
         }
         /// <summary>
@@ -79,6 +78,7 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            Console.Write(playerWon);
             if (!playerWon)
             {
                 currentDelay--;
@@ -93,13 +93,13 @@ namespace Ladybug_Mayhem
                     if (gameOverText[i].currentYPos > GlobalVars.GROUND_Y_POS) gameOverText[i].falling = false;
                     gameOverText[i].Update(gameTime);
                 }
-                if (!(gameOverText[gameOverText.Length - 1].falling))
-                {
-                    fallingLetters = false;
-                    if (CheckMousePress.IsBeingPressed(replayRectangle)) replay = true;
-                    if (CheckMousePress.IsBeingPressed(exitRectangle)) game.Exit();
-                }   
             }
+            if (!(gameOverText[gameOverText.Length - 1].falling) || playerWon)
+            {
+                fallingLetters = false;
+                if (CheckMousePress.IsBeingPressed(replayRectangle)) replay = true;
+                if (CheckMousePress.IsBeingPressed(exitRectangle)) game.Exit();
+            }   
         }
         /// <summary>
         /// Tegner de fallende bokstavene, og de to knappene hvis bokstavene har sluttet å falle

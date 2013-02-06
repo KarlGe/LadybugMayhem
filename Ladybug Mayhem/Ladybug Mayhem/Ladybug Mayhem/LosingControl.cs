@@ -23,7 +23,7 @@ namespace Ladybug_Mayhem
         private static int _lives;
 
         private static bool _alreadySavedACitizen;
-        public static bool _gameOver;
+        public static bool _gameLost;
 
         public static void Initialize(ContentManager content)
         {
@@ -38,7 +38,7 @@ namespace Ladybug_Mayhem
             if (GlobalVars.MOUSE_STATE.RightButton == ButtonState.Pressed)
                 _lives = 0;
             if (_lives == 0)
-                _gameOver = true;
+                _gameLost = false;
 
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
@@ -91,7 +91,7 @@ namespace Ladybug_Mayhem
             _populationCount = 1;
             _spawnTimer = 2000;
             _lives = 5;
-            _gameOver = false;
+            _gameLost = false;
         }
     }
 }
