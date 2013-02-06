@@ -17,6 +17,7 @@ namespace Ladybug_Mayhem
 
         private Rectangle _clickableRectangle;
 
+        private int _citizenNumber;
         private int _timeKeeper;
         private int _randomTimeKeeper;
         private int _spriteNumber;
@@ -24,8 +25,9 @@ namespace Ladybug_Mayhem
         private float _randomSpeedBoost;
         private float _speed;
 
-        public Citizen(ContentManager content)
+        public Citizen(ContentManager content, int citizenNumber)
         {
+            _citizenNumber = citizenNumber;
             _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
             _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
             _clickableRectangle = new Rectangle(-300, GlobalVars.GROUND_Y_POS,
@@ -56,7 +58,7 @@ namespace Ladybug_Mayhem
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_sprite, new Vector2(_clickableRectangle.X, _clickableRectangle.Y), GlobalVars.CITIZEN_SPRITE_RECTANGLE,
-                Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+                Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.8f+(float)((float)_citizenNumber/100));
         }
 
         //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..

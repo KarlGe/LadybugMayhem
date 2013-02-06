@@ -43,7 +43,7 @@ namespace Ladybug_Mayhem
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
             {
-                _citizenList.Add(new Citizen(_content));
+                _citizenList.Add(new Citizen(_content, _populationCount));
                 _populationCount++;
                 _spawnTimer = 0;
             }
@@ -52,7 +52,7 @@ namespace Ladybug_Mayhem
             //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
             //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
 
-            for (int citizenNumber = 0; citizenNumber < _citizenList.Count; citizenNumber++)
+            for (int citizenNumber = _citizenList.Count-1; citizenNumber >= 0; citizenNumber--)
             {    
                 _citizenList[citizenNumber].Update(gameTime);
                 //Sjekker om musen klikkes i denne framen og passer på at bare "øverste" (/"sist innlastede") citizen sendes tilbake
@@ -87,7 +87,7 @@ namespace Ladybug_Mayhem
         public static void Reset()
         {
             _citizenList.Clear();
-            _citizenList.Add(new Citizen(_content));
+            _citizenList.Add(new Citizen(_content, 0));
             _populationCount = 1;
             _spawnTimer = 2000;
             _lives = 5;
