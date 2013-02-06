@@ -104,6 +104,7 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
+
             grassBlock.Draw(spriteBatch);
             for (int i = 0; i < gameOverText.Length; i++) gameOverText[i].Draw(spriteBatch);
             if (!fallingLetters)
