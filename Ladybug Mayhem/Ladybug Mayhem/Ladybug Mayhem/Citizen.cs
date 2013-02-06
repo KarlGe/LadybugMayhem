@@ -40,6 +40,7 @@ namespace Ladybug_Mayhem
                 _speed += 0.1f;
                 _timeKeeper = 0;
             }
+            Console.WriteLine(_speed);
             _clickableRectangle.X += (int)_speed;
         }
 

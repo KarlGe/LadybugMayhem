@@ -35,41 +35,39 @@ namespace Ladybug_Mayhem
 
         public static void Update(GameTime gameTime, GameWindow window)
         {
+            if (GlobalVars.MOUSE_STATE.RightButton == ButtonState.Pressed)
+                _lives = 0;
             if (_lives == 0)
                 _gameOver = true;
 
-            //if (!_gameOver)
-            //{
-                _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
-                if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
-                {
-                    _citizenList.Add(new Citizen(_content));
-                    _populationCount++;
-                    _spawnTimer = 0;
-                }
-                _alreadySavedACitizen = false;
-                //Denne loopen teller nedover, slik at den oppdaterer "siste" citizen først. Dersom man klikker to citizens som overlapper
-                //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
-                //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
+            _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
+            if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
+            {
+                _citizenList.Add(new Citizen(_content));
+                _populationCount++;
+                _spawnTimer = 0;
+            }
+            _alreadySavedACitizen = false;
+            //Denne loopen teller nedover, slik at den oppdaterer "siste" citizen først. Dersom man klikker to citizens som overlapper
+            //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
+            //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
 
-                for (int citizenNumber = _citizenList.Count - 1; citizenNumber >= 0; citizenNumber--)
+            for (int citizenNumber = _citizenList.Count - 1; citizenNumber >= 0; citizenNumber--)
+            {    
+                _citizenList[citizenNumber].Update(gameTime);
+                //Sjekker om musen klikkes i denne framen og passer på at bare "øverste" (/"sist innlastede") citizen sendes tilbake
+                if (CheckMousePress.IsBeingPressed(_citizenList[citizenNumber].GetCitizenBox()) && !_alreadySavedACitizen)
                 {
-                    //Skal citizens fps være litt lavere?
-                    _citizenList[citizenNumber].Update(gameTime);
-                    //Sjekker om musen klikkes i denne framen og passer på at bare "øverste" (/"sist innlastede") citizen sendes tilbake
-                    if (CheckMousePress.IsBeingPressed(_citizenList[citizenNumber].GetCitizenBox()) && !_alreadySavedACitizen)
-                    {
-                        _citizenList[citizenNumber].Saved(_citizenList);
-                        _alreadySavedACitizen = true;
-                    }
-                    //En citizen "dør" (går ut av skjermen)
-                    if (_citizenList[citizenNumber].GetCitizenBox().X > window.ClientBounds.Width)
-                    {
-                        _citizenList.RemoveAt(citizenNumber);
-                        _lives--;
-                    }
+                    _citizenList[citizenNumber].Saved(_citizenList);
+                    _alreadySavedACitizen = true;
                 }
-            //}
+                //En citizen "dør" (går ut av skjermen)
+                if (_citizenList[citizenNumber].GetCitizenBox().X > window.ClientBounds.Width)
+                {
+                    _citizenList.RemoveAt(citizenNumber);
+                    _lives--;
+                }
+            }
         }
 
         public static void Draw(SpriteBatch spriteBatch)
@@ -89,8 +87,9 @@ namespace Ladybug_Mayhem
         public static void Reset()
         {
             _citizenList.Clear();
-            _populationCount = 0;
-            _spawnTimer = 0;
+            _citizenList.Add(new Citizen(_content));
+            _populationCount = 1;
+            _spawnTimer = 2000;
             _lives = 5;
             _gameOver = false;
         }
