@@ -12,42 +12,87 @@ namespace Ladybug_Mayhem
 {
     public class LosingControl
     {
-        private static Citizen[] _citizenList;
-        private static Rectangle _mousePointer;
+        private static ContentManager _content;
+
+        private static Texture2D _heart;
+
+        private static List<Citizen> _citizenList;
+
+        private static int _spawnTimer;
+        private static int _populationCount;
+        private static int _lives;
+
+        private static bool _alreadySavedACitizen;
+        private static bool _gameOver;
+        private static bool _gameOverMessage = false;
 
         public static void Initialize(ContentManager content)
         {
-            _mousePointer = new Rectangle(GlobalVars.MOUSE_STATE.X, GlobalVars.MOUSE_STATE.Y, 1, 1);
-            _citizenList = new Citizen[GlobalVars.MAX_CITIZENS];
-            for (int citizenNumber = 0; citizenNumber < GlobalVars.MAX_CITIZENS; citizenNumber++)
-            {
-                _citizenList[citizenNumber] = new Citizen(content, citizenNumber);
-            }
+            _content = content;
+            _heart = content.Load<Texture2D>("Heart");
+            _citizenList = new List<Citizen>();
+            _populationCount = 0;
+            _spawnTimer = 0;
+            _lives = 5;
+            _gameOver = false;
         }
 
-        public static void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime, GameWindow window)
         {
-            _mousePointer.X = GlobalVars.MOUSE_STATE.X;
-            _mousePointer.Y = GlobalVars.MOUSE_STATE.Y;
-            for (int citizenNumber = 0; citizenNumber < GlobalVars.MAX_CITIZENS; citizenNumber++)
+            if (_lives == 0)
+                _gameOver = true;
+
+            if (!_gameOver)
             {
-                if (GlobalVars.MOUSE_STATE.LeftButton == ButtonState.Pressed &&
-                GlobalVars.PREVIOUS_MOUSE_STATE.LeftButton == ButtonState.Released)
+                _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
+                if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
                 {
-                    if (_mousePointer.Intersects(_citizenList[citizenNumber].getRectangle()))
+                    _citizenList.Add(new Citizen(_content));
+                    _populationCount++;
+                    _spawnTimer = 0;
+                }
+                _alreadySavedACitizen = false;
+                //Denne loopen teller nedover, slik at den oppdaterer "siste" citizen først. Dersom man klikker to citizens som overlapper
+                //hverandre skal bare en av dem "reddes" (sendes tilbake). Siden loopen teller nedover vil den "øverste" (/"sist innlastede")
+                //citizen'en, utifra logikken, være den som reddes. Dette er mest naturlig.
+
+                for (int citizenNumber = _citizenList.Count - 1; citizenNumber >= 0; citizenNumber--)
+                {
+                    //Skal citizens fps være litt lavere?
+                    _citizenList[citizenNumber].Update(gameTime);
+                    //Sjekker om musen klikkes i denne framen og passer på at bare "øverste" (/"sist innlastede") citizen sendes tilbake
+                    if (CheckMousePress.IsBeingPressed(_citizenList[citizenNumber].GetCitizenBox()) && !_alreadySavedACitizen)
                     {
-                        Console.WriteLine("HEEEEY");
+                        _citizenList[citizenNumber].Saved(_citizenList);
+                        _alreadySavedACitizen = true;
+                    }
+                    //En citizen "dør" (går ut av skjermen)
+                    if (_citizenList[citizenNumber].GetCitizenBox().X > window.ClientBounds.Width)
+                    {
+                        _citizenList.RemoveAt(citizenNumber);
+                        _lives--;
                     }
                 }
-                _citizenList[citizenNumber].Update();
             }
+            else
+                if (!_gameOverMessage)
+                {
+                    Console.WriteLine("Du tapte!");
+                    _gameOverMessage = true;
+                }
         }
 
         public static void Draw(SpriteBatch spriteBatch)
         {
-            for (int citizenNumber = 0; citizenNumber < GlobalVars.MAX_CITIZENS; citizenNumber++)
+            for (int citizenNumber = 0; citizenNumber < _citizenList.Count; citizenNumber++)
             {
                 _citizenList[citizenNumber].Draw(spriteBatch);
+            }
+            for (int heartCounter = 0; heartCounter < _lives; heartCounter++)
+            {
+                spriteBatch.Draw(_heart, new Rectangle(
+                    5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter), 3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
+                    GlobalVars.HEART_SPRITE_RECTANGLE, Color.White);
             }
         }
     }

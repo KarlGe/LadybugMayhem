@@ -15,31 +15,54 @@ namespace Ladybug_Mayhem
     {
         private Texture2D _sprite;
 
-        private Vector2 _position;
+        private Rectangle _clickableRectangle;
 
-        public float _speed;
+        private int _timeKeeper;
+        private int _spriteNumber;
 
+        private float _speed;
 
-        public Citizen(ContentManager content, int citizenNumber)
+        public Citizen(ContentManager content)
         {
-            _sprite = content.Load<Texture2D>("Character Boy");
-            _position = new Vector2(-200 - (300 * citizenNumber), 100);
-            _speed = 2;
+            _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
+            _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
+            _clickableRectangle = new Rectangle(-300, (int)GlobalVars.CITIZEN_SPAWN_POS.Y,
+                GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
+            _speed = 3;
+            _timeKeeper = 0;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            _position.X += _speed;
+            _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
+            if (_timeKeeper >= 500 && _clickableRectangle.X < (0-_clickableRectangle.Width) && _clickableRectangle.X > -3000)
+            {
+                _speed += 0.1f;
+                _timeKeeper = 0;
+            }
+            _clickableRectangle.X += (int)_speed;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_sprite, _position, Color.White);
+            spriteBatch.Draw(_sprite, new Vector2(_clickableRectangle.X, _clickableRectangle.Y), GlobalVars.CITIZEN_SPRITE_RECTANGLE,
+                Color.White);
         }
 
-        public Rectangle getRectangle()
+        //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..
+        public Rectangle GetCitizenBox()
         {
-            return new Rectangle((int)_position.X, (int)_position.Y, _sprite.Width, _sprite.Height);
+            return _clickableRectangle;
+        }
+
+        /// <summary>
+        /// "Redder" en citizen ved å sende den tilbake til før skjermen
+        /// </summary>
+        /// <param name="citizenList"></param>
+        public void Saved(List<Citizen> citizenList)
+        {
+            _clickableRectangle.X = (int)GlobalVars.CITIZEN_SPAWN_POS.X;
+            _clickableRectangle.Y = (int)GlobalVars.CITIZEN_SPAWN_POS.Y;
         }
     }
 }
