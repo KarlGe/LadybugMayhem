@@ -33,9 +33,9 @@ namespace Ladybug_Mayhem
         public static String[] CITIZEN_SPRITE_NAME = new String[]{ "Character Boy", "Character Cat Girl", "Character Horn Girl",
             "Character Pink Girl", "Character Princess Girl" };
         public const int MAX_CITIZENS = 10;
-        public const int CITIZEN_BOX_WIDTH = 80;
+        public const int CITIZEN_BOX_WIDTH = 82;
         public const int CITIZEN_BOX_HEIGHT = 100;
-        public static Rectangle CITIZEN_SPRITE_RECTANGLE = new Rectangle(10, 50,
+        public static Rectangle CITIZEN_SPRITE_RECTANGLE = new Rectangle(7, 50,
             CITIZEN_BOX_WIDTH, CITIZEN_BOX_HEIGHT);
 
         //LADYBUG

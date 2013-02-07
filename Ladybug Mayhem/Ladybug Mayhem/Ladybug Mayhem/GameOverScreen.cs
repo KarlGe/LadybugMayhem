@@ -78,7 +78,6 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            Console.Write(playerWon);
             if (!playerWon)
             {
                 currentDelay--;
