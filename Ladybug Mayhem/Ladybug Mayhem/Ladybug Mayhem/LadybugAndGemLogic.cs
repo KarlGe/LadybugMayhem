@@ -79,17 +79,14 @@ namespace Ladybug_Mayhem
 
         public void DespawnLadybug(GameTime gameTime, int index)
         {
-            //for (int i = 0; i < _ladybugsIsActive.Count; i++)
-            //{
-                if (_ladybugsIsActive[index].GetTime() > 5000)
-                {
-                    _ladybugsIsActive[index].SetTime(false, 0);
-                    _ladybugsIsActive[index].SetClicks(true);
-                    _ladybugsIsNotActive.Add(_ladybugsIsActive[index]);
-                    _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
-                    _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);    
-                }
-            //}
+            if (_ladybugsIsActive[index].GetTime() > 5000)
+            {
+                _ladybugsIsActive[index].SetTime(false, 0);
+                _ladybugsIsActive[index].SetClicks(true);
+                _ladybugsIsNotActive.Add(_ladybugsIsActive[index]);
+                _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
+                _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);    
+            }
         }
 
         public void ClickLadybug()
@@ -105,24 +102,20 @@ namespace Ladybug_Mayhem
 
         public int IsLadybugDead(int index)
         {
-            //for (int i = 0; i < _ladybugsIsActive.Count; i++)
-            //{
-                if (_ladybugsIsActive[index].GetClicks() > 20)
-                {
-                    _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
-                    _ladybugsIsNotActive.Add(_ladybugsIsActive[_ladybugsIsActive.Count - 1]);
-                    Vector2 position = _ladybugsIsActive[_ladybugsIsActive.Count - 1].GetPosition();
-                    _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
-                    if (_gemIsNotActive.Count > 0)
-                        SpawnGem(position);
-                    if (index == 0)
-                        return 0;
-                    else
-                        return --index;
-                }
-                return index;
-
-            //}
+            if (_ladybugsIsActive[index].GetClicks() > 5)
+            {
+                _ladybugsIsActive[index].SetClicks(true);
+                Vector2 position = _ladybugsIsActive[index].GetPosition();
+                _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
+                _ladybugsIsNotActive.Add(_ladybugsIsActive[_ladybugsIsActive.Count - 1]);
+                _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
+                
+                if (_gemIsNotActive.Count > 0)
+                    SpawnGem(position);
+                
+                return --index;
+            }
+            return index;
         }
 
         public void Update(GameTime gameTime)
@@ -132,7 +125,7 @@ namespace Ladybug_Mayhem
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
                 i = IsLadybugDead(i);
-                if (_ladybugsIsActive.Count >= 1)
+                if (_ladybugsIsActive.Count > 0)
                 {
                     _ladybugsIsActive[i].SetTime(true, gameTime.ElapsedGameTime.TotalMilliseconds);
                     DespawnLadybug(gameTime, i);
@@ -164,6 +157,7 @@ namespace Ladybug_Mayhem
                 int random = _random.Next(_gemTextures.Count);
                 _gemIsNotActive.Add(new Gem(_content, Vector2.Zero, _gemTextures[random]));
                 _gemTextures.RemoveAt(random);
+                i--;
             }
 
         }
@@ -188,7 +182,7 @@ namespace Ladybug_Mayhem
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
                 if (_mouseInput.IsLeftButtonPressed() && _gemIsActive[i].GetRectangle().Contains(_mouseInput.GetMousePosition()))
-                    _gemIsActive[i].SetClick();
+                    _gemIsActive[i].SetCanClick();
             }
         }
 

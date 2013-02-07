@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Ladybug_Mayhem
 {
-    class Ladybug //: Microsoft.Xna.Framework.GameComponent
+    class Ladybug
     {
         private Texture2D _ladybugTexture;
         private SpriteFont _font;
@@ -27,8 +27,7 @@ namespace Ladybug_Mayhem
         /// <param name="content"></param>
         /// <param name="ladybugPosition"></param>
         /// <param name="fontPosition"></param>
-        public Ladybug(/*Game game, */ContentManager content, Vector2 ladybugPosition)
-            //: base(game)
+        public Ladybug(ContentManager content, Vector2 ladybugPosition)
         {
             _ladybugTexture = content.Load<Texture2D>("Enemy Bug");
             _font = content.Load<SpriteFont>("TestFont");
@@ -81,7 +80,7 @@ namespace Ladybug_Mayhem
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
             spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-            //spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
+            spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
         }
         #endregion
     }

@@ -28,7 +28,7 @@ namespace Ladybug_Mayhem
             return _canClick;
         }
 
-        public void SetClick()
+        public void SetCanClick()
         {
             _canClick = false;
         }
