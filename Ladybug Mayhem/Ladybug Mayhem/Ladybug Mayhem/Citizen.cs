@@ -23,7 +23,6 @@ namespace Ladybug_Mayhem
 
         private String _sprite;
         private Vector2 _spawnPos;
-        private Rectangle _clickableRectangle;
         private DrawSprite _drawable;
 
         public Citizen(ContentManager content, int citizenNumber)
@@ -32,12 +31,9 @@ namespace Ladybug_Mayhem
             _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
             _sprite = GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber];
             _spawnPos = new Vector2(-300, GlobalVars.GROUND_Y_POS);
-            _clickableRectangle = new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y,
-                GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
-            _drawable = new DrawSprite(content, _sprite, _clickableRectangle, GlobalVars.CITIZEN_SPRITE_RECTANGLE,
-                0.8f + (float)((float)_citizenNumber / 100));
-            /*_drawable = new DrawSprite(content, _sprite, new Vector2(_spawnPos.X, _spawnPos.Y),
-                GlobalVars.CITIZEN_SPRITE_RECTANGLE, 0.8f + (float)((float)_citizenNumber / 100)); */
+            _drawable = new DrawSprite(content, _sprite,
+                new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y, GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT),
+                GlobalVars.CITIZEN_SPRITE_RECTANGLE, 0.8f + (float)((float)_citizenNumber / 100));
             _speed = 3;
             _timeKeeper = 0;
             _randomTimeKeeper = 0;
@@ -69,9 +65,7 @@ namespace Ladybug_Mayhem
         //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..
         public Rectangle GetCitizenBox()
         {
-            _clickableRectangle.X = (int)_drawable.position.X;
-            _clickableRectangle.Y = (int)_drawable.position.Y;
-            return _clickableRectangle;
+            return _drawable.position;
         }
 
         /// <summary>

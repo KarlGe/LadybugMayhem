@@ -28,7 +28,6 @@ namespace Ladybug_Mayhem
         public static void Initialize(ContentManager content)
         {
             _content = content;
-            //_drawHeart = new DrawSprite(content, "heart", new Vector2(5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter), 3)
             _drawHearts = new List<DrawSprite>();
             _citizenList = new List<Citizen>();
             Reset(content);
