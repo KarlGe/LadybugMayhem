@@ -12,7 +12,7 @@ namespace Ladybug_Mayhem
     public class DrawSprite
     {
         private Texture2D sprite;
-        public Vector2 position;
+        public Rectangle position;
         public Rectangle source;
         private int drawAmount;
         private float zIndex;
@@ -23,7 +23,7 @@ namespace Ladybug_Mayhem
         {
             // TODO: Construct any child components here
             sprite = content.Load<Texture2D>(receivedSprite);
-            this.position = drawPlacement;
+            this.position = new Rectangle((int) drawPlacement.X, (int)drawPlacement.Y,sprite.Bounds.Width, sprite.Bounds.Height);
             this.drawAmount = drawAmount;
             this.zIndex = zIndex;
             source = sprite.Bounds;
@@ -35,6 +35,12 @@ namespace Ladybug_Mayhem
                     :this(content, receivedSprite, 1, drawPlacement, zIndex)
         {
             this.source = source;
+        }
+        public DrawSprite(ContentManager content, String receivedSprite, Rectangle drawPlacement, Rectangle source, float zIndex)
+            : this(content, receivedSprite, 1, new Vector2(drawPlacement.X, drawPlacement.Y), zIndex)
+        {
+            this.source = source;
+            this.position = drawPlacement;
         }
         public int getHeight()
         {
@@ -48,7 +54,7 @@ namespace Ladybug_Mayhem
         {
             for (int i = 0; i < drawAmount; i++)
             {
-                spriteBatch.Draw(sprite, new Vector2(position.X + (i * sprite.Bounds.Width), position.Y), source, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, zIndex);            
+                spriteBatch.Draw(sprite, new Rectangle(position.X + (i * sprite.Bounds.Width), position.Y, position.Width, position.Height), source, Color.White, 0, Vector2.Zero, SpriteEffects.None, zIndex);            
             }
         }
     }
