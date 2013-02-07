@@ -163,8 +163,10 @@ namespace Ladybug_Mayhem
         {
             int index = (int)_random.Next(_gemIsNotActive.Count);
             _gemIsNotActive[index].SetRectangle(position);
+            _gemIsNotActive[index].SetPosition(position);
+            //_gemIsNotActive[index].SetCanClick();
             _gemIsActive.Add(_gemIsNotActive[index]);
-            _gemIsActive[_gemIsActive.Count - 1].SetPosition(position);
+            //_gemIsActive[_gemIsActive.Count - 1].SetPosition(position);
             _gemIsNotActive.RemoveAt(index);
         }
 
@@ -177,13 +179,13 @@ namespace Ladybug_Mayhem
         {
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
-                if (CheckMousePress.IsBeingPressed(_gemIsActive[i].GetRectangle()))
+                if (CheckMousePress.IsBeingPressed(_gemIsActive[i].GetRectangle()) && _gemIsActive[i].CanClick())
+                {
                     _gemIsActive[i].SetCanClick();
                     _gemIsActive[i].SetPosition(Vector2.Zero);
+                }
             }
         }
-
-
         #endregion
 
         #region Winning

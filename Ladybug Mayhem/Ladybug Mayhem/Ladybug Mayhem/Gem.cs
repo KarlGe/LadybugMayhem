@@ -30,6 +30,8 @@ namespace Ladybug_Mayhem
 
         public void SetCanClick()
         {
+            if (!_canClick)
+                _canClick = true;
             _canClick = false;
         }
 
