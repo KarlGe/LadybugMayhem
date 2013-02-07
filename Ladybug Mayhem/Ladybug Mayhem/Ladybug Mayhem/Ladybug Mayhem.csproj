@@ -121,7 +121,6 @@
     <Compile Include="GlobalVars.cs" />
     <Compile Include="LosingControl.cs" />
     <Compile Include="LadybugAndGemLogic.cs" />
-    <Compile Include="MouseInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />

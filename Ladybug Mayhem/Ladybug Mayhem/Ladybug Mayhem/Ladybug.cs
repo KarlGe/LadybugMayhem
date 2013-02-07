@@ -40,16 +40,8 @@ namespace Ladybug_Mayhem
             _timeSinceDespawn = 0.0;
             _isDead = false;
             _draw = new DrawSprite(content, _ladybugTexture, _ladybugPosition, GlobalVars.LADYBUG_SPRITE_RECTANGLE, 1) ;
-
-
-            /*
-            _drawHearts.Add(new DrawSprite(content, "heart",
-                    new Rectangle(5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter),3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
-                    GlobalVars.HEART_SPRITE_RECTANGLE, 1));
-            */
         }
 
-        #region Get Set methods
         public void SetTime(bool add, double timeToAdd)
         {
             if (add)
@@ -100,22 +92,10 @@ namespace Ladybug_Mayhem
         {
             return _draw.position;
         }
-        /*
-        public Rectangle GetRectangle()
-        {
-            return _ladybugRectangle;
-        }
-         */
 
-        #endregion
-
-        #region Draw ladybug and font
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            //spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-            //spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
             _draw.Draw(spriteBatch);
         }
-        #endregion
     }
 }

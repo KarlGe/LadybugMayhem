@@ -21,16 +21,17 @@ namespace Ladybug_Mayhem
         GameOverScreen gameOverScreen;
         StartScreen startScreen;
         DrawBG backgroundScreen;
+        LadybugAndGemLogic ladybugs;
         int screenWidth;
         int screenHeight;
 
         // MORTEN SITT
-        SpriteFont font;
-        int clicks;
-        private int _numberOfLadybugs;
-        private int _numberOfGems;
-        Ladybug ladybug;
-        LadybugAndGemLogic ladybugs;
+        //SpriteFont font;
+        //int clicks;
+        //private int _numberOfLadybugs;
+        //private int _numberOfGems;
+        //Ladybug ladybug;
+        
         // MORTEN SITT SLUTT
         public Game1()
         {
@@ -58,16 +59,8 @@ namespace Ladybug_Mayhem
             gameOverScreen = new GameOverScreen(this, Content);
 
             LosingControl.Initialize(Content);
-            base.Initialize();
-
-            // MORTEN SITT
-            //IsMouseVisible = true;
-            _numberOfLadybugs = 5;
-            _numberOfGems = 3;
-            ladybugs = new LadybugAndGemLogic(this.Content, spriteBatch, _numberOfLadybugs, _numberOfGems);
-            ladybugs.CreateLadybug(_numberOfLadybugs);
-            ladybugs.CreateGems();
-            // MORTEN SITT SLUTT
+            ladybugs = new LadybugAndGemLogic(this.Content, spriteBatch);
+            base.Initialize(); 
         }
 
         /// <summary>
@@ -103,18 +96,12 @@ namespace Ladybug_Mayhem
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-
-            // MORTEN SITT
-            
-
-            // MORTEN SITT SLUTT
-
             base.Update(gameTime);
             GlobalVars.PREVIOUS_MOUSE_STATE = GlobalVars.MOUSE_STATE;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
             //Starskjerm
-            if(startScreen.draw) startScreen.Update(gameTime);
+            if(startScreen.draw) 
+                startScreen.Update(gameTime);
             //SPILL!
             if (!startScreen.draw && GlobalVars.lives > 0)
             {
@@ -122,6 +109,18 @@ namespace Ladybug_Mayhem
                 ladybugs.Update(gameTime);
             }
             //GameOver-skjerm
+
+            // FOR DEBUGGING
+            Console.WriteLine(GlobalVars.gems);
+
+            // KVIFOR FUNKER IKKJE DET HER?
+            if (GlobalVars.gems >= GlobalVars.MAX_GEMS)
+            {
+                gameOverScreen.playerWon = false;
+                gameOverScreen.Update(gameTime);
+            } 
+
+
             if (GlobalVars.lives <= 0) 
             {
                 gameOverScreen.playerWon = false;
@@ -133,6 +132,8 @@ namespace Ladybug_Mayhem
             {
                 gameOverScreen.reset();
                 LosingControl.Reset(Content);
+                ladybugs.Reset();
+
                 startScreen.reset();
             }
         }
@@ -155,7 +156,7 @@ namespace Ladybug_Mayhem
             if (!startScreen.draw && GlobalVars.lives > 0)
             {
                 LosingControl.Draw(spriteBatch);
-                ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
+                ladybugs.Draw(spriteBatch, Vector2.Zero);
             }
             //GameOver-skjerm
             if (GlobalVars.lives <= 0) gameOverScreen.Draw(spriteBatch);
