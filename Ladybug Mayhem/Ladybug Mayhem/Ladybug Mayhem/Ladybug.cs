@@ -13,10 +13,11 @@ namespace Ladybug_Mayhem
 {
     class Ladybug
     {
-        private Texture2D _ladybugTexture;
+        private String _ladybugTexture;
         private SpriteFont _font;
-        private Vector2 _ladybugPosition;
+        private Rectangle _ladybugPosition;
         private Rectangle _ladybugRectangle;
+        private DrawSprite _draw;
         private double _timeExisted, _timeSinceDespawn;
         private int _clicks;
         private bool _isDead;
@@ -28,16 +29,24 @@ namespace Ladybug_Mayhem
         /// <param name="content"></param>
         /// <param name="ladybugPosition"></param>
         /// <param name="fontPosition"></param>
-        public Ladybug(ContentManager content, Vector2 ladybugPosition)
+        public Ladybug(ContentManager content, Rectangle ladybugPosition)
         {
-            _ladybugTexture = content.Load<Texture2D>("Enemy Bug");
+            _ladybugTexture = GlobalVars.LADYBUG_SPRITE_NAME;
             _font = content.Load<SpriteFont>("TestFont");
             _ladybugPosition = ladybugPosition;
+            _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, GlobalVars.LADYBUG_BOX_WIDTH, (GlobalVars.LADYBUG_BOX_HEIGHT - 95));
             _clicks = 0;
-            _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, _ladybugTexture.Width, (_ladybugTexture.Height - 95));
             _timeExisted = 0.0;
             _timeSinceDespawn = 0.0;
             _isDead = false;
+            _draw = new DrawSprite(content, _ladybugTexture, _ladybugPosition, GlobalVars.LADYBUG_SPRITE_RECTANGLE, 1) ;
+
+
+            /*
+            _drawHearts.Add(new DrawSprite(content, "heart",
+                    new Rectangle(5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter),3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
+                    GlobalVars.HEART_SPRITE_RECTANGLE, 1));
+            */
         }
 
         #region Get Set methods
@@ -87,23 +96,25 @@ namespace Ladybug_Mayhem
             return _clicks;
         }
 
-        public Vector2 GetPosition()
+        public Rectangle GetPosition()
         {
-            return _ladybugPosition;
+            return _draw.position;
         }
-
+        /*
         public Rectangle GetRectangle()
         {
             return _ladybugRectangle;
         }
+         */
 
         #endregion
 
         #region Draw ladybug and font
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-            spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
+            //spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+            //spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
+            _draw.Draw(spriteBatch);
         }
         #endregion
     }

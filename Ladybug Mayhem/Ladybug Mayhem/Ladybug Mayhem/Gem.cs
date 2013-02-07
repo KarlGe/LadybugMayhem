@@ -10,18 +10,18 @@ namespace Ladybug_Mayhem
 {
     class Gem
     {
-        private String _gemTexture;
+        //private String _gemTexture;
         private bool _canClick;
-        private Vector2 _gemPosition;
-        private Rectangle _gemRectangle;
+        //private Rectangle _gemPosition;
+        //private Rectangle _gemRectangle;
         private DrawSprite _draw;
 
-        public Gem(ContentManager content, Vector2 gemPosition, String gemTexture)
+        public Gem(ContentManager content, Rectangle gemPosition, String gemTexture)
         {
-            _gemTexture = gemTexture;
-            _gemPosition = gemPosition;
+            //_gemTexture = gemTexture;
+            //_gemPosition = gemPosition;
             _canClick = true;
-            _draw = new DrawSprite(content, gemTexture, gemPosition, 1);
+            _draw = new DrawSprite(content, gemTexture, gemPosition, GlobalVars.GEM_SPRITE_RECTANGLE, 1);
             //_ladybugRectangle = new Rectangle((int)_gemPosition.X, (int)_gemPosition.Y, _gemTexture.Width, (_gemTexture.Height - 114));
         }
 
@@ -37,19 +37,20 @@ namespace Ladybug_Mayhem
             _canClick = false;
         }
 
-        public void SetPosition(Vector2 position)
+        public void SetPosition(Rectangle position)
         {
-            _gemPosition = position;
+            _draw.position = position;
         }
 
-        public Vector2 GetPosition()
+        public Rectangle GetPosition()
         {
-            return _gemPosition;
+            return _draw.position;
         }
 
-        public void SetRectangle(Vector2 position)
+        /*
+        public void SetRectangle(Rectangle position)
         {
-            _gemRectangle = _draw.position;
+            _draw.position = position;
             //_gemRectangle = new Rectangle((int)position.X, (int)position.Y, _draw.T.Width/2, (_gemTexture.Height - 95)/2);
         }
 
@@ -57,6 +58,7 @@ namespace Ladybug_Mayhem
         {
             return _gemRectangle;
         }
+         */
 
         public void Draw(SpriteBatch spriteBatch)
         {
