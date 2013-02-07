@@ -19,6 +19,8 @@ namespace Ladybug_Mayhem
         public static int SCREEN_WIDTH = 707;
 
         //LIV
+        public const int MAX_LIVES = 5;
+        public static int lives { get; set; }
         public const int HEART_WIDTH_HEIGHT = 40;
         public static Rectangle HEART_SPRITE_RECTANGLE = new Rectangle(6, 45,
             92, 92);

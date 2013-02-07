@@ -20,7 +20,6 @@ namespace Ladybug_Mayhem
 
         private static int _spawnTimer;
         private static int _populationCount;
-        private static int _lives;
 
         private static bool _alreadySavedACitizen;
         public static bool _gameLost;
@@ -36,9 +35,7 @@ namespace Ladybug_Mayhem
         public static void Update(GameTime gameTime, GameWindow window)
         {
             if (GlobalVars.MOUSE_STATE.RightButton == ButtonState.Pressed)
-                _lives = 0;
-            if (_lives == 0)
-                _gameLost = false;
+                GlobalVars.lives = 0;
 
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
@@ -65,7 +62,7 @@ namespace Ladybug_Mayhem
                 if (_citizenList[citizenNumber].GetCitizenBox().X > window.ClientBounds.Width)
                 {
                     _citizenList.RemoveAt(citizenNumber);
-                    _lives--;
+                    GlobalVars.lives--;
                 }
             }
         }
@@ -76,7 +73,7 @@ namespace Ladybug_Mayhem
             {
                 _citizenList[citizenNumber].Draw(spriteBatch);
             }
-            for (int heartCounter = 0; heartCounter < _lives; heartCounter++)
+            for (int heartCounter = 0; heartCounter < GlobalVars.lives; heartCounter++)
             {
                 spriteBatch.Draw(_heart, new Rectangle(
                     5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter), 3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
@@ -90,8 +87,7 @@ namespace Ladybug_Mayhem
             _citizenList.Add(new Citizen(_content, 0));
             _populationCount = 1;
             _spawnTimer = 2000;
-            _lives = 5;
-            _gameLost = false;
+            GlobalVars.lives = GlobalVars.MAX_LIVES;
         }
     }
 }
