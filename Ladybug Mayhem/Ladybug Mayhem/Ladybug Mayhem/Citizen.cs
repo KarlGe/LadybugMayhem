@@ -13,10 +13,6 @@ namespace Ladybug_Mayhem
 {
     public class Citizen
     {
-        private Texture2D _sprite;
-
-        private Rectangle _clickableRectangle;
-
         private int _citizenNumber;
         private int _timeKeeper;
         private int _randomTimeKeeper;
@@ -25,13 +21,21 @@ namespace Ladybug_Mayhem
         private float _randomSpeedBoost;
         private float _speed;
 
+        private String _sprite;
+        private Vector2 _spawnPos;
+        private Rectangle _clickableRectangle;
+        private DrawSprite _drawable;
+
         public Citizen(ContentManager content, int citizenNumber)
         {
             _citizenNumber = citizenNumber;
             _spriteNumber = GlobalVars.RAND.Next(GlobalVars.CITIZEN_SPRITE_NAME.Length);
-            _sprite = content.Load<Texture2D>(GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber]);
-            _clickableRectangle = new Rectangle(-300, GlobalVars.GROUND_Y_POS,
+            _sprite = GlobalVars.CITIZEN_SPRITE_NAME[_spriteNumber];
+            _spawnPos = new Vector2(-300, GlobalVars.GROUND_Y_POS);
+            _clickableRectangle = new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y,
                 GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT);
+            _drawable = new DrawSprite(content, _sprite, new Vector2(_spawnPos.X, _spawnPos.Y),
+                GlobalVars.CITIZEN_SPRITE_RECTANGLE, 0.8f + (float)((float)_citizenNumber / 100)); 
             _speed = 3;
             _timeKeeper = 0;
             _randomTimeKeeper = 0;
@@ -40,30 +44,31 @@ namespace Ladybug_Mayhem
         public void Update(GameTime gameTime)
         {
             _randomTimeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_randomTimeKeeper >= 1000 && _clickableRectangle.X < (0 - _clickableRectangle.Width) && _clickableRectangle.X > -3000)
+            if (_randomTimeKeeper >= 1000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) && _drawable.position.X > -3000)
             {
                 _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble() / 5);
                 _speed += _randomSpeedBoost;
                 _randomTimeKeeper = 0;
             }
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_timeKeeper >= 20000 && _clickableRectangle.X < (0-_clickableRectangle.Width) && _clickableRectangle.X > -3000)
+            if (_timeKeeper >= 20000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) && _drawable.position.X > -3000)
             {
                 _speed += 1;
                 _timeKeeper = 0;
             }
-            _clickableRectangle.X += (int)_speed;
+            _drawable.position.X += (int)_speed;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_sprite, new Vector2(_clickableRectangle.X, _clickableRectangle.Y), GlobalVars.CITIZEN_SPRITE_RECTANGLE,
-                Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.8f+(float)((float)_citizenNumber/100));
+            _drawable.Draw(spriteBatch);
         }
 
         //jeg fikk feilmelding på _spriteBounds.X i Update() dersom jeg ga _spriteBounds en get;-set; ..? Derfor lager jeg denne..
         public Rectangle GetCitizenBox()
         {
+            _clickableRectangle.X = (int)_drawable.position.X;
+            _clickableRectangle.Y = (int)_drawable.position.Y;
             return _clickableRectangle;
         }
 
@@ -73,8 +78,8 @@ namespace Ladybug_Mayhem
         /// <param name="citizenList"></param>
         public void Saved(List<Citizen> citizenList)
         {
-            _clickableRectangle.X = -300;
-            _clickableRectangle.Y = GlobalVars.GROUND_Y_POS;
+            _drawable.position.X = _spawnPos.X;
+            _drawable.position.Y = _spawnPos.Y;
         }
     }
 }

@@ -116,13 +116,13 @@ namespace Ladybug_Mayhem
             //Starskjerm
             if(startScreen.draw) startScreen.Update(gameTime);
             //SPILL!
-            if (!startScreen.draw && !LosingControl._gameLost)
+            if (!startScreen.draw && GlobalVars.lives > 0)
             {
                 LosingControl.Update(gameTime, Window);
                 ladybugs.Update(gameTime);
             }
             //GameOver-skjerm
-            if (LosingControl._gameLost) 
+            if (GlobalVars.lives <= 0) 
             {
                 gameOverScreen.playerWon = false;
                 gameOverScreen.Update(gameTime);
@@ -152,13 +152,13 @@ namespace Ladybug_Mayhem
             //Startskjerm
             if(startScreen.draw) startScreen.Draw(spriteBatch);
             //SPILL!
-            if (!startScreen.draw && !LosingControl._gameLost)
+            if (!startScreen.draw && GlobalVars.lives > 0)
             {
                 LosingControl.Draw(spriteBatch);
                 ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
             }
             //GameOver-skjerm
-            if (LosingControl._gameLost) gameOverScreen.Draw(spriteBatch);
+            if (GlobalVars.lives <= 0) gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
