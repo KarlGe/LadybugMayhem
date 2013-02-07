@@ -109,19 +109,7 @@ namespace Ladybug_Mayhem
                 ladybugs.Update(gameTime);
             }
             //GameOver-skjerm
-
-            // FOR DEBUGGING
-            Console.WriteLine(GlobalVars.gems);
-
-            // KVIFOR FUNKER IKKJE DET HER?
-            if (GlobalVars.gems >= GlobalVars.MAX_GEMS)
-            {
-                gameOverScreen.playerWon = false;
-                gameOverScreen.Update(gameTime);
-            } 
-
-
-            if (GlobalVars.lives <= 0) 
+            if (GlobalVars.lives <= 0 || GlobalVars.gems >= GlobalVars.MAX_GEMS) 
             {
                 gameOverScreen.playerWon = false;
                 gameOverScreen.Update(gameTime);
@@ -159,7 +147,8 @@ namespace Ladybug_Mayhem
                 ladybugs.Draw(spriteBatch, Vector2.Zero);
             }
             //GameOver-skjerm
-            if (GlobalVars.lives <= 0) gameOverScreen.Draw(spriteBatch);
+            if (GlobalVars.lives <= 0 || GlobalVars.gems >= GlobalVars.MAX_GEMS) 
+                gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
