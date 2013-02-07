@@ -11,8 +11,7 @@ namespace Ladybug_Mayhem
 
     public class DrawSprite
     {
-        private Texture2D sprite; // { get; protected set; }
-        //Todo gjør om til rectangle som tar imot position fra konstruktør, men henter height og width enten fra konstruktør, eller fra spriten.
+        private Texture2D sprite;
         public Vector2 position;
         public Rectangle source;
         private int drawAmount;
@@ -20,7 +19,6 @@ namespace Ladybug_Mayhem
         public int height{ get; private set;}
         public int width{ get; private set;}
 
-        //todo få konstruktørene til å sende informasjon til hverandre!
         public DrawSprite(ContentManager content, String receivedSprite, int drawAmount, Vector2 drawPlacement, float zIndex)
         {
             // TODO: Construct any child components here
@@ -29,7 +27,7 @@ namespace Ladybug_Mayhem
             this.drawAmount = drawAmount;
             this.zIndex = zIndex;
         }
-        public DrawSprite(ContentManager content, string receivedSprite, Vector2 drawPlacement, float zIndex)
+        public DrawSprite(ContentManager content, String receivedSprite, Vector2 drawPlacement, float zIndex)
                     :this(content, receivedSprite, 1, drawPlacement, zIndex)
         {}
         public DrawSprite(ContentManager content, String receivedSprite, Vector2 drawPlacement, Rectangle source, float zIndex)
