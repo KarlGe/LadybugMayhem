@@ -19,7 +19,6 @@ namespace Ladybug_Mayhem
         private List<Ladybug> _ladybugsIsActive, _ladybugsIsNotActive;
         private List<Gem> _gemIsActive, _gemIsNotActive;
         private double _timePassedSpawn;
-        private Random _random;
         private List<Texture2D> _gemTextures;
 
         /// <summary>
@@ -30,7 +29,6 @@ namespace Ladybug_Mayhem
         public LadybugAndGemLogic(ContentManager content, SpriteBatch spriteBatch, int numberOfLadybugs, int numberOfGems)
         {
             _content = content;
-            _random = new Random();
             _positions = new Vector2[numberOfLadybugs];
             _ladybugsIsActive = new List<Ladybug>();
             _ladybugsIsNotActive = new List<Ladybug>();
@@ -67,7 +65,7 @@ namespace Ladybug_Mayhem
             _timePassedSpawn += gameTime.ElapsedGameTime.TotalMilliseconds;
             if (_timePassedSpawn > 2000)
             {
-                int index = _random.Next(_ladybugsIsNotActive.Count);
+                int index = GlobalVars.RAND.Next(_ladybugsIsNotActive.Count);
                 _ladybugsIsActive.Add(_ladybugsIsNotActive[index]);
                 _ladybugsIsNotActive[index] = _ladybugsIsNotActive[_ladybugsIsNotActive.Count - 1];
                 _ladybugsIsNotActive.RemoveAt(_ladybugsIsNotActive.Count - 1);
@@ -151,9 +149,9 @@ namespace Ladybug_Mayhem
         {
             for (int i = 0; i < _gemTextures.Count; i++)
             {
-                int random = _random.Next(_gemTextures.Count);
-                _gemIsNotActive.Add(new Gem(_content, Vector2.Zero, _gemTextures[random]));
-                _gemTextures.RemoveAt(random);
+                int index = GlobalVars.RAND.Next(_gemTextures.Count);
+                _gemIsNotActive.Add(new Gem(_content, Vector2.Zero, _gemTextures[index]));
+                _gemTextures.RemoveAt(index);
                 i--;
             }
 
@@ -161,12 +159,10 @@ namespace Ladybug_Mayhem
 
         public void SpawnGem(Vector2 position)
         {
-            int index = (int)_random.Next(_gemIsNotActive.Count);
+            int index = GlobalVars.RAND.Next(_gemIsNotActive.Count);
             _gemIsNotActive[index].SetRectangle(position);
             _gemIsNotActive[index].SetPosition(position);
-            //_gemIsNotActive[index].SetCanClick();
             _gemIsActive.Add(_gemIsNotActive[index]);
-            //_gemIsActive[_gemIsActive.Count - 1].SetPosition(position);
             _gemIsNotActive.RemoveAt(index);
         }
 
