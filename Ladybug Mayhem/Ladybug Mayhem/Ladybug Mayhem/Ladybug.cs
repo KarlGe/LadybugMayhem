@@ -16,9 +16,10 @@ namespace Ladybug_Mayhem
         private Texture2D _ladybugTexture;
         private SpriteFont _font;
         private Vector2 _ladybugPosition;
-        private int _clicks;
         private Rectangle _ladybugRectangle;
-        private double _timeExisted;
+        private double _timeExisted, _timeSinceDespawn;
+        private int _clicks;
+        private bool _isDead;
 
         /// <summary>
         /// Class for ladybug entity.
@@ -35,6 +36,8 @@ namespace Ladybug_Mayhem
             _clicks = 0;
             _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, _ladybugTexture.Width, (_ladybugTexture.Height - 95));
             _timeExisted = 0.0;
+            _timeSinceDespawn = 0.0;
+            _isDead = false;
         }
 
         #region Get Set methods
@@ -49,6 +52,26 @@ namespace Ladybug_Mayhem
         public double GetTime()
         {
             return _timeExisted;
+        }
+
+        public void SetTimeDespawn(bool add, double timeToAdd)
+        {
+            if (add)
+                _timeSinceDespawn += timeToAdd;
+            else
+                _timeSinceDespawn = 0;
+        }
+
+        public double GetTimeDespawn()
+        {
+            return _timeSinceDespawn;
+        }
+
+        public bool IsDead
+        {
+            get { return _isDead; }
+            set { _isDead = value; }
+
         }
 
         public void SetClicks(bool reset)

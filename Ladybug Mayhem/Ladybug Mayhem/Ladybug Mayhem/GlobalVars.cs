@@ -37,5 +37,19 @@ namespace Ladybug_Mayhem
         public const int CITIZEN_BOX_HEIGHT = 100;
         public static Rectangle CITIZEN_SPRITE_RECTANGLE = new Rectangle(10, 50,
             CITIZEN_BOX_WIDTH, CITIZEN_BOX_HEIGHT);
+
+        //LADYBUG
+        public static String LADYBUG_SPRITE_NAME = "Enemy Bug";
+        public const int MAX_LADYBUGS = 5;
+        public const int LADYBUG_BOX_WIDTH = 100;
+        public const int LADYBUG_BOX_HEIGHT = 70;
+        public static Rectangle LADYBUG_SPRITE_RECTANGLE = new Rectangle(0, 0, LADYBUG_BOX_WIDTH, LADYBUG_BOX_HEIGHT);
+
+        //GEMS
+        public static String[] GEM_SPRITE_NAME = new String[] { "Gem Blue", "Gem Green", "Gem Orange" };
+        public const int MAX_GEMS = 3;
+        public static int gems { get; set; }
+        public const int GEM_WIDTH_HEIGHT = 50;
+        public static Rectangle GEM_SPRITE_RECTANGLE = new Rectangle(0, 0, 100, 100);
     }
 }
