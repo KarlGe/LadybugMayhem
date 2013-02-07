@@ -25,14 +25,6 @@ namespace Ladybug_Mayhem
         int screenWidth;
         int screenHeight;
 
-        // MORTEN SITT
-        //SpriteFont font;
-        //int clicks;
-        //private int _numberOfLadybugs;
-        //private int _numberOfGems;
-        //Ladybug ladybug;
-        
-        // MORTEN SITT SLUTT
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
