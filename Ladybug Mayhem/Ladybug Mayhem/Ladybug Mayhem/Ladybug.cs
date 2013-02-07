@@ -80,8 +80,8 @@ namespace Ladybug_Mayhem
         #region Draw ladybug and font
         public void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
-            spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White);
-            spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
+            spriteBatch.Draw(_ladybugTexture, _ladybugPosition, new Rectangle(0, 77, _ladybugTexture.Width, 76), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+            //spriteBatch.DrawString(_font, _clicks.ToString(), _ladybugPosition, Color.White);
         }
         #endregion
     }

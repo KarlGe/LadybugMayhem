@@ -45,7 +45,7 @@ namespace Ladybug_Mayhem
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_gemTexture, _gemPosition, new Rectangle(0, 57, _gemTexture.Width, _gemTexture.Height), Color.White);
+            spriteBatch.Draw(_gemTexture, _gemPosition, new Rectangle(0, 57, _gemTexture.Width, _gemTexture.Height), Color.White, 1, Vector2.Zero, 0.5f, SpriteEffects.None, 1);
         }
 
     }

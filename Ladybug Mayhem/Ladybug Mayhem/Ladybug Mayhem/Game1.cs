@@ -106,7 +106,7 @@ namespace Ladybug_Mayhem
             // TODO: Add your update logic here
 
             // MORTEN SITT
-            ladybugs.Update(gameTime);
+            
 
             // MORTEN SITT SLUTT
 
@@ -119,6 +119,7 @@ namespace Ladybug_Mayhem
             if (!startScreen.draw && !LosingControl._gameLost)
             {
                 LosingControl.Update(gameTime, Window);
+                ladybugs.Update(gameTime);
             }
             //GameOver-skjerm
             if (LosingControl._gameLost) 
@@ -154,13 +155,14 @@ namespace Ladybug_Mayhem
             if (!startScreen.draw && !LosingControl._gameLost)
             {
                 LosingControl.Draw(spriteBatch);
+                ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
             }
             //GameOver-skjerm
             if (LosingControl._gameLost) gameOverScreen.Draw(spriteBatch);
 
 
             // MORTEN SITT
-            ladybugs.DrawLadybug(spriteBatch, Vector2.Zero);
+            
             // MORTEN SITT SLUTT
             spriteBatch.End();
             base.Draw(gameTime);
