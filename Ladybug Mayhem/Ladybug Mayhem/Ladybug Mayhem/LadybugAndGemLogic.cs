@@ -15,7 +15,6 @@ namespace Ladybug_Mayhem
     {
         private SpriteBatch _spriteBatch;
         private ContentManager _content;
-        private MouseInput _mouseInput;
         private Vector2[] _positions;
         private List<Ladybug> _ladybugsIsActive, _ladybugsIsNotActive;
         private List<Gem> _gemIsActive, _gemIsNotActive;
@@ -32,7 +31,6 @@ namespace Ladybug_Mayhem
         {
             _content = content;
             _random = new Random();
-            _mouseInput = new MouseInput();
             _positions = new Vector2[numberOfLadybugs];
             _ladybugsIsActive = new List<Ladybug>();
             _ladybugsIsNotActive = new List<Ladybug>();
@@ -91,18 +89,16 @@ namespace Ladybug_Mayhem
 
         public void ClickLadybug()
         {
-            _mouseInput.UpdateMouse();
-
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
-                if (_mouseInput.IsLeftButtonPressed() && _ladybugsIsActive[i].GetRectangle().Contains(_mouseInput.GetMousePosition()))
+                if (CheckMousePress.IsBeingPressed(_ladybugsIsActive[i].GetRectangle()))
                     _ladybugsIsActive[i].SetClicks(false);
             }
         }
 
         public int IsLadybugDead(int index)
         {
-            if (_ladybugsIsActive[index].GetClicks() > 5)
+            if (_ladybugsIsActive[index].GetClicks() >= 5)
             {
                 _ladybugsIsActive[index].SetClicks(true);
                 Vector2 position = _ladybugsIsActive[index].GetPosition();
@@ -122,6 +118,7 @@ namespace Ladybug_Mayhem
         {
             SpawnLadybug(gameTime);
             ClickLadybug();
+            ClickGem();
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
                 i = IsLadybugDead(i);
@@ -164,10 +161,11 @@ namespace Ladybug_Mayhem
 
         public void SpawnGem(Vector2 position)
         {
-            int random = (int)_random.Next(_gemIsNotActive.Count);
-            _gemIsActive.Add(_gemIsNotActive[random]);
+            int index = (int)_random.Next(_gemIsNotActive.Count);
+            _gemIsNotActive[index].SetRectangle(position);
+            _gemIsActive.Add(_gemIsNotActive[index]);
             _gemIsActive[_gemIsActive.Count - 1].SetPosition(position);
-            _gemIsNotActive.RemoveAt(random);
+            _gemIsNotActive.RemoveAt(index);
         }
 
         public void DespawnGem()
@@ -177,12 +175,11 @@ namespace Ladybug_Mayhem
 
         public void ClickGem()
         {
-            _mouseInput.UpdateMouse();
-
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
-                if (_mouseInput.IsLeftButtonPressed() && _gemIsActive[i].GetRectangle().Contains(_mouseInput.GetMousePosition()))
+                if (CheckMousePress.IsBeingPressed(_gemIsActive[i].GetRectangle()))
                     _gemIsActive[i].SetCanClick();
+                    _gemIsActive[i].SetPosition(Vector2.Zero);
             }
         }
 
