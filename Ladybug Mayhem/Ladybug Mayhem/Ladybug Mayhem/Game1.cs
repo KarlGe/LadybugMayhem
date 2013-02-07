@@ -159,11 +159,6 @@ namespace Ladybug_Mayhem
             }
             //GameOver-skjerm
             if (LosingControl._gameLost) gameOverScreen.Draw(spriteBatch);
-
-
-            // MORTEN SITT
-            
-            // MORTEN SITT SLUTT
             spriteBatch.End();
             base.Draw(gameTime);
         }

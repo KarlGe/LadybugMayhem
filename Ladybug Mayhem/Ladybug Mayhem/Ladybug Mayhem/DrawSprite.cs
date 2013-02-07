@@ -26,6 +26,7 @@ namespace Ladybug_Mayhem
             this.position = drawPlacement;
             this.drawAmount = drawAmount;
             this.zIndex = zIndex;
+            source = sprite.Bounds;
         }
         public DrawSprite(ContentManager content, String receivedSprite, Vector2 drawPlacement, float zIndex)
                     :this(content, receivedSprite, 1, drawPlacement, zIndex)
