@@ -132,7 +132,7 @@ namespace Ladybug_Mayhem
             if (gameOverScreen.replay)
             {
                 gameOverScreen.reset();
-                LosingControl.Reset();
+                LosingControl.Reset(Content);
                 startScreen.reset();
             }
         }

@@ -14,7 +14,8 @@ namespace Ladybug_Mayhem
     {
         private static ContentManager _content;
 
-        private static Texture2D _heart;
+        private static List<DrawSprite> _drawHearts;
+        private static DrawSprite _drawHeart;
 
         private static List<Citizen> _citizenList;
 
@@ -27,9 +28,10 @@ namespace Ladybug_Mayhem
         public static void Initialize(ContentManager content)
         {
             _content = content;
-            _heart = content.Load<Texture2D>("Heart");
+            //_drawHeart = new DrawSprite(content, "heart", new Vector2(5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter), 3)
+            _drawHearts = new List<DrawSprite>();
             _citizenList = new List<Citizen>();
-            Reset();
+            Reset(content);
         }
 
         public static void Update(GameTime gameTime, GameWindow window)
@@ -63,6 +65,7 @@ namespace Ladybug_Mayhem
                 {
                     _citizenList.RemoveAt(citizenNumber);
                     GlobalVars.lives--;
+                    _drawHearts.RemoveAt(_drawHearts.Count - 1);
                 }
             }
         }
@@ -75,16 +78,21 @@ namespace Ladybug_Mayhem
             }
             for (int heartCounter = 0; heartCounter < GlobalVars.lives; heartCounter++)
             {
-                spriteBatch.Draw(_heart, new Rectangle(
-                    5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter), 3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
-                    GlobalVars.HEART_SPRITE_RECTANGLE, Color.White);
+                _drawHearts[heartCounter].Draw(spriteBatch);
             }
         }
 
-        public static void Reset()
+        public static void Reset(ContentManager content)
         {
             _citizenList.Clear();
             _citizenList.Add(new Citizen(_content, 0));
+            _drawHearts.Clear();
+            for (int heartCounter = 0; heartCounter < GlobalVars.MAX_LIVES; heartCounter++)
+            {
+                _drawHearts.Add(new DrawSprite(content, "heart",
+                    new Rectangle(5 + ((GlobalVars.HEART_WIDTH_HEIGHT+12) * heartCounter),3, GlobalVars.HEART_WIDTH_HEIGHT, GlobalVars.HEART_WIDTH_HEIGHT),
+                    GlobalVars.HEART_SPRITE_RECTANGLE, 1));
+            }
             _populationCount = 1;
             _spawnTimer = 2000;
             GlobalVars.lives = GlobalVars.MAX_LIVES;
