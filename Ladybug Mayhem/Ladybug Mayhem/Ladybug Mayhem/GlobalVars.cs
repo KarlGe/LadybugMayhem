@@ -18,6 +18,10 @@ namespace Ladybug_Mayhem
         public static int SCREEN_HEIGHT = 550;
         public static int SCREEN_WIDTH = 707;
 
+        //BAKGRUNN
+        public static Vector2 FIRST_BROWN_BLOCK_POS;
+        public static Vector2 WINDOW_POS;
+
         //LIV
         public const int MAX_LIVES = 5;
         public static int lives { get; set; }
