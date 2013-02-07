@@ -114,10 +114,10 @@
     <Compile Include="Citizen.cs" />
     <Compile Include="CoverScreen.cs" />
     <Compile Include="DrawBG.cs" />
+    <Compile Include="DrawSprite.cs" />
     <Compile Include="Gem.cs" />
     <Compile Include="Ladybug.cs" />
     <Compile Include="DrawLadyBugTest.cs" />
-    <Compile Include="DrawObject.cs" />
     <Compile Include="FallingObject.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="GlobalVars.cs" />
