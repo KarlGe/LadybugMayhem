@@ -117,7 +117,6 @@
     <Compile Include="Gem.cs" />
     <Compile Include="Ladybug.cs" />
     <Compile Include="DrawLadyBugTest.cs" />
-    <Compile Include="DrawSprite.cs" />
     <Compile Include="FallingObject.cs" />
     <Compile Include="GameOverScreen.cs" />
     <Compile Include="GlobalVars.cs" />
