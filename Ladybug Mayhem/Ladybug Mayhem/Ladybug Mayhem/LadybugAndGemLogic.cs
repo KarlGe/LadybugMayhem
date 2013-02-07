@@ -22,11 +22,6 @@ namespace Ladybug_Mayhem
         private double _timePassedSpawn;
         private List<Texture2D> _gemTextures;
 
-        /// <summary>
-        /// Logic class for ladybugs and gems.
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="spriteBatch"></param>
         public LadybugAndGemLogic(ContentManager content, SpriteBatch spriteBatch, int numberOfLadybugs, int numberOfGems)
         {
             _content = content;
@@ -66,7 +61,7 @@ namespace Ladybug_Mayhem
         public void SpawnLadybug(GameTime gameTime)
         {
             _timePassedSpawn += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (_timePassedSpawn > 2000 && _ladybugsIsNotActive.Count > 0)
+            if (_timePassedSpawn > (2000 / (_ladybugsIsActive.Count+1)) && _ladybugsIsNotActive.Count > 0)
             {
                 int index = GlobalVars.RAND.Next(_ladybugsIsNotActive.Count);
                 _ladybugsIsActive.Add(_ladybugsIsNotActive[index]);
@@ -76,15 +71,19 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void DespawnLadybug(GameTime gameTime, int index)
+        public void DespawnLadybug(GameTime gameTime)
         {
-            if (_ladybugsIsActive[index].GetTime() > 5000)
+            for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
-                _ladybugsIsActive[index].SetTime(false, 0);
-                _ladybugsIsActive[index].SetClicks(true);
-                _ladybugsIsNotActive.Add(_ladybugsIsActive[index]);
-                _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
-                _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);    
+                _ladybugsIsActive[i].SetTime(true, gameTime.ElapsedGameTime.TotalMilliseconds);
+                if (_ladybugsIsActive[i].GetTime() > 5000)
+                {
+                    _ladybugsIsActive[i].SetTime(false, 0);
+                    _ladybugsIsActive[i].SetClicks(true);
+                    _ladybugsIsNotActive.Add(_ladybugsIsActive[i]);
+                    _ladybugsIsActive[i] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
+                    _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
+                }
             }
         }
 
@@ -97,39 +96,31 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public int IsLadybugDead(int index)
+        public void IsLadybugDead()
         {
-            if (_ladybugsIsActive[index].GetClicks() >= 5)
+            for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
-                _ladybugsIsActive[index].SetClicks(true);
-                Vector2 position = _ladybugsIsActive[index].GetPosition();
-                _ladybugsIsDead.Add(_ladybugsIsActive[index]);
-                _ladybugsIsActive[index] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
-                _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
-                
-                if (_gemIsNotActive.Count > 0)
-                    SpawnGem(position);
-                //if (index == 0)
-                //    return 0;
-                return --index;
+                if (_ladybugsIsActive[i].GetClicks() >= 5)
+                {
+                    _ladybugsIsActive[i].SetClicks(true);
+                    Vector2 position = _ladybugsIsActive[i].GetPosition();
+                    _ladybugsIsDead.Add(_ladybugsIsActive[i]);
+                    _ladybugsIsActive[i] = _ladybugsIsActive[_ladybugsIsActive.Count - 1];
+                    _ladybugsIsActive.RemoveAt(_ladybugsIsActive.Count - 1);
+
+                    if (_gemIsNotActive.Count > 0)
+                        SpawnGem(position);
+                }
             }
-            return index;
         }
 
         public void Update(GameTime gameTime)
         {
             SpawnLadybug(gameTime);
             ClickLadybug();
+            IsLadybugDead();
+            DespawnLadybug(gameTime);
             ClickGem();
-            for (int i = 0; i < _ladybugsIsActive.Count; i++)
-            {
-                i = IsLadybugDead(i);
-                if (_ladybugsIsActive.Count > 0)
-                {
-                    _ladybugsIsActive[i].SetTime(true, gameTime.ElapsedGameTime.TotalMilliseconds);
-                    DespawnLadybug(gameTime, i);
-                }
-            }
         }
 
         public void DrawLadybug(SpriteBatch spriteBatch, Vector2 position)
