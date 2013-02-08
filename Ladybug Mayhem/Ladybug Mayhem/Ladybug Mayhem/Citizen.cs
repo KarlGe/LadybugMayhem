@@ -20,7 +20,8 @@ namespace Ladybug_Mayhem
 
         private float _randomSpeedBoost;
         private float _speed;
-        private bool delayed = false;
+        private float _maxSpeed;
+        private bool _delayed = false;
 
         private String _sprite;
         private Vector2 _spawnPos;
@@ -36,6 +37,7 @@ namespace Ladybug_Mayhem
                 new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y, GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT),
                 GlobalVars.CITIZEN_SPRITE_RECTANGLE, 0.8f + (float)((float)_citizenNumber / 100));
             _speed = 3;
+            _maxSpeed = 14;
             _timeKeeper = 0;
             _randomTimeKeeper = 0;
         }
@@ -43,19 +45,20 @@ namespace Ladybug_Mayhem
         public void Update(GameTime gameTime)
         {
             _randomTimeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_randomTimeKeeper >= 1000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) && _drawable.position.X > -3000)
+            if (_randomTimeKeeper >= 1000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) &&
+                _drawable.position.X > -3000 && _speed < _maxSpeed)
             {
                 _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble());
                 _speed += _randomSpeedBoost;
                 _randomTimeKeeper = 0;
             }
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_timeKeeper >= 3000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) )
+            if (_timeKeeper >= 2000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) )
             {
-                delayed = false;
+                _delayed = false;
             }
-            if (!delayed) _drawable.position.X += (int)_speed;
-            
+            if (!_delayed) _drawable.position.X += (int)_speed;
+            Console.WriteLine(_speed);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -77,7 +80,7 @@ namespace Ladybug_Mayhem
         {
             _drawable.position.X = (int)_spawnPos.X;
             _drawable.position.Y = (int)_spawnPos.Y;
-            delayed = true;
+            _delayed = true;
             _timeKeeper = 0;
         }
     }
