@@ -133,6 +133,8 @@ namespace Ladybug_Mayhem
             {
                 if (_ladybugsIsActive[i].GetClicks() >= GlobalVars.LADYBUG_HEALTH)
                 {
+                    //For å hindre at spilleren lar gems ligge, og dermed unngår at farten øker
+                    if(GlobalVars.BUGS_KILLED < 3)GlobalVars.BUGS_KILLED++;
                     _ladybugsIsActive[i].SetClicks(true);
                     if (_gemIsNotActive.Count > 0)
                     {
