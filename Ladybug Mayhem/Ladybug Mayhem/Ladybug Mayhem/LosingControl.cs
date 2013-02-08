@@ -23,7 +23,6 @@ namespace Ladybug_Mayhem
         private static int _populationCount;
 
         private static bool _alreadySavedACitizen;
-        public static bool _gameLost;
 
         public static void Initialize(ContentManager content)
         {

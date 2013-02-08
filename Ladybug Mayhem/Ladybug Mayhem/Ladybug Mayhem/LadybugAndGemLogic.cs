@@ -136,6 +136,7 @@ namespace Ladybug_Mayhem
                                                    GlobalVars.GEM_WIDTH_HEIGHT, GlobalVars.GEM_WIDTH_HEIGHT));
             _gemIsActive.Add(_gemIsNotActive[index]);
             _gemIsNotActive.RemoveAt(index);
+            GlobalVars.MAX_LADYBUGS--;
         }
 
         public void ClickGem()
