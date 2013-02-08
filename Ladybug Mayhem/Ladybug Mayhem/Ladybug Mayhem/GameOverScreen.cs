@@ -26,15 +26,16 @@ namespace Ladybug_Mayhem
         private bool fallingLetters = true;
 
         public bool playerWon = true;
-        private Texture2D winText;
+        private DrawSprite winText;
 
         /* Replay og exit knapp med rektangler, mellomrom imellom dem, 
          * og til slutt en variabel som sier ifra om spilleren har valgt å spille på nytt
          */
-        private Texture2D replayButton;
+        private DrawSprite replayButton;
         private Rectangle replayRectangle;
-        private Texture2D exitButton;
+        private DrawSprite exitButton;
         private Rectangle exitRectangle;
+        private Texture2D tempText;
         private int space = 20;
         public bool replay { get; protected set; }
 
@@ -43,34 +44,38 @@ namespace Ladybug_Mayhem
         Game game;
         ContentManager content;
 
-        public GameOverScreen(Game game, ContentManager content)
+        public GameOverScreen(Game game)
         {
             screenHeight = GlobalVars.SCREEN_HEIGHT;
             screenWidth = GlobalVars.SCREEN_WIDTH;
             this.game = game;
-            this.content = content;
             initialize();
         }
         /// <summary>
-        /// Henter ut replayButton og exitButton og setter rektangelet deres, henter ut grassblock og dekker skjermen med det
+        /// Henter ut replayButton og exitButton og setter rektangelet deres
+        /// Henter også ut "You Win!" teksten
         /// Til slutt regnes den totale bredden på bokstavene ut, for så å plassere én og én bokstav ut ifra det
         /// </summary>
         public void initialize()
         {
             replay = false;
-            replayButton = content.Load<Texture2D>(@"GameOverScreen\startOver");
-            replayRectangle = new Rectangle(screenWidth / 2 - replayButton.Width - space, screenHeight / 2 - replayButton.Height / 2, replayButton.Width, replayButton.Height);
+            tempText = game.Content.Load<Texture2D>(@"GameOverScreen\exit");
+            replayRectangle = new Rectangle(screenWidth / 2 - tempText.Width - space, screenHeight / 2 - tempText.Height / 2, tempText.Width, tempText.Height);
+            replayButton = new DrawSprite(game.Content,@"GameOverScreen\startOver", replayRectangle, replayRectangle, 1);
+            
 
-            exitButton = content.Load<Texture2D>(@"GameOverScreen\exit");
-            exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - exitButton.Height / 2, exitButton.Width, exitButton.Height);
+            tempText = game.Content.Load<Texture2D>(@"GameOverScreen\exit");
+            exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - tempText.Height / 2, tempText.Width, tempText.Height);
+            replayButton = new DrawSprite(game.Content, @"GameOverScreen\exit", exitRectangle, exitRectangle, 1);
 
-            winText = content.Load<Texture2D>(@"GameOverScreen\win");
+            winText = new DrawSprite(game.Content, @"GameOverScreen\win", new Vector2(0, 50), 1);
 
             for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];
             xPos = (screenWidth / 2) - (totalLetterWidth / 2);
-            for (int i = 0; i < gameOverText.Length; i++) gameOverText[i] = new FallingObject(game, content, @"GameOverScreen\GameOverLetters\" + letterFileNames[i], 1, new Vector2(xPos += letterWidth[i], -100), true, 10);
+            for (int i = 0; i < gameOverText.Length; i++) gameOverText[i] = new FallingObject(game.Content, @"GameOverScreen\GameOverLetters\" + letterFileNames[i], new Vector2(xPos += letterWidth[i], -100), true, 10);
         }
         /// <summary>
+        /// Sjekker om spilleren vant eller tapte, og kjører kode basert på det.
         /// Får bokstaver til å falle, med en delay fra starten for når de skal falle
         /// Hvis bokstavene treffer punktet som er markert slutter de å falle
         /// Hvis den siste bokstaven har sluttet å falle vises de to knappene
@@ -90,7 +95,6 @@ namespace Ladybug_Mayhem
                 for (int i = 0; i < numObjectsToDraw; i++)
                 {
                     gameOverText[i].falling = true;
-                    if (gameOverText[i].currentYPos > GlobalVars.GROUND_Y_POS) gameOverText[i].falling = false;
                     gameOverText[i].Update(gameTime);
                 }
             }
@@ -102,18 +106,18 @@ namespace Ladybug_Mayhem
             }
         }
         /// <summary>
-        /// Tegner de fallende bokstavene, og de to knappene hvis bokstavene har sluttet å falle
+        /// Tegner de fallende bokstavene, og de to knappene hvis bokstavene har sluttet å falle, tegner "You won!" hvis spilleren tapte
         /// </summary>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!playerWon)
                 for (int i = 0; i < gameOverText.Length; i++) gameOverText[i].Draw(spriteBatch);
-            else spriteBatch.Draw(winText, new Vector2(0, 50), null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
+            else winText.Draw(spriteBatch);
 
             if (!fallingLetters || playerWon)
             {
-                spriteBatch.Draw(replayButton, replayRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                spriteBatch.Draw(exitButton, exitRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                replayButton.Draw(spriteBatch);
+                exitButton.Draw(spriteBatch);
             }
 
         }
@@ -122,11 +126,7 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void reset()
         {
-            for (int i = 0; i < gameOverText.Length; i++)
-            {
-                gameOverText[i].currentYPos = -100;
-                gameOverText[i].falling = true;
-            }
+            foreach(FallingObject letter in gameOverText) letter.reset(-100);
             numObjectsToDraw = 0;
             fallingLetters = true;
             replay = false;

@@ -64,6 +64,17 @@ namespace Ladybug_Mayhem
             this.position = drawPlacement;
         }
         /// <summary>
+        /// Tar imot en ekstra boolean som sier at man skal plassere
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="receivedSprite"></param>
+        /// <param name="set"></param>
+        /// <param name="zIndex"></param>
+        public void placeInMidOfScreen(){
+            position.X = GlobalVars.SCREEN_WIDTH / 2 - sprite.Width / 2;
+            position.Y = GlobalVars.SCREEN_HEIGHT / 2 - sprite.Height / 2;
+        }
+        /// <summary>
         /// Tegner teksturen antall ganger som er spesifisert i drawAmount
         /// </summary>
         /// <param name="spriteBatch"></param>

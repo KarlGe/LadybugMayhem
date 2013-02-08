@@ -13,10 +13,11 @@ namespace Ladybug_Mayhem
         private int screenHeight;
         private int screenWidth;
 
-        private Texture2D title;
+        private DrawSprite title;
         private Vector2 titleStartPos;
         private Vector2 titlePos;
-        private Texture2D begin;
+        private DrawSprite begin;
+        Game game;
         private bool drawBeginText = false;
         private int opacity = 0;//Hvor gjennomsiktig "BEGIN!" teksten er
 
@@ -26,7 +27,7 @@ namespace Ladybug_Mayhem
         {
             screenHeight = GlobalVars.SCREEN_HEIGHT;
             screenWidth = GlobalVars.SCREEN_WIDTH;
-            this.content = content;
+            this.game = game;
             initialize();
         }
         /// <summary>
@@ -36,30 +37,37 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void initialize()
         {
-            title = content.Load<Texture2D>(@"StartScreen\gameTitle");
-            begin = content.Load<Texture2D>(@"StartScreen\beginText");
             titleStartPos = new Vector2(screenWidth, GlobalVars.GROUND_Y_POS);
+            title = new DrawSprite(game.Content, @"StartScreen\gameTitle", titleStartPos, 1);
+            begin = new DrawSprite(game.Content, @"StartScreen\beginText", Vector2.Zero, 1);
+            begin.placeInMidOfScreen();
             reset();
         }
-        //
+        /// <summary>
+        /// flytter tittelen fra høyre til venstre, hvis den har gått ut av bildet 
+        /// tegner den "Begin!" teksten, hvis tallet som skal holde oversikten over 
+        /// gjennomsiktigheten til denne kommer over 600 (ca. 10 sekunder etter at 
+        /// tittelen kommer på skjermen, slutter den å tegne seg selv.
+        /// </summary>
         public void Update(GameTime gameTime)
         {
-            
             if (opacity > 600) draw = false;
-            else if (titlePos.X < 0 - title.Bounds.Width)
+            else if (title.position.X < 0 - title.width)
             {
                 drawBeginText = true;
                 draw = true;
                 opacity += 10;
             }
-            else titlePos.X -= 10;
-            
+            else title.position.X -= 10;   
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(title, titlePos, null, Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1f);
-                if (drawBeginText) spriteBatch.Draw(begin, new Vector2(screenWidth / 2 - begin.Width / 2, screenHeight / 2 - begin.Height / 2), null, new Color(255, 255, 255, opacity), 0, Vector2.Zero, 1.0f, SpriteEffects.None, 1f);
+                title.Draw(spriteBatch);
+                if (drawBeginText) begin.Draw(spriteBatch);
         }
+        /// <summary>
+        /// Setter tilbake nødvendige variabler for å kjøre på nytt
+        /// </summary>
         public void reset()
         {
             titlePos = new Vector2(titleStartPos.X, titleStartPos.Y);

@@ -49,7 +49,7 @@ namespace Ladybug_Mayhem
             GlobalVars.MOUSE_STATE = Mouse.GetState();
             backgroundScreen = new DrawBG(this);
             startScreen = new StartScreen(this, Content);
-            gameOverScreen = new GameOverScreen(this, Content);
+            gameOverScreen = new GameOverScreen(this);
 
             LosingControl.Initialize(Content);
             ladybugs = new LadybugAndGemLogic(this.Content, spriteBatch);
@@ -123,8 +123,6 @@ namespace Ladybug_Mayhem
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            Console.Write("1");
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
             //Bakgrunn
