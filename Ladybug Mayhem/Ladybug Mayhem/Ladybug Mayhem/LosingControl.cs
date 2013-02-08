@@ -28,8 +28,8 @@ namespace Ladybug_Mayhem
             _content = content;
             spawnTimeLevels = new int[3];
             spawnTimeLevels[0] = 0;
-            spawnTimeLevels[1] = 3500;
-            spawnTimeLevels[2] = 4000;
+            spawnTimeLevels[1] = 3000;
+            spawnTimeLevels[2] = 3500;
             _drawHearts = new List<DrawSprite>();
             _citizenList = new List<Citizen>();
             Reset(content);

@@ -37,7 +37,7 @@ namespace Ladybug_Mayhem
                 new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y, GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT),
                 GlobalVars.CITIZEN_SPRITE_RECTANGLE, 0.8f + (float)((float)_citizenNumber / 100));
             _speed = 3;
-            _maxSpeed = 12;
+            _maxSpeed = 7;
             _timeKeeper = 0;
             _randomTimeKeeper = 0;
         }
