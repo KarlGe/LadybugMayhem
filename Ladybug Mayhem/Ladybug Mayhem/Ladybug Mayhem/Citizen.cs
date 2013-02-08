@@ -50,6 +50,8 @@ namespace Ladybug_Mayhem
             {
                 _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble());
                 _speed += _randomSpeedBoost;
+                _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble() / 2);
+                _speed -= _randomSpeedBoost;
                 _randomTimeKeeper = 0;
             }
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
