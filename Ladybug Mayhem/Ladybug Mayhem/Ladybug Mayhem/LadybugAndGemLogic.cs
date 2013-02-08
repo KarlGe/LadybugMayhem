@@ -195,7 +195,7 @@ namespace Ladybug_Mayhem
         {
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
-                if (!_isMousePressed && CheckMousePress.IsBeingPressed(_gemIsActive[i].Position) && _gemIsActive[i].CanClick())
+                if (!_isMousePressed && CheckMousePress.IsBeingPressed(_gemIsActive[i].Position) && _gemIsActive[i].CanClick)
                 {
                     for (int j = 0; j < _positionsTaken.Count; j++)
                     {
@@ -206,7 +206,7 @@ namespace Ladybug_Mayhem
                         }
                     }
                     GlobalVars.gems++;
-                    _gemIsActive[i].SetCanClick();
+                    _gemIsActive[i].CanClick = false;
                     _gemIsActive[i].Position = new Rectangle((GlobalVars.SCREEN_WIDTH - (GlobalVars.GEM_WIDTH_HEIGHT * GlobalVars.gems)), 0, GlobalVars.GEM_WIDTH_HEIGHT, GlobalVars.GEM_WIDTH_HEIGHT);
                     _isMousePressed = true;
                 }
@@ -250,8 +250,7 @@ namespace Ladybug_Mayhem
 
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
-                if(!_gemIsActive[i].CanClick())
-                    _gemIsActive[i].SetCanClick();
+                _gemIsActive[i].CanClick = true;
                 _gemIsNotActive.Add(_gemIsActive[i]);
                 _gemIsActive.RemoveAt(i);
                 i--;

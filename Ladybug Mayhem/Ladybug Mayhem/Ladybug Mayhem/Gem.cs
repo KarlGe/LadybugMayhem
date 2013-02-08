@@ -19,17 +19,10 @@ namespace Ladybug_Mayhem
             _draw = new DrawSprite(content, gemTexture, new Rectangle(0, 0, 0, 0), GlobalVars.GEM_SPRITE_RECTANGLE, 1);
         }
 
-        public bool CanClick()
+        public bool CanClick
         {
-            return _canClick;
-        }
-
-        public void SetCanClick()
-        {
-            if (!_canClick)
-                _canClick = true;
-            else
-                _canClick = false;
+            get { return _canClick; }
+            set { _canClick = value; }
         }
 
         public Rectangle Position
