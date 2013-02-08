@@ -55,9 +55,9 @@ namespace Ladybug_Mayhem
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
             /*Her legges _spawnTimer sammen med en viss sum som er basert på hvor mange marihøner man har drept. 
             En slags økende vanskelighetsgrad*/
-            _minSpawnTime = _spawnTimer + GlobalVars.CITIZEN_RESPAWN_SPEEDUP[GlobalVars.bugs_killed];
+            _minSpawnTime = _spawnTimer + GlobalVars.CITIZEN_SPAWN_SPEEDUP[GlobalVars.bugs_killed];
             //Hvis variabelen over er større enn den forhåndsbestemte CITIZEN_RESPAWN_TIME og det har blitt spawnet færre enn MAX_CITIZENS
-            if (_minSpawnTime >= GlobalVars.CITIZEN_RESPAWN_TIME && _populationCount < GlobalVars.MAX_CITIZENS)
+            if (_minSpawnTime >= GlobalVars.CITIZEN_SPAWN_TIME && _populationCount < GlobalVars.MAX_CITIZENS)
             {
                 _citizenList.Add(new Citizen(_content, _populationCount));
                 _populationCount++;

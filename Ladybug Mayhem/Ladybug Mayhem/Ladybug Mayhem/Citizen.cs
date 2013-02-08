@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Ladybug_Mayhem
 {
+    /// <summary>
+    /// Citizen-objekter representerer innbyggerne i spillet
+    /// </summary>
     public class Citizen
     {
         private bool _respawnDelay;
@@ -43,7 +46,7 @@ namespace Ladybug_Mayhem
 
             //En innbyggers utgansgsposisjon
             _spawnPos = new Vector2(-300, GlobalVars.GROUND_Y_POS);
-            /*Oppretter objektet som skal tegne innbyggeren. Må ha egen "source" (crop).
+            /*Oppretter objektet som skal tegne innbyggeren. Må ha egen "source" (beskjæring).
             Får en layerDepth basert på _citizenNumber (for å forhindre at flere innbyggere kjemper om samme zIndex)*/
             _drawable = new DrawSprite(content, _sprite,
                 new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y, GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT),
@@ -79,7 +82,7 @@ namespace Ladybug_Mayhem
 
             _timeoutCounter += gameTime.ElapsedGameTime.Milliseconds;
             //Avslutter en innbyggers timeout en viss tid etter at den er klikket på
-            if (_timeoutCounter >= 2000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) )
+            if (_timeoutCounter >= GlobalVars.CITIZEN_RESPAWN_TIME && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) )
             {
                 _respawnDelay = false;
             }
