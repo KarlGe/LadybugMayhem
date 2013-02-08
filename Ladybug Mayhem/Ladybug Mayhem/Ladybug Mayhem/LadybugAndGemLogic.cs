@@ -147,6 +147,7 @@ namespace Ladybug_Mayhem
 
         /// <summary>
         /// Checks if ladybug has lost all health, and sets it to dead.
+        /// If dead, calls SpawnGem().
         /// </summary>
         private void IsLadybugDead()
         {
@@ -188,7 +189,7 @@ namespace Ladybug_Mayhem
         /// <summary>
         /// Checks if gem is clicked, and moves it into score screen if it is
         /// while setting clickable to false.
-        /// Also frees up position where gem was so ladybugs can spawn there.
+        /// Also frees up position where gem was so ladybugs can spawn there again.
         /// </summary>
         private void ClickGem()
         {
