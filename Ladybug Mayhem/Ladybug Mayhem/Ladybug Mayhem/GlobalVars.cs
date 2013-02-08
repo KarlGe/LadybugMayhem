@@ -42,9 +42,9 @@ namespace Ladybug_Mayhem
         public static String LADYBUG_SPRITE_NAME = "Enemy Bug";
         public static int MAX_LADYBUGS = 3;
         public static int BUGS_KILLED;
-        public const int LADYBUG_HEALTH = 20;
-        public const double LADYBUG_SPAWN_TIME = 5000;
-        public const double LADYBUG_DESPAWN_TIME = 10000;
+        public const int LADYBUG_HEALTH = 2;//20;
+        public const double LADYBUG_SPAWN_TIME = 2000;//5000;
+        public const double LADYBUG_DESPAWN_TIME = 5000;//10000;
         public const double LADYBUG_DEAD_TIME = 2000;
         public const int LADYBUG_BOX_WIDTH = 100;
         public const int LADYBUG_BOX_HEIGHT = 78;

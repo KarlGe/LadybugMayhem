@@ -19,6 +19,11 @@ namespace Ladybug_Mayhem
         private double _timePassedSpawn;
         private bool _isMousePressed;
 
+        /// <summary>
+        /// Does all logic for ladybugs and gems in level.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="spriteBatch"></param>
         public LadybugAndGemLogic(ContentManager content, SpriteBatch spriteBatch)
         {
             _positions = new List<Rectangle>();
@@ -64,6 +69,11 @@ namespace Ladybug_Mayhem
             }
         }
 
+        /// <summary>
+        /// Spawns ladybug if enough time has passed and conditions are met.
+        /// Also sets the position where it spawns as busy.
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void SpawnLadybug(GameTime gameTime)
         {
             int index = GlobalVars.RAND.Next(_positions.Count);
@@ -80,8 +90,10 @@ namespace Ladybug_Mayhem
                         _ladybugsIsNotActive[i].Position = _positions[index];
                         _ladybugsIsActive.Add(_ladybugsIsNotActive[i]);
                         _ladybugsIsNotActive.RemoveAt(i);
+
                         _positionsTaken.Add(_positions[index]);
                         _positions.RemoveAt(index);
+
                         _timePassedSpawn = 0;
                         break;
                     }
@@ -89,6 +101,11 @@ namespace Ladybug_Mayhem
             }
         }
 
+        /// <summary>
+        /// Despawns ladybug if it has been alive too long.
+        /// Also frees up position so a new ladybug can spawn there.
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void DespawnLadybug(GameTime gameTime)
         {
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
@@ -121,12 +138,16 @@ namespace Ladybug_Mayhem
             {
                 if (!_isMousePressed && CheckMousePress.IsBeingPressed(_ladybugsIsActive[i].Position))
                 {
+                    // Adds click.
                     _ladybugsIsActive[i].SetClicks(false);
                     _isMousePressed = true;
                 }
             }
         }
 
+        /// <summary>
+        /// Checks if ladybug has lost all health, and sets it to dead.
+        /// </summary>
         private void IsLadybugDead()
         {
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
@@ -134,7 +155,9 @@ namespace Ladybug_Mayhem
                 if (_ladybugsIsActive[i].GetClicks() >= GlobalVars.LADYBUG_HEALTH)
                 {
                     //For å hindre at spilleren lar gems ligge, og dermed unngår at farten øker
-                    if(GlobalVars.BUGS_KILLED < 2)GlobalVars.BUGS_KILLED++;
+                    if(GlobalVars.BUGS_KILLED < 2)
+                        GlobalVars.BUGS_KILLED++;
+
                     _ladybugsIsActive[i].SetClicks(true);
                     if (_gemIsNotActive.Count > 0)
                     {
@@ -148,6 +171,11 @@ namespace Ladybug_Mayhem
             }
         }
 
+        /// <summary>
+        /// Spawns a gem if ladybug is killed, in position
+        /// where ladybug was killed.
+        /// </summary>
+        /// <param name="position"></param>
         private void SpawnGem(Rectangle position)
         {
             int index = GlobalVars.RAND.Next(_gemIsNotActive.Count);
@@ -157,6 +185,11 @@ namespace Ladybug_Mayhem
             _gemIsNotActive.RemoveAt(index);
         }
 
+        /// <summary>
+        /// Checks if gem is clicked, and moves it into score screen if it is
+        /// while setting clickable to false.
+        /// Also frees up position where gem was so ladybugs can spawn there.
+        /// </summary>
         private void ClickGem()
         {
             for (int i = 0; i < _gemIsActive.Count; i++)

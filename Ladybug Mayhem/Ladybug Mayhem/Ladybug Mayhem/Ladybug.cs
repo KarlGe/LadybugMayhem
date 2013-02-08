@@ -19,13 +19,6 @@ namespace Ladybug_Mayhem
         private int _clicks;
         private bool _isDead;
 
-        /// <summary>
-        /// Class for ladybug entity.
-        /// Contains position and clicks.
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="ladybugPosition"></param>
-        /// <param name="fontPosition"></param>
         public Ladybug(ContentManager content)
         {
             _ladybugTexture = GlobalVars.LADYBUG_SPRITE_NAME;
