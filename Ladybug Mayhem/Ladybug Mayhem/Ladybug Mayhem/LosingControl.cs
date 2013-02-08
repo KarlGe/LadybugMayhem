@@ -34,9 +34,6 @@ namespace Ladybug_Mayhem
 
         public static void Update(GameTime gameTime, GameWindow window)
         {
-            if (GlobalVars.MOUSE_STATE.RightButton == ButtonState.Pressed)
-                GlobalVars.lives = 0;
-
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
             if (_spawnTimer >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
             {
