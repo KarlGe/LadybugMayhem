@@ -27,10 +27,6 @@ namespace Ladybug_Mayhem
             width = sprite.Bounds.Width;
             this.drawPlacement = drawPlacement;
         }
-        public int getHeight()
-        {
-            return sprite.Bounds.Height;
-        }
         public void Update(GameTime gameTime)
         {
             if (falling) currentYPos += ySpeed;

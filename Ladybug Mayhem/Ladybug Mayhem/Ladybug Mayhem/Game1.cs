@@ -47,7 +47,7 @@ namespace Ladybug_Mayhem
             screenHeight = Window.ClientBounds.Height;
             screenWidth = Window.ClientBounds.Width;
             GlobalVars.MOUSE_STATE = Mouse.GetState();
-            backgroundScreen = new DrawBG(this, Content, spriteBatch);
+            backgroundScreen = new DrawBG(this);
             startScreen = new StartScreen(this, Content);
             gameOverScreen = new GameOverScreen(this, Content);
 
@@ -124,6 +124,7 @@ namespace Ladybug_Mayhem
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            Console.Write("1");
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.NonPremultiplied);
             //Bakgrunn
