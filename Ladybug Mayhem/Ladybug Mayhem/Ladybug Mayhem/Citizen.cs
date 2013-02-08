@@ -37,7 +37,7 @@ namespace Ladybug_Mayhem
                 new Rectangle((int)_spawnPos.X, (int)_spawnPos.Y, GlobalVars.CITIZEN_BOX_WIDTH, GlobalVars.CITIZEN_BOX_HEIGHT),
                 GlobalVars.CITIZEN_SPRITE_RECTANGLE, 0.8f + (float)((float)_citizenNumber / 100));
             _speed = 3;
-            _maxSpeed = 14;
+            _maxSpeed = 12;
             _timeKeeper = 0;
             _randomTimeKeeper = 0;
         }
@@ -58,7 +58,6 @@ namespace Ladybug_Mayhem
                 _delayed = false;
             }
             if (!_delayed) _drawable.position.X += (int)_speed;
-            Console.WriteLine(_speed);
         }
 
         public void Draw(SpriteBatch spriteBatch)
