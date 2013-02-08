@@ -16,7 +16,7 @@ namespace Ladybug_Mayhem
          * den totale bredden på bokstavene, med mellomrom som legges imellom (tallet etter + på den 5. plassen)
          */
         private FallingObject[] gameOverText = new FallingObject[8];
-        private String[] letterFileNames = new String[] { "G", "A", "M", "E", "O", "V", "E", "R"};
+        private String[] letterFileNames = new String[] { "G", "A", "M", "E", "O", "V", "E", "R" };
         private int[] letterWidth = new int[] { 0, 73, 77, 95, 54 + 54, 78, 78, 64, 64 };
         private int totalLetterWidth = 0;
         private int xPos = 0; //Settes til midten av skjermen, minus halvparten av bredden til bokstavene
@@ -37,12 +37,12 @@ namespace Ladybug_Mayhem
         private Rectangle exitRectangle;
         private int space = 20;
         public bool replay { get; protected set; }
-        
+
         private int screenHeight;
         private int screenWidth;
         Game game;
         ContentManager content;
-        
+
         public GameOverScreen(Game game, ContentManager content)
         {
             screenHeight = GlobalVars.SCREEN_HEIGHT;
@@ -78,6 +78,7 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void Update(GameTime gameTime)
         {
+            playerWon = GlobalVars.gems == GlobalVars.MAX_GEMS;
             if (!playerWon)
             {
                 currentDelay--;
@@ -98,7 +99,7 @@ namespace Ladybug_Mayhem
                 fallingLetters = false;
                 if (CheckMousePress.IsBeingPressed(replayRectangle)) replay = true;
                 if (CheckMousePress.IsBeingPressed(exitRectangle)) game.Exit();
-            }   
+            }
         }
         /// <summary>
         /// Tegner de fallende bokstavene, og de to knappene hvis bokstavene har sluttet å falle
@@ -114,14 +115,14 @@ namespace Ladybug_Mayhem
                 spriteBatch.Draw(replayButton, replayRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
                 spriteBatch.Draw(exitButton, exitRectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
             }
-            
+
         }
         /// <summary>
         /// Setter tilbake nødvendige variabler for å kunne kjøre gameOverScreen på nytt
         /// </summary>
         public void reset()
         {
-            for (int i = 0; i < gameOverText.Length; i++) 
+            for (int i = 0; i < gameOverText.Length; i++)
             {
                 gameOverText[i].currentYPos = -100;
                 gameOverText[i].falling = true;

@@ -22,6 +22,7 @@ namespace Ladybug_Mayhem
         StartScreen startScreen;
         DrawBG backgroundScreen;
         LadybugAndGemLogic ladybugs;
+        private bool gameOver = false;
         int screenWidth;
         int screenHeight;
 
@@ -84,6 +85,7 @@ namespace Ladybug_Mayhem
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            gameOver = GlobalVars.lives <= 0 || GlobalVars.gems >= GlobalVars.MAX_GEMS;
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
@@ -95,17 +97,13 @@ namespace Ladybug_Mayhem
             if(startScreen.draw) 
                 startScreen.Update(gameTime);
             //SPILL!
-            if (!startScreen.draw && GlobalVars.lives > 0)
+            if (!startScreen.draw && !gameOver)
             {
                 LosingControl.Update(gameTime, Window);
                 ladybugs.Update(gameTime);
             }
             //GameOver-skjerm
-            if (GlobalVars.lives <= 0 || GlobalVars.gems >= GlobalVars.MAX_GEMS) 
-            {
-                gameOverScreen.playerWon = false;
-                gameOverScreen.Update(gameTime);
-            } 
+            if (gameOver) gameOverScreen.Update(gameTime);
 
             //Hvis man ønsker å spille igjen
             if (gameOverScreen.replay)
@@ -133,13 +131,13 @@ namespace Ladybug_Mayhem
             //Startskjerm
             if(startScreen.draw) startScreen.Draw(spriteBatch);
             //SPILL!
-            if (!startScreen.draw && GlobalVars.lives > 0)
+            if (!startScreen.draw && !gameOver)
             {
                 LosingControl.Draw(spriteBatch);
                 ladybugs.Draw(spriteBatch, Vector2.Zero);
             }
             //GameOver-skjerm
-            if (GlobalVars.lives <= 0 || GlobalVars.gems >= GlobalVars.MAX_GEMS) 
+            if (gameOver) 
                 gameOverScreen.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
