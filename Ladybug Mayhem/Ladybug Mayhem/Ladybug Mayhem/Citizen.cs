@@ -20,6 +20,7 @@ namespace Ladybug_Mayhem
 
         private float _randomSpeedBoost;
         private float _speed;
+        private bool delayed = false;
 
         private String _sprite;
         private Vector2 _spawnPos;
@@ -44,17 +45,17 @@ namespace Ladybug_Mayhem
             _randomTimeKeeper += gameTime.ElapsedGameTime.Milliseconds;
             if (_randomTimeKeeper >= 1000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) && _drawable.position.X > -3000)
             {
-                _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble() / 5);
+                _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble());
                 _speed += _randomSpeedBoost;
                 _randomTimeKeeper = 0;
             }
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_timeKeeper >= 20000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) && _drawable.position.X > -3000)
+            if (_timeKeeper >= 3000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) )
             {
-                _speed += 1;
-                _timeKeeper = 0;
+                delayed = false;
             }
-            _drawable.position.X += (int)_speed;
+            if (!delayed) _drawable.position.X += (int)_speed;
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -76,6 +77,8 @@ namespace Ladybug_Mayhem
         {
             _drawable.position.X = (int)_spawnPos.X;
             _drawable.position.Y = (int)_spawnPos.Y;
+            delayed = true;
+            _timeKeeper = 0;
         }
     }
 }
