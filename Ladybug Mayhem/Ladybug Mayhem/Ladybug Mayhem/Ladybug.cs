@@ -14,7 +14,6 @@ namespace Ladybug_Mayhem
     class Ladybug
     {
         private String _ladybugTexture;
-        private SpriteFont _font;
         private Rectangle _ladybugPosition;
         private Rectangle _ladybugRectangle;
         private DrawSprite _draw;
@@ -32,7 +31,6 @@ namespace Ladybug_Mayhem
         public Ladybug(ContentManager content, Rectangle ladybugPosition)
         {
             _ladybugTexture = GlobalVars.LADYBUG_SPRITE_NAME;
-            _font = content.Load<SpriteFont>("TestFont");
             _ladybugPosition = ladybugPosition;
             _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, GlobalVars.LADYBUG_BOX_WIDTH, (GlobalVars.LADYBUG_BOX_HEIGHT - 95));
             _clicks = 0;

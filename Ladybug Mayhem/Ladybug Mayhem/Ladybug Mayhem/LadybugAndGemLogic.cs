@@ -32,7 +32,7 @@ namespace Ladybug_Mayhem
             CreateGems(content);
         }
 
-        public void SetPositions(int numberOfLadybugs)
+        private void SetPositions(int numberOfLadybugs)
         {
             int addToPosition = 0;
             for (int i = 0; i < GlobalVars.MAX_LADYBUGS; i++)
@@ -47,7 +47,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void CreateLadybug(ContentManager content, int numberOfLadybugs) 
+        private void CreateLadybug(ContentManager content, int numberOfLadybugs) 
         {
             for (int i = 0; i < _positions.Count; i++)
             {
@@ -55,7 +55,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void CreateGems(ContentManager content)
+        private void CreateGems(ContentManager content)
         {
             for (int i = 0; i < GlobalVars.GEM_SPRITE_NAME.Length; i++)
             {
@@ -63,7 +63,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void SpawnLadybug(GameTime gameTime)
+        private void SpawnLadybug(GameTime gameTime)
         {
             for (int i = 0; i < _ladybugsIsNotActive.Count; i++)
                 _ladybugsIsNotActive[i].SetTimeDespawn(true, gameTime.ElapsedGameTime.TotalMilliseconds);
@@ -81,7 +81,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void DespawnLadybug(GameTime gameTime)
+        private void DespawnLadybug(GameTime gameTime)
         {
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
@@ -98,7 +98,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void ClickLadybug()
+        private void ClickLadybug()
         {
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
@@ -110,7 +110,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void IsLadybugDead()
+        private void IsLadybugDead()
         {
             for (int i = 0; i < _ladybugsIsActive.Count; i++)
             {
@@ -129,7 +129,7 @@ namespace Ladybug_Mayhem
             }
         }
 
-        public void SpawnGem(Rectangle position)
+        private void SpawnGem(Rectangle position)
         {
             int index = GlobalVars.RAND.Next(_gemIsNotActive.Count);
             _gemIsNotActive[index].SetPosition(new Rectangle(position.X + 25, position.Y + 25,
@@ -139,7 +139,7 @@ namespace Ladybug_Mayhem
             GlobalVars.MAX_LADYBUGS--;
         }
 
-        public void ClickGem()
+        private void ClickGem()
         {
             for (int i = 0; i < _gemIsActive.Count; i++)
             {
