@@ -108,11 +108,10 @@ namespace Ladybug_Mayhem
             //Hvis man ønsker å spille igjen
             if (gameOverScreen.replay)
             {
+                startScreen.reset();
                 gameOverScreen.reset();
                 LosingControl.Reset(Content);
                 ladybugs.Reset();
-
-                startScreen.reset();
             }
         }
 

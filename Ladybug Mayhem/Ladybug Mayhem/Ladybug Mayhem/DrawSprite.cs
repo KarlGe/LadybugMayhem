@@ -16,6 +16,7 @@ namespace Ladybug_Mayhem
         public Rectangle source;
         private int drawAmount;
         private float zIndex;
+        public int opacity = 255;
         public int height { get; private set; }
         public int width { get; private set; }
 
@@ -44,6 +45,11 @@ namespace Ladybug_Mayhem
         public DrawSprite(ContentManager content, String receivedSprite, Vector2 drawPlacement, float zIndex)
             : this(content, receivedSprite, 1, drawPlacement, zIndex)
         { }
+        public DrawSprite(ContentManager content, String receivedSprite, Rectangle drawPlacement, float zIndex)
+            : this(content, receivedSprite, 1, Vector2.Zero, zIndex)
+        {
+            this.position = drawPlacement;
+        }
         /// <summary>
         /// Tar imot source som rectangle, men ikke hvor mange ganger teksturen skal tegnes.
         /// Sender data til øverste konstruktør og setter source selv
@@ -82,7 +88,7 @@ namespace Ladybug_Mayhem
         {
             for (int i = 0; i < drawAmount; i++)
             {
-                spriteBatch.Draw(sprite, new Rectangle(position.X + (i * sprite.Bounds.Width), position.Y, position.Width, position.Height), source, Color.White, 0, Vector2.Zero, SpriteEffects.None, zIndex);
+                spriteBatch.Draw(sprite, new Rectangle(position.X + (i * sprite.Bounds.Width), position.Y, position.Width, position.Height), source, new Color(255,255,255,opacity), 0, Vector2.Zero, SpriteEffects.None, zIndex);
             }
         }
     }

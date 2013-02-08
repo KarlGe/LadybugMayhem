@@ -15,7 +15,6 @@ namespace Ladybug_Mayhem
 
         private DrawSprite title;
         private Vector2 titleStartPos;
-        private Vector2 titlePos;
         private DrawSprite begin;
         Game game;
         private bool drawBeginText = false;
@@ -40,6 +39,7 @@ namespace Ladybug_Mayhem
             titleStartPos = new Vector2(screenWidth, GlobalVars.GROUND_Y_POS);
             title = new DrawSprite(game.Content, @"StartScreen\gameTitle", titleStartPos, 1);
             begin = new DrawSprite(game.Content, @"StartScreen\beginText", Vector2.Zero, 1);
+            begin.opacity = 0;
             begin.placeInMidOfScreen();
             reset();
         }
@@ -51,12 +51,12 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void Update(GameTime gameTime)
         {
-            if (opacity > 600) draw = false;
+            if (begin.opacity > 600) draw = false;
             else if (title.position.X < 0 - title.width)
             {
                 drawBeginText = true;
                 draw = true;
-                opacity += 10;
+                begin.opacity += 10;
             }
             else title.position.X -= 10;   
         }
@@ -70,8 +70,9 @@ namespace Ladybug_Mayhem
         /// </summary>
         public void reset()
         {
-            titlePos = new Vector2(titleStartPos.X, titleStartPos.Y);
-            opacity = 0;
+            title.position.X = (int)titleStartPos.X;
+            title.position.Y = (int)titleStartPos.Y;
+            begin.opacity = 0;
             draw = true;
         }
     }

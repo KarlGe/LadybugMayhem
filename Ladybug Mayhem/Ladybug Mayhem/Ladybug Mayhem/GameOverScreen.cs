@@ -42,7 +42,6 @@ namespace Ladybug_Mayhem
         private int screenHeight;
         private int screenWidth;
         Game game;
-        ContentManager content;
 
         public GameOverScreen(Game game)
         {
@@ -59,14 +58,14 @@ namespace Ladybug_Mayhem
         public void initialize()
         {
             replay = false;
-            tempText = game.Content.Load<Texture2D>(@"GameOverScreen\exit");
+            tempText = game.Content.Load<Texture2D>(@"GameOverScreen\startOver");
             replayRectangle = new Rectangle(screenWidth / 2 - tempText.Width - space, screenHeight / 2 - tempText.Height / 2, tempText.Width, tempText.Height);
-            replayButton = new DrawSprite(game.Content,@"GameOverScreen\startOver", replayRectangle, replayRectangle, 1);
+            replayButton = new DrawSprite(game.Content,@"GameOverScreen\startOver", replayRectangle, 1);
             
 
             tempText = game.Content.Load<Texture2D>(@"GameOverScreen\exit");
             exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - tempText.Height / 2, tempText.Width, tempText.Height);
-            replayButton = new DrawSprite(game.Content, @"GameOverScreen\exit", exitRectangle, exitRectangle, 1);
+            exitButton = new DrawSprite(game.Content, @"GameOverScreen\exit", exitRectangle, 1);
 
             winText = new DrawSprite(game.Content, @"GameOverScreen\win", new Vector2(0, 50), 1);
 
