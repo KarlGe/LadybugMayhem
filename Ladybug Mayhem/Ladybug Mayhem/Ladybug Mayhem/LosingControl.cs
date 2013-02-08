@@ -38,7 +38,8 @@ namespace Ladybug_Mayhem
         public static void Update(GameTime gameTime, GameWindow window)
         {
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
-            minSpawnTime = spawnTimeLevels[GlobalVars.gems] + _spawnTimer;
+            Console.WriteLine(GlobalVars.BUGS_KILLED);
+            minSpawnTime = spawnTimeLevels[GlobalVars.BUGS_KILLED] + _spawnTimer;
             Console.WriteLine(_spawnTimer);
             if (minSpawnTime >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
             {
