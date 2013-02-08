@@ -13,15 +13,16 @@ namespace Ladybug_Mayhem
 {
     public class Citizen
     {
+        private bool _respawnDelay;
+
         private int _citizenNumber;
         private int _timeKeeper;
         private int _randomTimeKeeper;
         private int _spriteNumber;
 
-        private float _randomSpeedBoost;
+        private float _randomSpeedValue;
         private float _speed;
         private float _maxSpeed;
-        private bool _delayed = false;
 
         private String _sprite;
         private Vector2 _spawnPos;
@@ -40,26 +41,26 @@ namespace Ladybug_Mayhem
             _maxSpeed = 8;
             _timeKeeper = 0;
             _randomTimeKeeper = 0;
+            _respawnDelay = false;
         }
 
         public void Update(GameTime gameTime)
         {
             _randomTimeKeeper += gameTime.ElapsedGameTime.Milliseconds;
-            if (_randomTimeKeeper >= 1000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) &&
-                _drawable.position.X > -3000 && _speed < _maxSpeed)
+            if (_randomTimeKeeper >= 1000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) && _speed < _maxSpeed)
             {
-                _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble());
-                _speed += _randomSpeedBoost;
-                _randomSpeedBoost = (float)(GlobalVars.RAND.NextDouble() / 2);
-                _speed -= _randomSpeedBoost;
+                _randomSpeedValue = (float)(GlobalVars.RAND.NextDouble());
+                _speed += _randomSpeedValue;
+                _randomSpeedValue = (float)(GlobalVars.RAND.NextDouble() / 4);
+                _speed -= _randomSpeedValue;
                 _randomTimeKeeper = 0;
             }
             _timeKeeper += gameTime.ElapsedGameTime.Milliseconds;
             if (_timeKeeper >= 2000 && _drawable.position.X < (0 - GlobalVars.CITIZEN_BOX_WIDTH) )
             {
-                _delayed = false;
+                _respawnDelay = false;
             }
-            if (!_delayed) _drawable.position.X += (int)_speed;
+            if (!_respawnDelay) _drawable.position.X += (int)_speed;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -81,7 +82,7 @@ namespace Ladybug_Mayhem
         {
             _drawable.position.X = (int)_spawnPos.X;
             _drawable.position.Y = (int)_spawnPos.Y;
-            _delayed = true;
+            _respawnDelay = true;
             _timeKeeper = 0;
         }
     }

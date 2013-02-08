@@ -27,9 +27,9 @@ namespace Ladybug_Mayhem
         {
             _content = content;
             _spawnTimeLevels = new int[3];
-            _spawnTimeLevels[0] = 0;
-            _spawnTimeLevels[1] = 3500;
-            _spawnTimeLevels[2] = 4000;
+            _spawnTimeLevels[0] = 200;
+            _spawnTimeLevels[1] = 2700;
+            _spawnTimeLevels[2] = 3000;
             _drawHearts = new List<DrawSprite>();
             _citizenList = new List<Citizen>();
             Reset(content);
@@ -38,8 +38,8 @@ namespace Ladybug_Mayhem
         public static void Update(GameTime gameTime, GameWindow window)
         {
             _spawnTimer += gameTime.ElapsedGameTime.Milliseconds;
-            _minSpawnTime = _spawnTimeLevels[GlobalVars.BUGS_KILLED] + _spawnTimer;
-            if (_minSpawnTime >= 5000 && _populationCount < GlobalVars.MAX_CITIZENS)
+            _minSpawnTime = _spawnTimeLevels[GlobalVars.bugs_killed] + _spawnTimer;
+            if (_minSpawnTime >= 4000 && _populationCount < GlobalVars.MAX_CITIZENS)
             {
                 _citizenList.Add(new Citizen(_content, _populationCount));
                 _populationCount++;
