@@ -66,7 +66,6 @@ namespace Ladybug_Mayhem
             tempText = game.Content.Load<Texture2D>(@"GameOverScreen\exit");
             exitRectangle = new Rectangle(screenWidth / 2 + space, screenHeight / 2 - tempText.Height / 2, tempText.Width, tempText.Height);
             exitButton = new DrawSprite(game.Content, @"GameOverScreen\exit", exitRectangle, 1);
-
             winText = new DrawSprite(game.Content, @"GameOverScreen\win", new Vector2(0, 50), 1);
 
             for (int i = 0; i < letterWidth.Length; i++) totalLetterWidth += letterWidth[i];

@@ -33,6 +33,12 @@ namespace Ladybug_Mayhem
         public static String[] CITIZEN_SPRITE_NAME = new String[]{ "Character Boy", "Character Cat Girl", "Character Horn Girl",
             "Character Pink Girl", "Character Princess Girl" };
         public const int MAX_CITIZENS = 10;
+        public const int CITIZEN_INIT_SPEED = 3;
+        public const int CITIZEN_MAX_SPEED = 8;
+        public const int SECOND_CITIZEN_SPAWN_BONUS = 1000;
+        public const int CITIZEN_RESPAWN_TIME = 3800;
+        //Array som inneholder tre "vanskelighetsgrader" for hvor fort neste innbygger skal respawne
+        public static int[] CITIZEN_RESPAWN_SPEEDUP = new int[] { 0, 2500, 2800 }; 
         public const int CITIZEN_BOX_WIDTH = 82;
         public const int CITIZEN_BOX_HEIGHT = 100;
         public static Rectangle CITIZEN_SPRITE_RECTANGLE = new Rectangle(7, 50,
@@ -43,9 +49,9 @@ namespace Ladybug_Mayhem
         public static int MAX_LADYBUGS = 3;
         public static int bugs_killed;
         public const int LADYBUG_HEALTH = 20;
-        public const double LADYBUG_SPAWN_TIME = 5000;
+        public const double LADYBUG_SPAWN_TIME = 4500;
         public const double LADYBUG_DESPAWN_TIME = 7500;
-        public const double LADYBUG_DEAD_TIME = 3000;
+        public const double LADYBUG_DEAD_TIME = 2000;
         public const int LADYBUG_BOX_WIDTH = 100;
         public const int LADYBUG_BOX_HEIGHT = 78;
         public static Rectangle LADYBUG_SPRITE_RECTANGLE = new Rectangle(0, 77, LADYBUG_BOX_WIDTH, LADYBUG_BOX_HEIGHT);
