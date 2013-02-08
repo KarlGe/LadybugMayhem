@@ -33,6 +33,8 @@ namespace Ladybug_Mayhem
         public static String[] CITIZEN_SPRITE_NAME = new String[]{ "Character Boy", "Character Cat Girl", "Character Horn Girl",
             "Character Pink Girl", "Character Princess Girl" };
         public const int MAX_CITIZENS = 10;
+        public const int CITIZEN_INIT_SPEED = 3;
+        public const int CITIZEN_MAX_SPEED = 8;
         public const int SECOND_CITIZEN_SPAWN_BONUS = 1000;
         public const int CITIZEN_RESPAWN_TIME = 3800;
         //Array som inneholder tre "vanskelighetsgrader" for hvor fort neste innbygger skal respawne

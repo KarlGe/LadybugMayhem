@@ -76,7 +76,7 @@ namespace Ladybug_Mayhem
                 (Citizens Saved-metod kalles)*/
                 if (CheckMousePress.IsBeingPressed(_citizenList[citizenNumber].GetCitizenBox()) && !_alreadySavedACitizen)
                 {
-                    _citizenList[citizenNumber].Saved(_citizenList);
+                    _citizenList[citizenNumber].Saved();
                     _alreadySavedACitizen = true;
                 }
                 //En citizen "dør" (går ut av skjermen). Citizen'en fjernes, et liv trekkes fra, et hjerte fjernes fra _drawHearts
