@@ -14,8 +14,6 @@ namespace Ladybug_Mayhem
     class Ladybug
     {
         private String _ladybugTexture;
-        private Rectangle _ladybugPosition;
-        private Rectangle _ladybugRectangle;
         private DrawSprite _draw;
         private double _timeExisted, _timeSinceDespawn;
         private int _clicks;
@@ -28,16 +26,14 @@ namespace Ladybug_Mayhem
         /// <param name="content"></param>
         /// <param name="ladybugPosition"></param>
         /// <param name="fontPosition"></param>
-        public Ladybug(ContentManager content, Rectangle ladybugPosition)
+        public Ladybug(ContentManager content)
         {
             _ladybugTexture = GlobalVars.LADYBUG_SPRITE_NAME;
-            _ladybugPosition = ladybugPosition;
-            _ladybugRectangle = new Rectangle((int)_ladybugPosition.X, (int)_ladybugPosition.Y, GlobalVars.LADYBUG_BOX_WIDTH, (GlobalVars.LADYBUG_BOX_HEIGHT - 95));
             _clicks = 0;
             _timeExisted = 0.0;
             _timeSinceDespawn = 0.0;
             _isDead = false;
-            _draw = new DrawSprite(content, _ladybugTexture, _ladybugPosition, GlobalVars.LADYBUG_SPRITE_RECTANGLE, 1) ;
+            _draw = new DrawSprite(content, _ladybugTexture, new Rectangle(0, 0, 0, 0), GlobalVars.LADYBUG_SPRITE_RECTANGLE, 1) ;
         }
 
         public void SetTime(bool add, double timeToAdd)
@@ -86,12 +82,13 @@ namespace Ladybug_Mayhem
             return _clicks;
         }
 
-        public Rectangle GetPosition()
+        public Rectangle Position
         {
-            return _draw.position;
+            get { return _draw.position; }
+            set { _draw.position = value; }
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position)
+        public void Draw(SpriteBatch spriteBatch)
         {
             _draw.Draw(spriteBatch);
         }

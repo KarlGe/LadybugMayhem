@@ -134,7 +134,7 @@ namespace Ladybug_Mayhem
             if (!startScreen.draw && !gameOver)
             {
                 LosingControl.Draw(spriteBatch);
-                ladybugs.Draw(spriteBatch, Vector2.Zero);
+                ladybugs.Draw(spriteBatch);
             }
             //GameOver-skjerm
             if (gameOver) 

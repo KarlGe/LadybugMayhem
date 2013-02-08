@@ -13,10 +13,10 @@ namespace Ladybug_Mayhem
         private bool _canClick;
         private DrawSprite _draw;
 
-        public Gem(ContentManager content, Rectangle gemPosition, String gemTexture)
+        public Gem(ContentManager content, String gemTexture)
         {
             _canClick = true;
-            _draw = new DrawSprite(content, gemTexture, gemPosition, GlobalVars.GEM_SPRITE_RECTANGLE, 1);
+            _draw = new DrawSprite(content, gemTexture, new Rectangle(0, 0, 0, 0), GlobalVars.GEM_SPRITE_RECTANGLE, 1);
         }
 
         public bool CanClick()
@@ -32,14 +32,10 @@ namespace Ladybug_Mayhem
                 _canClick = false;
         }
 
-        public void SetPosition(Rectangle position)
+        public Rectangle Position
         {
-            _draw.position = position;
-        }
-
-        public Rectangle GetPosition()
-        {
-            return _draw.position;
+            get { return _draw.position; }
+            set { _draw.position = value; }
         }
 
         public void Draw(SpriteBatch spriteBatch)

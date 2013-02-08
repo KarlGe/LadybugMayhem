@@ -40,7 +40,7 @@ namespace Ladybug_Mayhem
 
         //LADYBUG
         public static String LADYBUG_SPRITE_NAME = "Enemy Bug";
-        public static int MAX_LADYBUGS = 3; //minsker jo flere gems du samler
+        public static int MAX_LADYBUGS = 3;
         public const int LADYBUG_HEALTH = 20;
         public const double LADYBUG_SPAWN_TIME = 5000;
         public const double LADYBUG_DESPAWN_TIME = 10000;
@@ -48,6 +48,7 @@ namespace Ladybug_Mayhem
         public const int LADYBUG_BOX_WIDTH = 100;
         public const int LADYBUG_BOX_HEIGHT = 78;
         public static Rectangle LADYBUG_SPRITE_RECTANGLE = new Rectangle(0, 77, LADYBUG_BOX_WIDTH, LADYBUG_BOX_HEIGHT);
+        public const int MAX_LADYBUG_SPAWN_POINTS = 5;
 
         //GEMS
         public static String[] GEM_SPRITE_NAME = new String[] { "Gem Blue", "Gem Green", "Gem Orange" };
